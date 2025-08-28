@@ -15,3 +15,14 @@ export const loadScript = ({ id, src }) => {
   script.defer = true;
   document.body.appendChild(script);
 };
+
+export const useState = (component, key) => {
+  const getter = component.state[key];
+
+  const setter = (newValue) => {
+    const newState = { [key]: newValue };
+    component.setState(newState);
+  };
+
+  return [getter, setter];
+};

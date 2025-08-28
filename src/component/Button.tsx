@@ -1,0 +1,36 @@
+import * as React from "react";
+
+export type BUTTON_STYLE = "main" | "minor";
+
+export const Button = ({
+  type = "button",
+  buttonStyle,
+  onClick,
+  disabled = false,
+  loading = false,
+  label,
+}: {
+  type?: string;
+  buttonStyle: BUTTON_STYLE;
+  onClick?: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  label: string;
+}) => {
+  return (
+    <button
+      type={type}
+      style={{
+        cursor: "pointer",
+        fontSize: "14px",
+        fontWeight: 700,
+        lineHeight: "16px",
+      }}
+      disabled={disabled || loading}
+      className={`${buttonStyle}-btn-bg ${disabled ? "btn-disabled" : ""}`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+};

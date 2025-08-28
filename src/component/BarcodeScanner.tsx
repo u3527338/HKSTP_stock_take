@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Modal } from "./Modal";
 
 declare global {
   interface Window {
@@ -6,29 +7,46 @@ declare global {
   }
 }
 
-// Define supported formats manually
 const Html5QrcodeSupportedFormats = {
   EAN_13: 1,
   CODE_39: 2,
   CODE_128: 3,
   QR_CODE: 4,
-  // add other formats as needed
 };
 
 interface Props {
+  open: boolean;
+  handleCloseScanner: () => void;
   callback: (msg: string) => void;
 }
 
 class BarcodeScanner extends React.Component<Props, {}> {
   html5Qrcode: any = null;
+  isScannerRunning: boolean;
+
+  constructor(props) {
+    super(props);
+    this.isScannerRunning = false;
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.open && this.props.open) {
+      // Modal just opened
+      this.startScanner();
+    } else if (prevProps.open && !this.props.open) {
+      // Modal just closed
+      this.stopScanner();
+    }
+  }
 
   startScanner = () => {
+    if (this.isScannerRunning) return;
+
     if (!window.Html5Qrcode) {
       console.error("Html5Qrcode library not loaded");
       return;
     }
 
-    // If there's already an active scanner, stop it before starting a new one
     if (this.html5Qrcode) {
       this.html5Qrcode
         .stop()
@@ -37,12 +55,29 @@ class BarcodeScanner extends React.Component<Props, {}> {
           this.initScanner();
         })
         .catch(() => {
-          // If stopping fails, still try to reinitialize
           this.html5Qrcode = null;
           this.initScanner();
         });
     } else {
       this.initScanner();
+    }
+  };
+
+  stopScanner = () => {
+    if (!window.Html5Qrcode) {
+      console.error("Html5Qrcode library not loaded");
+      return;
+    }
+    if (this.html5Qrcode) {
+      this.html5Qrcode
+        .stop()
+        .catch((err: any) => {
+          console.error("Failed to stop scanner on unmount:", err);
+        })
+        .finally(() => {
+          this.html5Qrcode = null;
+          this.isScannerRunning = false;
+        });
     }
   };
 
@@ -64,21 +99,12 @@ class BarcodeScanner extends React.Component<Props, {}> {
         },
         (decodedText: string, decodedResult: any) => {
           this.props.callback(`Detected: ${decodedText}`);
-
-          // Stop after detection
-          this.html5Qrcode
-            .stop()
-            .then(() => {
-              console.log("Scanner stopped after detection");
-              this.html5Qrcode = null; // clear instance so it can restart later
-            })
-            .catch((err: any) => {
-              console.error("Failed to stop scanner:", err);
-            });
+          this.stopScanner();
         }
       )
       .then(() => {
         console.log("Scanner started");
+        this.isScannerRunning = true;
       })
       .catch((err: any) => {
         console.error("Error starting scanner:", err);
@@ -86,19 +112,17 @@ class BarcodeScanner extends React.Component<Props, {}> {
   };
 
   componentWillUnmount() {
-    if (this.html5Qrcode) {
-      this.html5Qrcode.stop().catch((err: any) => {
-        console.error("Failed to stop scanner on unmount:", err);
-      });
-    }
+    this.stopScanner();
   }
 
   render() {
+    const { open, handleCloseScanner } = this.props;
     return (
-      <div>
-        <button onClick={this.startScanner}>Start Scan</button>
-        <div id="reader" style={{ width: 300, height: 200 }} />
-      </div>
+      <Modal open={open} hideModal={handleCloseScanner}>
+        <div>
+          <div id="reader" />
+        </div>
+      </Modal>
     );
   }
 }
