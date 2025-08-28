@@ -31,10 +31,8 @@ class BarcodeScanner extends React.Component<Props, {}> {
 
   componentDidUpdate(prevProps: Props) {
     if (!prevProps.open && this.props.open) {
-      // Modal just opened
       this.startScanner();
     } else if (prevProps.open && !this.props.open) {
-      // Modal just closed
       this.stopScanner();
     }
   }
