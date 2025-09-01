@@ -1,7 +1,7 @@
 import * as React from "react";
+import BarcodeScanner from "../component/BarcodeScanner";
 import { Button } from "../component/Button";
 import Table from "../component/Table";
-import ZXingScanner from "../component/ZXingScanner";
 import { DATA } from "../constants";
 import { loadResources, useState } from "../function/helper";
 import { useHttpRequest } from "../hook/useHttpRequest";
@@ -19,8 +19,8 @@ const resourcesToLoad = [
   },
   {
     type: "script",
-    id: "zxing",
-    src: "https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js",
+    id: "html5-qrcode",
+    src: "https://unpkg.com/html5-qrcode@2.0.6/dist/html5-qrcode.min.js",
   },
 ];
 
@@ -99,14 +99,7 @@ class Application extends React.Component<Props, States> {
           }))}
           columns={columns}
         />
-        {/* <BarcodeScanner
-          open={open}
-          handleCloseScanner={() => {
-            setOpen(false);
-          }}
-          callback={handleCode}
-        /> */}
-        <ZXingScanner
+        <BarcodeScanner
           open={open}
           handleCloseScanner={() => {
             setOpen(false);

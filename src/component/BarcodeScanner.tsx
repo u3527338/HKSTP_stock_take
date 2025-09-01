@@ -82,31 +82,29 @@ class BarcodeScanner extends React.Component<Props, {}> {
   initScanner = () => {
     this.html5Qrcode = new window.Html5Qrcode("reader");
     const formats = [
-      Html5QrcodeSupportedFormats.EAN_13,
       Html5QrcodeSupportedFormats.CODE_39,
-      Html5QrcodeSupportedFormats.CODE_128,
+      // Html5QrcodeSupportedFormats.CODE_128,
     ];
 
+    const config = {
+      fps: 10,
+      qrbox: { width: 250, height: 250 },
+      formatsToSupport: formats,
+    };
+
     this.html5Qrcode
-      .start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 250 },
-          formatsToSupport: formats,
-        },
-        (decodedText: string, decodedResult: any) => {
-          this.props.callback(`Detected: ${decodedText}`);
-          this.stopScanner();
-        }
-      )
+      .start({ facingMode: "environment" }, config, this.onScanSuccess)
       .then(() => {
-        console.log("Scanner started");
         this.isScannerRunning = true;
       })
       .catch((err: any) => {
         console.error("Error starting scanner:", err);
       });
+  };
+
+  onScanSuccess = (decodedText: string, decodedResult: any) => {
+    this.props.callback(`Detected: ${decodedText}`);
+    this.stopScanner();
   };
 
   componentWillUnmount() {
