@@ -1,10 +1,11 @@
 import * as React from "react";
-import BarcodeScanner from "../component/BarcodeScanner";
-import { Button } from "../component/Button";
-import Table from "../component/Table";
-import { DATA } from "../constants";
-import { loadResources, useState } from "../function/helper";
+import Download from "../component/Download";
+import Menu from "../component/Menu";
+import { AppMode, loadResources } from "../function/helper";
+import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
+import { LOCATION_DATA, SHEET_DATA } from "../constants";
+import StockTake from "../component/StockTake";
 
 const resourcesToLoad = [
   {
@@ -45,8 +46,23 @@ class Application extends React.Component<Props, States> {
   }
 
   componentWillMount(): void {
+    const { setAppMode } = useContext(this.props.context);
     loadResources(resourcesToLoad).then(() => {
       this.setState({ loadScript: true });
+      setAppMode(AppMode.MENU);
+      localStorage.setItem(
+        "LOCATION_DATA",
+        JSON.stringify(
+          LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
+            ...l,
+            Downloaded: false,
+          }))
+        )
+      );
+      localStorage.setItem(
+        "SHEET_DATA",
+        JSON.stringify(SHEET_DATA.StockTakeSheetSet.StockTakeSheet)
+      );
     });
   }
 
@@ -59,53 +75,19 @@ class Application extends React.Component<Props, States> {
     // fetchToken();
   }
 
+  componentWillUnmount(): void {}
+
   render() {
     const { context } = this.props;
-    const [loadScript, setLoadScript] = useState(this, "loadScript");
-    const [msg, setMsg] = useState(this, "msg");
-    const [open, setOpen] = useState(this, "open");
-
-    const handleCode = (msg) => {
-      setMsg(msg);
-      setOpen(false);
-    };
-    const columns = [
-      { title: "Location", field: "Stort" },
-      { title: "Location Description", field: "Ktext" },
-      { title: "Scanned", field: "Scanned" },
-      { title: "Total Item", field: "ScanQty" },
-    ];
-
+    const { loadScript } = this.state;
     if (!loadScript) return <div></div>;
+    const { getAppMode } = useContext(context);
+
     return (
       <div>
-        {msg && (
-          <div>
-            <span>{msg}</span>
-          </div>
-        )}
-        <Button
-          onClick={() => {
-            setOpen(!open);
-          }}
-          label="Start Scan"
-          buttonStyle="main"
-        />
-        <Table
-          context={context}
-          data={DATA.StockTakeSheetSet.StockTakeSheet.map((d) => ({
-            ...d,
-            Scanned: 0,
-          }))}
-          columns={columns}
-        />
-        <BarcodeScanner
-          open={open}
-          handleCloseScanner={() => {
-            setOpen(false);
-          }}
-          callback={handleCode}
-        />
+        {getAppMode === AppMode.MENU && <Menu context={context} />}
+        {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}
+        {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
       </div>
     );
   }
@@ -117,7 +99,7 @@ export class CodeInApplication implements CodeInComp {
   }
 
   requiredFields() {
-    return [];
+    return ["appMode"];
   }
 
   inputParameters() {

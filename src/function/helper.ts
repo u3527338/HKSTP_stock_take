@@ -42,15 +42,11 @@ export const loadResources = (resources) => {
   return Promise.all(promises);
 };
 
-export const useState = (component, key) => {
-  const getter = component.state[key];
-
-  const setter = (newValue) => {
-    const newState = { [key]: newValue };
-    component.setState(newState);
-  };
-
-  return [getter, setter];
-};
-
 export const generateUUID = () => Math.random().toString(36).substring(2, 9);
+
+export enum AppMode {
+  MENU = "menu",
+  DOWNLOAD = "download",
+  STOCK_TAKE = "stock_take",
+  SYNC = "sync",
+}

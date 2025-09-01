@@ -1,5 +1,13 @@
 import * as React from "react";
 
+const css = `
+  .btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none; /* disables click events */
+  }
+`;
+
 export type BUTTON_STYLE = "main" | "minor";
 
 export const Button = ({
@@ -18,19 +26,23 @@ export const Button = ({
   label: string;
 }) => {
   return (
-    <button
-      type={type}
-      style={{
-        cursor: "pointer",
-        fontSize: "14px",
-        fontWeight: 700,
-        lineHeight: "16px",
-      }}
-      disabled={disabled || loading}
-      className={`${buttonStyle}-btn-bg ${disabled ? "btn-disabled" : ""}`}
-      onClick={onClick}
-    >
-      {label}
-    </button>
+    <div>
+      <style>{css}</style>
+      <button
+        type={type}
+        style={{
+          cursor: "pointer",
+          fontSize: "14px",
+          fontWeight: 700,
+          lineHeight: "16px",
+          padding: "8px",
+        }}
+        disabled={disabled || loading}
+        className={`${buttonStyle}-btn-bg ${disabled ? "btn-disabled" : ""}`}
+        onClick={onClick}
+      >
+        {label}
+      </button>
+    </div>
   );
 };
