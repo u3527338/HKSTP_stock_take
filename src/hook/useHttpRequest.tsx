@@ -37,6 +37,21 @@ export const useHttpRequest = (context: CodeInContext) => {
     return response.data;
   };
 
+  const getLocation = async (
+    token: string = "46f51e30a2a019eb1dbbf36947a71dbc"
+  ) => {
+    const response = await axios.get(
+      "https://l200851-iflmap.hcisbp.ap1.hana.ondemand.com/http/GetStockTakeLocation",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data;
+  };
+
   // const getStaffList = async (
   //   accountGUID = localStorage.getItem("company_id")
   // ) => {
@@ -54,5 +69,6 @@ export const useHttpRequest = (context: CodeInContext) => {
 
   return {
     getToken,
+    getLocation
   };
 };

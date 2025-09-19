@@ -2,8 +2,10 @@ import * as React from "react";
 import { AppMode } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "./Button";
-import Table from "./Table";
 import ButtonGroup from "./ButtonGroup";
+import { Modal } from "./Modal";
+import ScanForm from "./ScanForm";
+import Table from "./Table";
 
 interface Props {
   context: CodeInContext;
@@ -12,6 +14,8 @@ interface Props {
 interface States {
   data: any[];
   selectedLocation: any[];
+  itemListData: any[];
+  locationToScan: string;
 }
 
 class StockTake extends React.Component<Props, States> {
@@ -22,6 +26,8 @@ class StockTake extends React.Component<Props, States> {
     this.state = {
       data: STOCK_TAKE_DATA,
       selectedLocation: [],
+      itemListData: [],
+      locationToScan: null,
     };
   }
 
@@ -31,7 +37,7 @@ class StockTake extends React.Component<Props, States> {
 
   render() {
     const { context } = this.props;
-    const { data, selectedLocation } = this.state;
+    const { data, selectedLocation, itemListData, locationToScan } = this.state;
     const { setAppMode } = useContext(context);
 
     const columns = [
@@ -39,6 +45,16 @@ class StockTake extends React.Component<Props, States> {
       { title: "Location Description", field: "Ktext" },
       { title: "Scanned", field: "Scanned" },
       { title: "Total Item", field: "ScanQty" },
+    ];
+
+    const itemListColumns = [
+      { title: "Asset No.", field: "Apdat" },
+      { title: "Inventory No.", field: "Invnr" },
+      { title: "Description", field: "Txt50" },
+      { title: "Remark", field: "Remark" },
+      { title: "Status", field: "Status" },
+      { title: "Scanned", field: "Scanned" },
+      { title: "Last Saved", field: "LastSaved" },
     ];
 
     const buttons = {
@@ -51,10 +67,35 @@ class StockTake extends React.Component<Props, States> {
       },
       item_list: {
         label: "Item List",
-        onClick: () => {},
+        onClick: () => {
+          const selectedLocation = this.state.selectedLocation[0];
+          const sheetData = JSON.parse(localStorage.getItem("SHEET_DATA"));
+          const itemListData = sheetData.filter(
+            (sd) =>
+              sd.Stort === selectedLocation.Stort &&
+              sd.Ktext === selectedLocation.Ktext
+          );
+          this.setState({ itemListData });
+        },
         disabled: !selectedLocation.length,
       },
-      scan: { label: "Scan", onClick: () => {}, disabled: false },
+      scan: {
+        label: "Scan",
+        onClick: () => {
+          this.setState({ locationToScan: selectedLocation[0].Stort });
+        },
+        disabled: !selectedLocation.length,
+      },
+    };
+
+    const itemListButtons = {
+      back: {
+        label: "Back",
+        onClick: () => {
+          this.setState({ itemListData: [], selectedLocation: [] });
+        },
+        disabled: false,
+      },
     };
 
     const onRowSelected = (data) => {
@@ -63,23 +104,62 @@ class StockTake extends React.Component<Props, States> {
 
     return (
       <div>
-        <Table
-          context={context}
-          data={data}
-          columns={columns}
-          onRowSelected={onRowSelected}
-        />
-        <ButtonGroup>
-          {Object.entries(buttons).map(([key, value]) => (
-            <Button
-              key={key}
-              label={value.label}
-              onClick={value.onClick}
-              buttonStyle="main"
-              disabled={value.disabled}
+        {!itemListData.length && (
+          <div>
+            <Table
+              context={context}
+              data={data}
+              columns={columns}
+              onRowSelected={onRowSelected}
+              multiRowSelection={false}
             />
-          ))}
-        </ButtonGroup>
+            <ButtonGroup>
+              {Object.entries(buttons).map(([key, value]) => (
+                <Button
+                  key={key}
+                  label={value.label}
+                  onClick={value.onClick}
+                  buttonStyle="main"
+                  disabled={value.disabled}
+                />
+              ))}
+            </ButtonGroup>
+          </div>
+        )}
+        {itemListData.length > 0 && (
+          <div>
+            <Table
+              context={context}
+              data={itemListData}
+              columns={itemListColumns}
+              rowSelectable={false}
+            />
+            <ButtonGroup>
+              {Object.entries(itemListButtons).map(([key, value]) => (
+                <Button
+                  key={key}
+                  label={value.label}
+                  onClick={value.onClick}
+                  buttonStyle="main"
+                  disabled={value.disabled}
+                />
+              ))}
+            </ButtonGroup>
+          </div>
+        )}
+        <Modal
+          open={!!locationToScan}
+          hideModal={() => {
+            this.setState({ locationToScan: null });
+          }}
+          showButton={false}
+        >
+          <ScanForm
+            key={locationToScan}
+            locationToScan={locationToScan}
+            onBack={() => this.setState({ locationToScan: null })}
+          />
+        </Modal>
       </div>
     );
   }

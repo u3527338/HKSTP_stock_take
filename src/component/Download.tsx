@@ -45,7 +45,6 @@ class Download extends React.Component<Props, States> {
     const { context } = this.props;
     const { data, downloadData } = this.state;
     const { setAppMode } = useContext(context);
-
     const downloadStockTakeList = (all: boolean) => {
       const dataToDownload = all
         ? data

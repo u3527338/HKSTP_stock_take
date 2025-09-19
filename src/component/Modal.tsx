@@ -20,7 +20,6 @@ const css = `
         max-width: calc(100vw - 2rem);
         max-height: calc(100vh - 2rem);
         overflow: auto;
-        width: 1000px;
     }
     .modal-cart {
         top: 50%;
@@ -38,6 +37,7 @@ const css = `
 interface CodeProps {
   hideModal: any;
   open: boolean;
+  showButton?: boolean;
 }
 
 export class Modal extends React.Component<CodeProps> {
@@ -48,7 +48,7 @@ export class Modal extends React.Component<CodeProps> {
   async componentWillMount() {}
 
   render() {
-    const { open, hideModal, children } = this.props;
+    const { open, hideModal, showButton = true, children } = this.props;
 
     const handleModalClick = (e) => {
       if (e.target.classList.contains("modal") && open) {
@@ -65,9 +65,11 @@ export class Modal extends React.Component<CodeProps> {
         >
           <section style={{ zIndex: 1 }} className="modal-main modal-cart">
             <div>{children}</div>
-            <Center>
-              <Button onClick={hideModal} label="Close" buttonStyle="main" />
-            </Center>
+            {showButton && (
+              <Center>
+                <Button onClick={hideModal} label="Close" buttonStyle="main" />
+              </Center>
+            )}
           </section>
         </div>
       </div>

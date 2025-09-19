@@ -16,12 +16,18 @@ interface Props {
   context: CodeInContext;
   data: any[];
   columns: { title: string; field: string }[];
+  rowSelectable?: boolean;
   onRowSelected?: (data: any[]) => void;
+  multiRowSelection?: boolean;
 }
 
 class Table extends React.Component<Props> {
   containerRef: HTMLDivElement | null = null;
   table: any;
+  static defaultProps = {
+    rowSelectable: true,
+    multiRowSelection: true,
+  };
 
   initTable = () => {
     const { data, columns, onRowSelected } = this.props;
@@ -39,15 +45,24 @@ class Table extends React.Component<Props> {
       pagination: true,
       paginationSize: 10,
       columns,
-      selectableRows: true,
+      selectableRows: this.props.rowSelectable,
     });
 
     this.table.on("rowClick", (e, row) => {
-      const isSelected = row.isSelected();
-
-      if (isSelected) {
-        row.deselect();
+      const { rowSelectable, multiRowSelection } = this.props;
+      if (!rowSelectable) return;
+      if (multiRowSelection) {
+        if (row.isSelected()) {
+          row.deselect();
+        } else {
+          row.select();
+        }
       } else {
+        this.table.getRows().forEach((r) => {
+          if (r !== row && r.isSelected()) {
+            r.deselect();
+          }
+        });
         row.select();
       }
     });

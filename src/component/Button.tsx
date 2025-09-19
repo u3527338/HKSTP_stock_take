@@ -17,6 +17,8 @@ export const Button = ({
   disabled = false,
   loading = false,
   label,
+  value,
+  style,
 }: {
   type?: string;
   buttonStyle: BUTTON_STYLE;
@@ -24,6 +26,8 @@ export const Button = ({
   disabled?: boolean;
   loading?: boolean;
   label: string;
+  value?: string;
+  style?: React.CSSProperties;
 }) => {
   return (
     <div>
@@ -36,8 +40,10 @@ export const Button = ({
           fontWeight: 700,
           lineHeight: "16px",
           padding: "8px",
+          ...style,
         }}
         disabled={disabled || loading}
+        value={value}
         className={`${buttonStyle}-btn-bg ${disabled ? "btn-disabled" : ""}`}
         onClick={onClick}
       >

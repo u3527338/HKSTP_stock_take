@@ -50,29 +50,36 @@ class Application extends React.Component<Props, States> {
     loadResources(resourcesToLoad).then(() => {
       this.setState({ loadScript: true });
       setAppMode(AppMode.MENU);
-      localStorage.setItem(
-        "LOCATION_DATA",
-        JSON.stringify(
-          LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
-            ...l,
-            Downloaded: false,
-          }))
-        )
-      );
-      localStorage.setItem(
-        "SHEET_DATA",
-        JSON.stringify(SHEET_DATA.StockTakeSheetSet.StockTakeSheet)
-      );
+      if (!localStorage.getItem("LOCATION_DATA")) {
+        localStorage.setItem(
+          "LOCATION_DATA",
+          JSON.stringify(
+            LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
+              ...l,
+              Downloaded: false,
+            }))
+          )
+        );
+      }
+      if (!localStorage.getItem("SHEET_DATA")) {
+        localStorage.setItem(
+          "SHEET_DATA",
+          JSON.stringify(SHEET_DATA.StockTakeSheetSet.StockTakeSheet)
+        );
+      }
     });
   }
 
   componentDidMount(): void {
-    const { getToken } = useHttpRequest(this.props.context);
-    // const fetchToken = async () => {
-    //   const response = await getToken();
-    //   console.log(response);
-    // };
-    // fetchToken();
+    const { getToken, getLocation } = useHttpRequest(this.props.context);
+    const fetchToken = async () => {
+      const response = await getToken();
+      console.log(response);
+    };
+    const fetchLocation = async () => {
+      const response = await getLocation();
+    };
+    fetchToken();
   }
 
   componentWillUnmount(): void {}
