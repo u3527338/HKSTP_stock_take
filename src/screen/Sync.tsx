@@ -1,9 +1,9 @@
 import * as React from "react";
 import { AppMode } from "../function/helper";
 import { useContext } from "../hook/useContext";
-import { Button } from "./Button";
-import Table from "./Table";
-import ButtonGroup from "./ButtonGroup";
+import { Button } from "../component/Button";
+import Table from "../component/Table";
+import ButtonGroup from "../component/ButtonGroup";
 import * as _ from "lodash";
 
 interface Props {
@@ -12,30 +12,30 @@ interface Props {
 
 interface States {
   data: any[];
-  downloadData: any[];
+  syncData: any[];
 }
 
-class Download extends React.Component<Props, States> {
+class Sync extends React.Component<Props, States> {
   constructor(props) {
     super(props);
     const LOCATION_DATA =
       JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
     this.state = {
       data: LOCATION_DATA,
-      downloadData: [],
+      syncData: [],
     };
   }
 
-  updateStockTakeList = (dataToDownload: any[]) => {
-    localStorage.setItem("STOCK_TAKE_DATA", JSON.stringify(dataToDownload));
+  updateStockTakeList = (dataToSync: any[]) => {
+    localStorage.setItem("STOCK_TAKE_DATA", JSON.stringify(dataToSync));
   };
 
-  updateDownloadedList = (dataToDownload: any[]) => {
+  updateSyncList = (dataToSync: any[]) => {
     const { data } = this.state;
     const refreshData = data.map((d) => ({
       ...d,
       Scanned: 0,
-      Downloaded: dataToDownload.map((_d) => _d.Stort).includes(d.Stort),
+      Synced: dataToSync.map((_d) => _d.Stort).includes(d.Stort),
     }));
     localStorage.setItem("LOCATION_DATA", JSON.stringify(refreshData));
     this.setState({ data: refreshData });
@@ -43,14 +43,13 @@ class Download extends React.Component<Props, States> {
 
   render() {
     const { context } = this.props;
-    const { data, downloadData } = this.state;
+    const { data, syncData } = this.state;
     const { setAppMode } = useContext(context);
-    const downloadStockTakeList = (all: boolean) => {
-      const dataToDownload = all
-        ? data
-        : _.intersectionBy(data, downloadData, "Stort");
-      this.updateStockTakeList(dataToDownload);
-      this.updateDownloadedList(dataToDownload);
+
+    const syncStockTakeList = (all: boolean) => {
+      const dataToSync = all ? data : _.intersectionBy(data, syncData, "Stort");
+      this.updateStockTakeList(dataToSync);
+      this.updateSyncList(dataToSync);
     };
 
     const columns = [
@@ -68,33 +67,34 @@ class Download extends React.Component<Props, States> {
         },
         disabled: false,
       },
-      download_all: {
-        label: "Download All",
+      sync_all: {
+        label: "Sync All",
         onClick: () => {
-          downloadStockTakeList(true);
+          console.log("sync all");
         },
         disabled: false,
       },
-      download: {
-        label: "Download",
+      sync: {
+        label: "Sync",
         onClick: () => {
-          downloadStockTakeList(false);
+          console.log("sync");
         },
-        disabled: !downloadData.length,
+        disabled: !syncData.length,
       },
     };
 
     const onRowSelected = (data) => {
-      this.setState({ downloadData: data });
+      this.setState({ syncData: data });
     };
 
     return (
       <div>
         <Table
           context={context}
+          title="Sync Stock Take Result"
           data={data.map((d) => ({
             ...d,
-            Status: d.Downloaded ? "Downloaded" : "Not Yet Downloaded",
+            Status: d.Synced ? "Synced" : "Not Yet Synced",
           }))}
           columns={columns}
           onRowSelected={onRowSelected}
@@ -115,4 +115,4 @@ class Download extends React.Component<Props, States> {
   }
 }
 
-export default Download;
+export default Sync;

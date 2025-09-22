@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import * as React from "react";
 import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
+import Title from "./Title";
 
 const Error = ({ name }) => (
   <ErrorMessage name={name}>
@@ -90,6 +91,7 @@ const renderButtons = (buttons: any[], values) => {
 };
 
 const Form = ({
+  title = "",
   initialValues,
   fields,
   buttons,
@@ -111,6 +113,7 @@ const Form = ({
         }
         return (
           <form onSubmit={handleSubmit}>
+            {title && <Title title={title} />}
             {renderInputs(fields, values)}
             {renderButtons(buttons, values)}
           </form>

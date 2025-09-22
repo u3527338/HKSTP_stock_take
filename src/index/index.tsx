@@ -1,11 +1,12 @@
 import * as React from "react";
-import Download from "../component/Download";
-import Menu from "../component/Menu";
+import Download from "../screen/Download";
+import Menu from "../screen/Menu";
+import StockTake from "../screen/StockTake";
+import Sync from "../screen/Sync";
+import { LOCATION_DATA, SHEET_DATA } from "../constants";
 import { AppMode, loadResources } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
-import { LOCATION_DATA, SHEET_DATA } from "../constants";
-import StockTake from "../component/StockTake";
 
 const resourcesToLoad = [
   {
@@ -95,6 +96,7 @@ class Application extends React.Component<Props, States> {
         {getAppMode === AppMode.MENU && <Menu context={context} />}
         {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}
         {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
+        {getAppMode === AppMode.SYNC && <Sync context={context} />}
       </div>
     );
   }

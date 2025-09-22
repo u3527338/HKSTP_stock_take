@@ -1,4 +1,6 @@
 import * as React from "react";
+import Center from "./Center";
+import Title from "./Title";
 
 const css = `
   .tabulator-tableholder {
@@ -14,6 +16,7 @@ declare global {
 
 interface Props {
   context: CodeInContext;
+  title?: string;
   data: any[];
   columns: { title: string; field: string }[];
   rowSelectable?: boolean;
@@ -81,7 +84,6 @@ class Table extends React.Component<Props> {
       this.table &&
       JSON.stringify(prevProps.data) !== JSON.stringify(this.props.data)
     ) {
-      // Update table data when props.data changes
       this.table.replaceData(this.props.data);
     }
   }
@@ -92,19 +94,16 @@ class Table extends React.Component<Props> {
     }
   }
 
-  renderToolbar() {
-    // your existing renderToolbar code
-  }
-
   toggleColumn(columnField) {
     // your existing toggleColumn code
   }
 
   render() {
+    const { title } = this.props;
     return (
       <div>
         <style>{css}</style>
-        {this.renderToolbar()}
+        {title && <Title title={title} />}
         <div id="example-table" ref={(el) => (this.containerRef = el)}></div>
       </div>
     );

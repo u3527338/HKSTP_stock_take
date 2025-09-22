@@ -56,6 +56,7 @@ class ScanForm extends React.Component<Props, States> {
     return (
       <div>
         <Form
+          title="Stock Take - Scan"
           initialValues={initialValues}
           fields={[
             {

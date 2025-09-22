@@ -1,9 +1,9 @@
 import * as React from "react";
 import { AppMode } from "../function/helper";
 import { useContext } from "../hook/useContext";
-import { Button } from "./Button";
-import ButtonGroup from "./ButtonGroup";
-import Center from "./Center";
+import { Button } from "../component/Button";
+import ButtonGroup from "../component/ButtonGroup";
+import Center from "../component/Center";
 
 const MenuButtons = {
   [AppMode.DOWNLOAD]: { label: "Download Stock Take List" },

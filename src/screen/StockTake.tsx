@@ -1,10 +1,10 @@
 import * as React from "react";
 import { AppMode } from "../function/helper";
 import { useContext } from "../hook/useContext";
-import { Button } from "./Button";
-import ButtonGroup from "./ButtonGroup";
-import ScanForm from "./ScanForm";
-import Table from "./Table";
+import { Button } from "../component/Button";
+import ButtonGroup from "../component/ButtonGroup";
+import ScanForm from "../component/ScanForm";
+import Table from "../component/Table";
 
 interface Props {
   context: CodeInContext;
@@ -109,6 +109,7 @@ class StockTake extends React.Component<Props, States> {
               <div>
                 <Table
                   context={context}
+                  title="Stock Take"
                   data={data}
                   columns={columns}
                   onRowSelected={onRowSelected}
@@ -131,6 +132,7 @@ class StockTake extends React.Component<Props, States> {
               <div>
                 <Table
                   context={context}
+                  title="Stock Take - Item List"
                   data={itemListData}
                   columns={itemListColumns}
                   rowSelectable={false}
