@@ -2,21 +2,14 @@ import * as React from "react";
 import Form from "./Form";
 
 const ScanForm = ({ locationToScan, onBack }) => {
-  const handleSubmit = (values, formikHelpers, event) => {
-    console.log(values);
-    console.log(event);
-    // rest.event contains the native event
-    const submitter = event?.nativeEvent?.submitter;
-    const action = submitter?.value; // "save" or "saveNext"
-
-    if (action === "save") {
+  const handleSubmit = ({ submitAction, ...values }) => {
+    if (submitAction === "save") {
       console.log("save", { values });
-      // handle save
-    } else if (action === "saveNext") {
+    } else if (submitAction === "saveNext") {
       console.log("saveNext", { values });
-      // handle save & next
     }
   };
+
   return (
     <Form
       initialValues={{
@@ -26,6 +19,7 @@ const ScanForm = ({ locationToScan, onBack }) => {
         description: null,
         status: "",
         remark: null,
+        submitAction: "",
       }}
       fields={[
         {
@@ -64,7 +58,12 @@ const ScanForm = ({ locationToScan, onBack }) => {
         },
         { label: "Save", type: "submit", value: "save" },
         { label: "Save & Next Item", type: "submit", value: "saveNext" },
-        { label: "Scan", onClick: () => {} },
+        {
+          label: "Scan",
+          onClick: () => {
+            console.log("scan");
+          },
+        },
       ]}
       onSubmit={handleSubmit}
       validate={(values) => {

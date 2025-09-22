@@ -68,14 +68,17 @@ const renderInputs = (fields: any[], values) => {
   );
 };
 
-const renderButtons = (buttons: any[]) => {
+const renderButtons = (buttons: any[], values) => {
   return (
     <ButtonGroup>
       {buttons.map((btn, i) => (
         <Button
           key={i}
           label={btn.label}
-          onClick={btn.onClick}
+          onClick={() => {
+            values.submitAction = btn.value;
+            if (btn.onClick) btn.onClick();
+          }}
           buttonStyle="main"
           disabled={btn.disabled}
           type={btn.type}
@@ -96,7 +99,7 @@ const Form = ({ initialValues, fields, buttons, onSubmit, validate }) => {
       {({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit}>
           {renderInputs(fields, values)}
-          {renderButtons(buttons)}
+          {renderButtons(buttons, values)}
         </form>
       )}
     </Formik>
