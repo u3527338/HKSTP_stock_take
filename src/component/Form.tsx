@@ -102,10 +102,12 @@ const Form = ({
       validate={validate}
       initialValues={initialValues}
       onSubmit={onSubmit}
+      enableReinitialize={true}
     >
-      {({ handleSubmit, values, setFieldValue }) => {
+      {(formikHelpers) => {
+        const { handleSubmit, values } = formikHelpers;
         if (onFormikReady) {
-          onFormikReady({ setFieldValue, values });
+          onFormikReady(formikHelpers);
         }
         return (
           <form onSubmit={handleSubmit}>

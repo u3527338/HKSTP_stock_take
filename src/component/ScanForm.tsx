@@ -1,6 +1,6 @@
 import * as React from "react";
-import Form from "./Form";
 import BarcodeScanner from "./BarcodeScanner";
+import Form from "./Form";
 
 interface Props {
   locationToScan: string;
@@ -29,11 +29,23 @@ class ScanForm extends React.Component<Props, States> {
     const { locationToScan, onBack } = this.props;
     const { startScan } = this.state;
 
+    const initialValues = {
+      location: locationToScan,
+      assetNo: "",
+      inventoryNo: "",
+      description: "",
+      status: "",
+      remark: "",
+      submitAction: "",
+    };
+
     const handleSubmit = ({ submitAction, ...values }) => {
       if (submitAction === "save") {
         console.log("save", { values });
+        onBack();
       } else if (submitAction === "saveNext") {
         console.log("saveNext", { values });
+        this.formikApi?.resetForm();
       }
     };
 
@@ -44,15 +56,7 @@ class ScanForm extends React.Component<Props, States> {
     return (
       <div>
         <Form
-          initialValues={{
-            location: locationToScan,
-            assetNo: null,
-            inventoryNo: null,
-            description: null,
-            status: "",
-            remark: null,
-            submitAction: "",
-          }}
+          initialValues={initialValues}
           fields={[
             {
               type: "input",
@@ -110,14 +114,12 @@ class ScanForm extends React.Component<Props, States> {
         <BarcodeScanner
           open={startScan}
           handleCloseScanner={() => {
-            console.log(this.formikApi);
             if (this.formikApi) {
               this.formikApi.setFieldValue("assetNo", "123");
             }
             openScanner(false);
           }}
           callback={(msg) => {
-            console.log(msg);
             openScanner(false);
           }}
         />

@@ -151,27 +151,12 @@ class StockTake extends React.Component<Props, States> {
           </div>
         )}
         {locationToScan && (
-          <div>
-            <ScanForm
-              key={locationToScan}
-              locationToScan={locationToScan}
-              onBack={() => this.setState({ locationToScan: null })}
-            />
-          </div>
-        )}
-        {/* <Modal
-          open={!!locationToScan}
-          hideModal={() => {
-            this.setState({ locationToScan: null });
-          }}
-          showButton={false}
-        >
           <ScanForm
             key={locationToScan}
             locationToScan={locationToScan}
             onBack={() => this.setState({ locationToScan: null })}
           />
-        </Modal> */}
+        )}
       </div>
     );
   }
