@@ -89,19 +89,31 @@ const renderButtons = (buttons: any[], values) => {
   );
 };
 
-const Form = ({ initialValues, fields, buttons, onSubmit, validate }) => {
+const Form = ({
+  initialValues,
+  fields,
+  buttons,
+  onSubmit,
+  validate,
+  onFormikReady,
+}) => {
   return (
     <Formik
       validate={validate}
       initialValues={initialValues}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, values }) => (
-        <form onSubmit={handleSubmit}>
-          {renderInputs(fields, values)}
-          {renderButtons(buttons, values)}
-        </form>
-      )}
+      {({ handleSubmit, values, setFieldValue }) => {
+        if (onFormikReady) {
+          onFormikReady({ setFieldValue, values });
+        }
+        return (
+          <form onSubmit={handleSubmit}>
+            {renderInputs(fields, values)}
+            {renderButtons(buttons, values)}
+          </form>
+        );
+      }}
     </Formik>
   );
 };

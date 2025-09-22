@@ -3,7 +3,6 @@ import { AppMode } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
-import { Modal } from "./Modal";
 import ScanForm from "./ScanForm";
 import Table from "./Table";
 
@@ -104,50 +103,63 @@ class StockTake extends React.Component<Props, States> {
 
     return (
       <div>
-        {!itemListData.length && (
+        {!locationToScan && (
           <div>
-            <Table
-              context={context}
-              data={data}
-              columns={columns}
-              onRowSelected={onRowSelected}
-              multiRowSelection={false}
-            />
-            <ButtonGroup>
-              {Object.entries(buttons).map(([key, value]) => (
-                <Button
-                  key={key}
-                  label={value.label}
-                  onClick={value.onClick}
-                  buttonStyle="main"
-                  disabled={value.disabled}
+            {!itemListData.length && (
+              <div>
+                <Table
+                  context={context}
+                  data={data}
+                  columns={columns}
+                  onRowSelected={onRowSelected}
+                  multiRowSelection={false}
                 />
-              ))}
-            </ButtonGroup>
+                <ButtonGroup>
+                  {Object.entries(buttons).map(([key, value]) => (
+                    <Button
+                      key={key}
+                      label={value.label}
+                      onClick={value.onClick}
+                      buttonStyle="main"
+                      disabled={value.disabled}
+                    />
+                  ))}
+                </ButtonGroup>
+              </div>
+            )}
+            {itemListData.length > 0 && (
+              <div>
+                <Table
+                  context={context}
+                  data={itemListData}
+                  columns={itemListColumns}
+                  rowSelectable={false}
+                />
+                <ButtonGroup>
+                  {Object.entries(itemListButtons).map(([key, value]) => (
+                    <Button
+                      key={key}
+                      label={value.label}
+                      onClick={value.onClick}
+                      buttonStyle="main"
+                      disabled={value.disabled}
+                    />
+                  ))}
+                </ButtonGroup>
+              </div>
+            )}
           </div>
         )}
-        {itemListData.length > 0 && (
+        {locationToScan && (
           <div>
-            <Table
-              context={context}
-              data={itemListData}
-              columns={itemListColumns}
-              rowSelectable={false}
+            <ScanForm
+              key={locationToScan}
+              locationToScan={locationToScan}
+              onBack={() => this.setState({ locationToScan: null })}
             />
-            <ButtonGroup>
-              {Object.entries(itemListButtons).map(([key, value]) => (
-                <Button
-                  key={key}
-                  label={value.label}
-                  onClick={value.onClick}
-                  buttonStyle="main"
-                  disabled={value.disabled}
-                />
-              ))}
-            </ButtonGroup>
           </div>
         )}
-        <Modal
+        {/* <Modal
           open={!!locationToScan}
           hideModal={() => {
             this.setState({ locationToScan: null });
@@ -159,7 +171,7 @@ class StockTake extends React.Component<Props, States> {
             locationToScan={locationToScan}
             onBack={() => this.setState({ locationToScan: null })}
           />
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
