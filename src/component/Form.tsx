@@ -107,12 +107,12 @@ const Form = ({
       enableReinitialize={true}
     >
       {(formikHelpers) => {
-        const { handleSubmit, values } = formikHelpers;
+        const { handleSubmit, handleReset, values } = formikHelpers;
         if (onFormikReady) {
           onFormikReady(formikHelpers);
         }
         return (
-          <form onSubmit={handleSubmit}>
+          <form onReset={handleReset} onSubmit={handleSubmit}>
             {title && <Title title={title} />}
             {renderInputs(fields, values)}
             {renderButtons(buttons, values)}
