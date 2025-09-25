@@ -29,6 +29,10 @@ const css = `
     color: ${COLOR_MAIN};
     font-weight: bold;
   }
+
+  .input-container {
+    width: 75%;
+  }
 `;
 
 const Error = ({ name }) => (
@@ -38,15 +42,21 @@ const Error = ({ name }) => (
 );
 
 const TextInput = (props) => (
-  <div>
-    <Field {...props} rows={2} /> <Error name={props.name} />
+  <div className="input-container">
+    <Field {...props} rows={2} style={{ width: "100%" }} />{" "}
+    <Error name={props.name} />
   </div>
 );
 
 const DropDown = ({ name, options = [], disabled = false }) => {
   return (
-    <div>
-      <Field name={name} component="select" disabled={disabled}>
+    <div className="input-container">
+      <Field
+        name={name}
+        component="select"
+        style={{ width: "100%" }}
+        disabled={disabled}
+      >
         <option value=""></option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -68,7 +78,11 @@ const renderInputs = (fields: any[], values) => {
         return (
           <div
             key={field.name}
-            style={{ display: "flex", alignItems: "center" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
           >
             <label
               htmlFor={field.name}
