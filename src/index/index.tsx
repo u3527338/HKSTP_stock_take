@@ -7,8 +7,17 @@ import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import { AppMode, getCurrentUser, loadResources } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
+import DisplayControl from "../component/DisplayControl";
 
 const css = `
+  .no-display {
+    display: none !important;
+  }
+    
+  .akfc-form {
+    background-color: lemonchiffon !important;
+  }
+
   .app-title {
     color: ${COLOR_MAIN} !important;
     margin-bottom: 8px !important;
@@ -101,6 +110,7 @@ class Application extends React.Component<Props, States> {
 
     return (
       <div>
+        <DisplayControl />
         <style>{css}</style>
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}
