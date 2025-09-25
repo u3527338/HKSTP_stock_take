@@ -1,13 +1,13 @@
 import * as React from "react";
-import Download from "../screen/Download";
-import Menu from "../screen/Menu";
-import StockTake from "../screen/StockTake";
-import Sync from "../screen/Sync";
+import DisplayControl from "../component/DisplayControl";
 import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import { AppMode, getCurrentUser, loadResources } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
-import DisplayControl from "../component/DisplayControl";
+import Download from "../screen/Download";
+import Menu from "../screen/Menu";
+import StockTake from "../screen/StockTake";
+import Sync from "../screen/Sync";
 
 const css = `
   .no-display {
@@ -110,7 +110,7 @@ class Application extends React.Component<Props, States> {
 
     return (
       <div>
-        <DisplayControl />
+        {/* <DisplayControl /> */}
         <style>{css}</style>
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}

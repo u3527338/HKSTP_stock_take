@@ -12,6 +12,7 @@ const css = `
     padding: 4px;
     background-color: white;
     color: #000;
+    resize: none;
   }
 
   form input:disabled,
