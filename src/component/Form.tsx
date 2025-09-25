@@ -3,6 +3,33 @@ import * as React from "react";
 import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import Title from "./Title";
+import { COLOR_MAIN } from "../constants";
+
+const css = `
+  form input,
+  form textarea,
+  form select {
+    padding: 4px;
+    background-color: white;
+    color: #000;
+  }
+
+  form input:disabled,
+  form textarea:disabled,
+  form select:disabled {
+    background-color: #f0f0f0;
+  }
+
+  form select option {
+    background-color: white;
+    color: #000;
+  }
+
+  .form-label {
+    color: ${COLOR_MAIN};
+    font-weight: bold;
+  }
+`;
 
 const Error = ({ name }) => (
   <ErrorMessage name={name}>
@@ -45,7 +72,8 @@ const renderInputs = (fields: any[], values) => {
           >
             <label
               htmlFor={field.name}
-              style={{ width: "100px", marginRight: "8px", fontWeight: "bold" }}
+              style={{ width: "100px", marginRight: "8px" }}
+              className="form-label"
             >
               {field.label}:
             </label>
@@ -100,26 +128,29 @@ const Form = ({
   onFormikReady,
 }) => {
   return (
-    <Formik
-      validate={validate}
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      enableReinitialize={true}
-    >
-      {(formikHelpers) => {
-        const { handleSubmit, handleReset, values } = formikHelpers;
-        if (onFormikReady) {
-          onFormikReady(formikHelpers);
-        }
-        return (
-          <form onReset={handleReset} onSubmit={handleSubmit}>
-            {title && <Title title={title} />}
-            {renderInputs(fields, values)}
-            {renderButtons(buttons, values)}
-          </form>
-        );
-      }}
-    </Formik>
+    <div>
+      <style>{css}</style>
+      <Formik
+        validate={validate}
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        enableReinitialize={true}
+      >
+        {(formikHelpers) => {
+          const { handleSubmit, handleReset, values } = formikHelpers;
+          if (onFormikReady) {
+            onFormikReady(formikHelpers);
+          }
+          return (
+            <form onReset={handleReset} onSubmit={handleSubmit}>
+              {title && <Title title={title} />}
+              {renderInputs(fields, values)}
+              {renderButtons(buttons, values)}
+            </form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 
