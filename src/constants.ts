@@ -1,3 +1,5 @@
+export const COLOR_MAIN = "#FF6E10";
+
 export const LOCATION_DATA = {
   StockTakeLocationSet: {
     StockTakeLocation: [

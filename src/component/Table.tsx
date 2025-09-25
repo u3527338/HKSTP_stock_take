@@ -1,10 +1,35 @@
 import * as React from "react";
-import Center from "./Center";
 import Title from "./Title";
+import { COLOR_MAIN } from "../constants";
 
 const css = `
   .tabulator-tableholder {
     height: unset !important;
+  }
+
+  .tabulator .tabulator-header .tabulator-col {
+    background: ${COLOR_MAIN} !important;
+    color: white !important;
+  }
+
+  .tabulator-row {
+    font-weight: 600;
+  }
+
+  .tabulator-row:hover {
+    background-color: transparent !important;
+  }
+
+  .tabulator-row.tabulator-row-even {
+    background: rgba(255, 110, 16, 0.1) !important;
+  }
+
+  .tabulator-row.tabulator-selected {
+    background: rgba(255, 110, 16, 0.5) !important;
+  }
+
+  .tabulator .tabulator-footer {
+    background: white !important;
   }
 `;
 

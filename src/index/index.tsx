@@ -3,10 +3,18 @@ import Download from "../screen/Download";
 import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
-import { LOCATION_DATA, SHEET_DATA } from "../constants";
+import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import { AppMode, loadResources } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
+
+const css = `
+  .app-title {
+    color: ${COLOR_MAIN} !important;
+    margin-bottom: 8px !important;
+    text-decoration: underline !important;
+  }
+`;
 
 const resourcesToLoad = [
   {
@@ -93,6 +101,7 @@ class Application extends React.Component<Props, States> {
 
     return (
       <div>
+        <style>{css}</style>
         {getAppMode === AppMode.MENU && <Menu context={context} />}
         {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}
         {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}

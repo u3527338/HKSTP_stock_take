@@ -4,6 +4,7 @@ import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import Center from "../component/Center";
+import Title from "../component/Title";
 
 const MenuButtons = {
   [AppMode.DOWNLOAD]: { label: "Download Stock Take List" },
@@ -16,7 +17,7 @@ const Menu = ({ context }) => {
 
   return (
     <Center style={{ flexDirection: "column" }}>
-      <h1>Stock Take Application</h1>
+      <Title title="Stock Take Application" style={{ fontSize: "24px" }} />
       <ButtonGroup style={{ flexDirection: "column" }}>
         {Object.entries(MenuButtons).map(
           ([key, value]: [AppMode, { label: string }]) => (

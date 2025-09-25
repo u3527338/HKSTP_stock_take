@@ -1,10 +1,15 @@
 import * as React from "react";
+import { COLOR_MAIN } from "../constants";
 
 const css = `
   .btn-disabled {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none; /* disables click events */
+  }
+
+  .main-btn-bg {
+    background-color: ${COLOR_MAIN} !important;
   }
 `;
 

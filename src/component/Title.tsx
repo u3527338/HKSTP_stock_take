@@ -1,9 +1,11 @@
 import * as React from "react";
 import Center from "./Center";
 
-const Title = ({ title }) => (
+const Title = ({ title, ...props }) => (
   <Center>
-    <h2 style={{ textDecoration: "underline" }}>{title}</h2>
+    <h2 className="app-title" {...props}>
+      {title}
+    </h2>
   </Center>
 );
 
