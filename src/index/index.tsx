@@ -4,7 +4,7 @@ import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
 import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
-import { AppMode, loadResources } from "../function/helper";
+import { AppMode, getCurrentUser, loadResources } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
 
@@ -102,10 +102,15 @@ class Application extends React.Component<Props, States> {
     return (
       <div>
         <style>{css}</style>
-        {getAppMode === AppMode.MENU && <Menu context={context} />}
-        {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}
-        {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
-        {getAppMode === AppMode.SYNC && <Sync context={context} />}
+        <div style={{ margin: "30px 0px" }}>
+          {getAppMode === AppMode.MENU && <Menu context={context} />}
+          {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}
+          {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
+          {getAppMode === AppMode.SYNC && <Sync context={context} />}
+        </div>
+        <span style={{ color: COLOR_MAIN }}>
+          Email: {getCurrentUser(context).email}
+        </span>
       </div>
     );
   }

@@ -1,3 +1,5 @@
+import { MODULE_COMMON } from "../constants";
+
 const isScriptLoaded = (id: string, type) => {
   var scripts = document.getElementsByTagName(type);
   for (var i = scripts.length; i--; ) {
@@ -40,6 +42,13 @@ export const loadResources = (resources) => {
     return Promise.reject(new Error("Unknown resource type"));
   });
   return Promise.all(promises);
+};
+
+export const getCurrentUser = (context: CodeInContext) => {
+  const common = context.modules[MODULE_COMMON];
+  const { AkContext } = common;
+  const user = AkContext.getUser();
+  return { id: user.AccountID, username: user.Name_CN, email: user.Email };
 };
 
 export const generateUUID = () => Math.random().toString(36).substring(2, 9);
