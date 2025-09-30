@@ -1,10 +1,11 @@
 import * as React from "react";
-import { AppMode } from "../function/helper";
+import { AppMode, isItemScanned } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import ScanForm from "../component/ScanForm";
 import Table from "../component/Table";
+import { ITEM_STATUS } from "../constants";
 
 interface Props {
   context: CodeInContext;
@@ -51,8 +52,22 @@ class StockTake extends React.Component<Props, States> {
       { title: "Inventory No.", field: "Invnr" },
       { title: "Description", field: "Txt50" },
       { title: "Remark", field: "Remark" },
-      { title: "Status", field: "Status" },
-      { title: "Scanned", field: "Scanned" },
+      {
+        title: "Status",
+        field: "Status",
+        formatter: (cell, params) => {
+          const value = cell.getValue();
+          return ITEM_STATUS[value];
+        },
+      },
+      {
+        title: "Scanned",
+        field: "Scanned",
+        formatter: (cell, params) => {
+          const value = cell.getRow().getData().Status;
+          return isItemScanned(value) ? "Yes" : "No";
+        },
+      },
       { title: "Last Saved", field: "LastSaved" },
     ];
 

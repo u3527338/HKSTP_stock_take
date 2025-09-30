@@ -59,3 +59,5 @@ export enum AppMode {
   STOCK_TAKE = "stock_take",
   SYNC = "sync",
 }
+
+export const isItemScanned = (status) => parseInt(status) !== 0;

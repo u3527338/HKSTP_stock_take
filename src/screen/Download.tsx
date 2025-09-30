@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppMode } from "../function/helper";
+import { AppMode, isItemScanned } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import Table from "../component/Table";
@@ -26,18 +26,24 @@ class Download extends React.Component<Props, States> {
     };
   }
 
-  updateStockTakeList = (dataToDownload: any[]) => {
-    localStorage.setItem("STOCK_TAKE_DATA", JSON.stringify(dataToDownload));
-  };
-
   updateDownloadedList = (dataToDownload: any[]) => {
     const { data } = this.state;
-    const refreshData = data.map((d) => ({
-      ...d,
-      Scanned: 0,
-      Downloaded: dataToDownload.map((_d) => _d.Stort).includes(d.Stort),
-    }));
+    const refreshData = data.map((d) => {
+      const items = JSON.parse(localStorage.getItem("SHEET_DATA")) || [];
+      const scannedItems: any[] = items.filter(
+        (item) => item.Stort === d.Stort && isItemScanned(item.Status)
+      );
+      return {
+        ...d,
+        Scanned: scannedItems.length,
+        Downloaded: dataToDownload.map((_d) => _d.Stort).includes(d.Stort),
+      };
+    });
     localStorage.setItem("LOCATION_DATA", JSON.stringify(refreshData));
+    localStorage.setItem(
+      "STOCK_TAKE_DATA",
+      JSON.stringify(refreshData.filter((r) => r.Downloaded))
+    );
     this.setState({ data: refreshData });
   };
 
@@ -49,7 +55,6 @@ class Download extends React.Component<Props, States> {
       const dataToDownload = all
         ? data
         : _.intersectionBy(data, downloadData, "Stort");
-      this.updateStockTakeList(dataToDownload);
       this.updateDownloadedList(dataToDownload);
     };
 

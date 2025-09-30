@@ -2,6 +2,15 @@ export const MODULE_COMMON = "common";
 
 export const COLOR_MAIN = "#FF6E10";
 
+export const ITEM_STATUS = {
+  0: "Not Scanned",
+  1: "Pass",
+  2: "Additional",
+  3: "Broken",
+  4: "Others",
+  5: "Wrong Location"
+}
+
 export const LOCATION_DATA = {
   StockTakeLocationSet: {
     StockTakeLocation: [
