@@ -30,13 +30,18 @@ class Download extends React.Component<Props, States> {
     const { data } = this.state;
     const refreshData = data.map((d) => {
       const items = JSON.parse(localStorage.getItem("SHEET_DATA")) || [];
+      const preDownloadedList =
+        JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")) || [];
       const scannedItems: any[] = items.filter(
         (item) => item.Stort === d.Stort && isItemScanned(item.Status)
       );
       return {
         ...d,
         Scanned: scannedItems.length,
-        Downloaded: dataToDownload.map((_d) => _d.Stort).includes(d.Stort),
+        Downloaded: dataToDownload
+          .concat(preDownloadedList)
+          .map((_d) => _d.Stort)
+          .includes(d.Stort),
       };
     });
     localStorage.setItem("LOCATION_DATA", JSON.stringify(refreshData));
