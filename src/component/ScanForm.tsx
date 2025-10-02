@@ -157,7 +157,7 @@ class ScanForm extends React.Component<Props, States> {
             },
           ]}
           footers={
-            <Text>
+            <Text bold>
               Scanned: {scannedCount} / Total: {locationToScan.scanQty}
             </Text>
           }

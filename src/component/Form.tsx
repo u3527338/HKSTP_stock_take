@@ -70,7 +70,7 @@ const DropDown = ({ name, options = [], disabled = false }) => {
   );
 };
 
-const renderInputs = (fields: any[], values) => {
+const renderInputs = (fields: any[], values, footers) => {
   return (
     <div style={{ display: "grid", justifyContent: "center", gap: 8 }}>
       {fields.map((field) => {
@@ -108,6 +108,7 @@ const renderInputs = (fields: any[], values) => {
           </div>
         );
       })}
+      {footers && <div>{footers}</div>}
     </div>
   );
 };
@@ -158,8 +159,7 @@ const Form = ({
           return (
             <form onReset={handleReset} onSubmit={handleSubmit}>
               {title && <Title title={title} />}
-              {renderInputs(fields, values)}
-              {footers && <div>{footers}</div>}
+              {renderInputs(fields, values, footers)}
               {renderButtons(buttons, values)}
             </form>
           );
