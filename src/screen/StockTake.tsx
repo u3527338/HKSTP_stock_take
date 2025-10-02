@@ -181,7 +181,10 @@ class StockTake extends React.Component<Props, States> {
             key={locationToScan.location}
             locationToScan={locationToScan}
             onBack={() => {
-              this.setState({ locationToScan: null });
+              this.setState({
+                locationToScan: null,
+                data: JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")),
+              });
             }}
           />
         )}

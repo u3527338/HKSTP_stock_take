@@ -14,6 +14,7 @@ interface Props {
 interface States {
   startScan: boolean;
   scannedItem: any;
+  scannedCount: number;
 }
 
 class ScanForm extends React.Component<Props, States> {
@@ -22,6 +23,7 @@ class ScanForm extends React.Component<Props, States> {
     this.state = {
       startScan: false,
       scannedItem: null,
+      scannedCount: getScannedCount(this.props.locationToScan.location),
     };
   }
 
@@ -33,7 +35,7 @@ class ScanForm extends React.Component<Props, States> {
 
   render() {
     const { locationToScan, onBack } = this.props;
-    const { startScan } = this.state;
+    const { startScan, scannedCount } = this.state;
 
     const initialValues = {
       location: locationToScan.location,
@@ -85,6 +87,9 @@ class ScanForm extends React.Component<Props, States> {
         )
       );
       updateScanStatus();
+      this.setState({
+        scannedCount: getScannedCount(this.props.locationToScan.location),
+      });
     };
 
     const handleSubmit = ({ submitAction, ...values }) => {
@@ -153,8 +158,7 @@ class ScanForm extends React.Component<Props, States> {
           ]}
           footers={
             <Text>
-              Scanned: {getScannedCount(locationToScan.location)} / Total:{" "}
-              {locationToScan.scanQty}
+              Scanned: {scannedCount} / Total: {locationToScan.scanQty}
             </Text>
           }
           buttons={[
