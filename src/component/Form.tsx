@@ -141,6 +141,7 @@ const Form = ({
   onSubmit,
   validate,
   onFormikReady,
+  footers = null,
 }) => {
   return (
     <div>
@@ -153,13 +154,12 @@ const Form = ({
       >
         {(formikHelpers) => {
           const { handleSubmit, handleReset, values } = formikHelpers;
-          if (onFormikReady) {
-            onFormikReady(formikHelpers);
-          }
+          if (onFormikReady) onFormikReady(formikHelpers);
           return (
             <form onReset={handleReset} onSubmit={handleSubmit}>
               {title && <Title title={title} />}
               {renderInputs(fields, values)}
+              {footers && <div>{footers}</div>}
               {renderButtons(buttons, values)}
             </form>
           );

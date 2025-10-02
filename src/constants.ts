@@ -5,11 +5,37 @@ export const COLOR_MAIN = "#FF6E10";
 export const ITEM_STATUS = {
   0: "Not Scanned",
   1: "Pass",
-  2: "Additional",
+  // 2: "Additional",
   3: "Broken",
   4: "Others",
-  5: "Wrong Location"
-}
+  5: "Wrong Location",
+};
+
+export const CUSTODIAN = {
+  BMT: "BMT",
+  CDD: "CDD",
+  FMO: "FMO",
+  HR: "HR",
+  ICT: "ICT",
+  INCU: "INCU",
+  MKT: "MKT",
+  ROBO: "ROBO",
+};
+
+export const STOCK_TAKE_SHEET_ITEM = [
+  "Bukrs",
+  "Countid",
+  "Anln1",
+  "Anln2",
+  "Txt50",
+  "Invnr",
+  "Ord41",
+  "Ord42",
+  "Stort",
+  "Ktext",
+  "Status",
+  "Remark",
+];
 
 export const LOCATION_DATA = {
   StockTakeLocationSet: {
@@ -126,7 +152,7 @@ export const SHEET_DATA = {
   StockTakeSheetSet: {
     StockTakeSheet: [
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -148,7 +174,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -170,7 +196,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -192,7 +218,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -214,7 +240,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -236,7 +262,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -258,7 +284,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -280,7 +306,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -302,7 +328,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -324,7 +350,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -346,7 +372,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -368,7 +394,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -390,7 +416,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -412,7 +438,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -434,7 +460,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -456,7 +482,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -478,7 +504,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -500,7 +526,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -522,7 +548,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -544,7 +570,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -566,7 +592,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -588,7 +614,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -610,7 +636,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -632,7 +658,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -654,7 +680,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -676,7 +702,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -698,7 +724,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -720,7 +746,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -742,7 +768,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -764,7 +790,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -786,7 +812,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -808,7 +834,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -830,7 +856,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -852,7 +878,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -874,7 +900,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -896,7 +922,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -918,7 +944,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -940,7 +966,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -962,7 +988,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -984,7 +1010,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1006,7 +1032,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1028,7 +1054,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1050,7 +1076,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1072,7 +1098,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1094,7 +1120,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1116,7 +1142,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1138,7 +1164,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1160,7 +1186,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1182,7 +1208,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1204,7 +1230,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1226,7 +1252,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1248,7 +1274,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1270,7 +1296,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1292,7 +1318,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1314,7 +1340,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1336,7 +1362,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1358,7 +1384,7 @@ export const SHEET_DATA = {
         Txt50: "Office Desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1380,7 +1406,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1402,7 +1428,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1424,7 +1450,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1446,7 +1472,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1468,7 +1494,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1490,7 +1516,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1512,7 +1538,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1534,7 +1560,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1556,7 +1582,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1578,7 +1604,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1600,7 +1626,7 @@ export const SHEET_DATA = {
         Txt50: "FB02 - Sofa",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1622,7 +1648,7 @@ export const SHEET_DATA = {
         Txt50: "FB02 - Sofa",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1644,7 +1670,7 @@ export const SHEET_DATA = {
         Txt50: "FB05 - Coffee Table",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1666,7 +1692,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1688,7 +1714,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1710,7 +1736,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1732,7 +1758,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1754,7 +1780,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1776,7 +1802,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1798,7 +1824,7 @@ export const SHEET_DATA = {
         Txt50: "FB13 - Meeting Room Table W2400xD1300xH740",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1820,7 +1846,7 @@ export const SHEET_DATA = {
         Txt50: "FB14 - Folding Table",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1842,7 +1868,7 @@ export const SHEET_DATA = {
         Txt50: "FB14 - Folding Table",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1864,7 +1890,7 @@ export const SHEET_DATA = {
         Txt50: "FB14 - Folding Table",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1886,7 +1912,7 @@ export const SHEET_DATA = {
         Txt50: "FB21 - Phone Booth",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1908,7 +1934,7 @@ export const SHEET_DATA = {
         Txt50: "IT01 - 42U Equipment Rack",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1930,7 +1956,7 @@ export const SHEET_DATA = {
         Txt50: "IT01 - 42U Equipment Rack",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1952,7 +1978,7 @@ export const SHEET_DATA = {
         Txt50: "IT03 - Optical Fibre Cable Patch Panel",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1974,7 +2000,7 @@ export const SHEET_DATA = {
         Txt50: "IT03 - Optical Fibre Cable Patch Panel",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -1996,7 +2022,7 @@ export const SHEET_DATA = {
         Txt50: "Multifunctional Copier",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2018,7 +2044,7 @@ export const SHEET_DATA = {
         Txt50: "Multifunctional Copier",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2040,7 +2066,7 @@ export const SHEET_DATA = {
         Txt50: 'SAMSUNG UA55TU8000JXZK 55" 4K  Crystal UHD 4K',
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2062,7 +2088,7 @@ export const SHEET_DATA = {
         Txt50: 'SAMSUNG UA55TU8000JXZK 55" 4K  Crystal UHD 4K',
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2084,7 +2110,7 @@ export const SHEET_DATA = {
         Txt50: "Logitech GROUP Conference cam with Expansion",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2106,7 +2132,7 @@ export const SHEET_DATA = {
         Txt50: "Sliding Door Cabinet",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2128,7 +2154,7 @@ export const SHEET_DATA = {
         Txt50: "Meeting table - 1",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2150,7 +2176,7 @@ export const SHEET_DATA = {
         Txt50: "Meeting table - 2",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2172,7 +2198,7 @@ export const SHEET_DATA = {
         Txt50: "Multifunctional Copier-HP Color Laserjet Pro",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2194,7 +2220,7 @@ export const SHEET_DATA = {
         Txt50: "Multifunctional Copier- HP Color Laserjet",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2216,7 +2242,7 @@ export const SHEET_DATA = {
         Txt50: "Huawei Mate 30 Pro",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2238,7 +2264,7 @@ export const SHEET_DATA = {
         Txt50: "Apple iphone 11 64GB",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2260,7 +2286,7 @@ export const SHEET_DATA = {
         Txt50: "iPhone 12 (Apple A14) 128G",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2282,7 +2308,7 @@ export const SHEET_DATA = {
         Txt50: "Samsung Galaxy S20 FE 5G (Qualcomm) 128G",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2304,7 +2330,7 @@ export const SHEET_DATA = {
         Txt50: "Huawei P40 Pro (HiSilicon) 128G",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2326,7 +2352,7 @@ export const SHEET_DATA = {
         Txt50: "Nokia 8.3 5G ",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2348,7 +2374,7 @@ export const SHEET_DATA = {
         Txt50: "Sony Xperia 5 II (Qualcomm) 256G",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2370,7 +2396,7 @@ export const SHEET_DATA = {
         Txt50: "Laboratory DC Power Supply,",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2392,7 +2418,7 @@ export const SHEET_DATA = {
         Txt50: "80MHz Function",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2414,7 +2440,7 @@ export const SHEET_DATA = {
         Txt50: "Digital Multimeter, 6.5 Digit",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2436,7 +2462,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2458,7 +2484,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2480,7 +2506,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2502,7 +2528,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2524,7 +2550,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2546,7 +2572,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2568,7 +2594,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2590,7 +2616,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2612,7 +2638,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2634,7 +2660,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2656,7 +2682,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2678,7 +2704,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2700,7 +2726,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2722,7 +2748,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2744,7 +2770,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2766,7 +2792,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2788,7 +2814,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2810,7 +2836,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2832,7 +2858,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2854,7 +2880,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2876,7 +2902,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2898,7 +2924,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2920,7 +2946,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2942,7 +2968,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2964,7 +2990,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -2986,7 +3012,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3008,7 +3034,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3030,7 +3056,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3052,7 +3078,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3074,7 +3100,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3096,7 +3122,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3118,7 +3144,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3140,7 +3166,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3162,7 +3188,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3184,7 +3210,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3206,7 +3232,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3228,7 +3254,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3250,7 +3276,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3272,7 +3298,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3294,7 +3320,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3316,7 +3342,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3338,7 +3364,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3360,7 +3386,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3382,7 +3408,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3404,7 +3430,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3426,7 +3452,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3448,7 +3474,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3470,7 +3496,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3492,7 +3518,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3514,7 +3540,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3536,7 +3562,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3558,7 +3584,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3580,7 +3606,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3602,7 +3628,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3624,7 +3650,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3646,7 +3672,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3668,7 +3694,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3690,7 +3716,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3712,7 +3738,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3734,7 +3760,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3756,7 +3782,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3778,7 +3804,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3800,7 +3826,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3822,7 +3848,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3844,7 +3870,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3866,7 +3892,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3888,7 +3914,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3910,7 +3936,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3932,7 +3958,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3954,7 +3980,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3976,7 +4002,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -3998,7 +4024,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4020,7 +4046,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4042,7 +4068,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4064,7 +4090,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4086,7 +4112,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4108,7 +4134,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4130,7 +4156,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4152,7 +4178,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4174,7 +4200,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4196,7 +4222,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4218,7 +4244,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4240,7 +4266,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4262,7 +4288,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4284,7 +4310,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4306,7 +4332,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4328,7 +4354,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4350,7 +4376,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4372,7 +4398,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4394,7 +4420,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4416,7 +4442,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4438,7 +4464,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4460,7 +4486,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4482,7 +4508,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4504,7 +4530,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4526,7 +4552,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4548,7 +4574,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4570,7 +4596,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4592,7 +4618,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4614,7 +4640,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4636,7 +4662,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4658,7 +4684,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4680,7 +4706,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4702,7 +4728,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4724,7 +4750,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4746,7 +4772,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4768,7 +4794,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4790,7 +4816,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4812,7 +4838,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4834,7 +4860,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4856,7 +4882,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4878,7 +4904,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4900,7 +4926,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4922,7 +4948,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4944,7 +4970,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4966,7 +4992,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -4988,7 +5014,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5010,7 +5036,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5032,7 +5058,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5054,7 +5080,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5076,7 +5102,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5098,7 +5124,7 @@ export const SHEET_DATA = {
         Txt50: "3-Drawer Office Pedestal",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5120,7 +5146,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5142,7 +5168,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5164,7 +5190,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5186,7 +5212,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5208,7 +5234,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5230,7 +5256,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5252,7 +5278,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5274,7 +5300,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5296,7 +5322,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5318,7 +5344,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5340,7 +5366,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5362,7 +5388,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5384,7 +5410,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5406,7 +5432,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5428,7 +5454,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5450,7 +5476,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5472,7 +5498,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5494,7 +5520,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5516,7 +5542,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5538,7 +5564,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5560,7 +5586,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5582,7 +5608,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5604,7 +5630,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5626,7 +5652,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5648,7 +5674,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5670,7 +5696,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5692,7 +5718,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5714,7 +5740,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk with Front Partition",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5736,7 +5762,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5758,7 +5784,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5780,7 +5806,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5802,7 +5828,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5824,7 +5850,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5846,7 +5872,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5868,7 +5894,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5890,7 +5916,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5912,7 +5938,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5934,7 +5960,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5956,7 +5982,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -5978,7 +6004,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6000,7 +6026,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6022,7 +6048,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6044,7 +6070,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6066,7 +6092,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6088,7 +6114,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6110,7 +6136,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6132,7 +6158,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6154,7 +6180,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6176,7 +6202,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6198,7 +6224,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6220,7 +6246,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6242,7 +6268,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6264,7 +6290,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6286,7 +6312,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6308,7 +6334,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6330,7 +6356,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6352,7 +6378,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6374,7 +6400,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6396,7 +6422,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6418,7 +6444,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6440,7 +6466,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6462,7 +6488,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6484,7 +6510,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6506,7 +6532,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6528,7 +6554,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6550,7 +6576,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6572,7 +6598,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6594,7 +6620,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6616,7 +6642,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6638,7 +6664,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6660,7 +6686,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6682,7 +6708,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6704,7 +6730,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6726,7 +6752,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6748,7 +6774,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6770,7 +6796,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6792,7 +6818,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6814,7 +6840,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6836,7 +6862,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6858,7 +6884,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6880,7 +6906,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6902,7 +6928,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6924,7 +6950,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6946,7 +6972,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6968,7 +6994,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -6990,7 +7016,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7012,7 +7038,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7034,7 +7060,7 @@ export const SHEET_DATA = {
         Txt50: "Non-foldable Office desk",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7056,7 +7082,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7078,7 +7104,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7100,7 +7126,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7122,7 +7148,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7144,7 +7170,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7166,7 +7192,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7188,7 +7214,7 @@ export const SHEET_DATA = {
         Txt50: "Office Chair",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7210,7 +7236,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7232,7 +7258,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7254,7 +7280,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7276,7 +7302,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7298,7 +7324,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7320,7 +7346,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7342,7 +7368,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7364,7 +7390,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7386,7 +7412,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7408,7 +7434,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7430,7 +7456,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7452,7 +7478,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7474,7 +7500,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7496,7 +7522,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7518,7 +7544,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7540,7 +7566,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7562,7 +7588,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7584,7 +7610,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7606,7 +7632,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7628,7 +7654,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7650,7 +7676,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7672,7 +7698,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7694,7 +7720,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7716,7 +7742,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7738,7 +7764,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7760,7 +7786,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7782,7 +7808,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7804,7 +7830,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7826,7 +7852,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7848,7 +7874,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7870,7 +7896,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7892,7 +7918,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7914,7 +7940,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7936,7 +7962,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7958,7 +7984,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -7980,7 +8006,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8002,7 +8028,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8024,7 +8050,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8046,7 +8072,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8068,7 +8094,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8090,7 +8116,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8112,7 +8138,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8134,7 +8160,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8156,7 +8182,7 @@ export const SHEET_DATA = {
         Txt50: "3- Drawer Pedestals",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8178,7 +8204,7 @@ export const SHEET_DATA = {
         Txt50: "iPhone 13 Pro 128Gb",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8200,7 +8226,7 @@ export const SHEET_DATA = {
         Txt50: "Galaxy Z Fold3 5G 256Gb",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8222,7 +8248,7 @@ export const SHEET_DATA = {
         Txt50: "Samsung Galaxy Z Flod 4 256Gb",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8244,7 +8270,7 @@ export const SHEET_DATA = {
         Txt50: "Macbook for Derek Chim",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8266,7 +8292,7 @@ export const SHEET_DATA = {
         Txt50: "ServiceNow Platform Custom Application",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",
@@ -8288,7 +8314,7 @@ export const SHEET_DATA = {
         Txt50: "RFID Fixed Asset Management System",
       },
       {
-        Status: "1",
+        Status: "",
         Apdat: "20240416170539",
         Bukrs: "1000",
         Anln2: "0",

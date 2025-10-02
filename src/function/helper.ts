@@ -60,4 +60,56 @@ export enum AppMode {
   SYNC = "sync",
 }
 
-export const isItemScanned = (status) => parseInt(status) !== 0;
+export const isItemScanned = (status) => !!status && parseInt(status) !== 0;
+
+export const formatAssetSubNo = (numStr) => numStr.padStart(4, "0");
+
+export const getScannedCount = (location) => {
+  const items = JSON.parse(localStorage.getItem("SHEET_DATA")) || [];
+  const scannedItems: any[] = items.filter(
+    (item) => item.Stort === location && isItemScanned(item.Status)
+  );
+  return scannedItems.length;
+};
+
+export const updateDownloadStatus = (dataToDownload: any[]) => {
+  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+  const preDownloadedList =
+    JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")) || [];
+  localStorage.setItem(
+    "LOCATION_DATA",
+    JSON.stringify(
+      locationData.map((l) => {
+        return {
+          ...l,
+          Downloaded: dataToDownload
+            .concat(preDownloadedList)
+            .map((_d) => _d.Stort)
+            .includes(l.Stort),
+        };
+      })
+    )
+  );
+};
+
+export const updateScanStatus = () => {
+  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+  localStorage.setItem(
+    "LOCATION_DATA",
+    JSON.stringify(
+      locationData.map((l) => ({
+        ...l,
+        Scanned: getScannedCount(l.Stort),
+      }))
+    )
+  );
+  updateDownloadedScanStatus();
+};
+
+export const updateDownloadedScanStatus = () => {
+  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+  localStorage.setItem(
+    "STOCK_TAKE_DATA",
+    JSON.stringify(locationData.filter((r) => r.Downloaded))
+  );
+};

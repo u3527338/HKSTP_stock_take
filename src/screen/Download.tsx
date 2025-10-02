@@ -1,5 +1,11 @@
 import * as React from "react";
-import { AppMode, isItemScanned } from "../function/helper";
+import {
+  AppMode,
+  getScannedCount,
+  isItemScanned,
+  updateDownloadStatus,
+  updateScanStatus,
+} from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import Table from "../component/Table";
@@ -27,29 +33,11 @@ class Download extends React.Component<Props, States> {
   }
 
   updateDownloadedList = (dataToDownload: any[]) => {
-    const { data } = this.state;
-    const refreshData = data.map((d) => {
-      const items = JSON.parse(localStorage.getItem("SHEET_DATA")) || [];
-      const preDownloadedList =
-        JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")) || [];
-      const scannedItems: any[] = items.filter(
-        (item) => item.Stort === d.Stort && isItemScanned(item.Status)
-      );
-      return {
-        ...d,
-        Scanned: scannedItems.length,
-        Downloaded: dataToDownload
-          .concat(preDownloadedList)
-          .map((_d) => _d.Stort)
-          .includes(d.Stort),
-      };
-    });
-    localStorage.setItem("LOCATION_DATA", JSON.stringify(refreshData));
-    localStorage.setItem(
-      "STOCK_TAKE_DATA",
-      JSON.stringify(refreshData.filter((r) => r.Downloaded))
-    );
-    this.setState({ data: refreshData });
+    updateDownloadStatus(dataToDownload);
+    updateScanStatus();
+    const locationData =
+      JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+    this.setState({ data: locationData });
   };
 
   render() {

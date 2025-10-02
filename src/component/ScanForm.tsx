@@ -1,14 +1,19 @@
 import * as React from "react";
 import BarcodeScanner from "./BarcodeScanner";
 import Form from "./Form";
+import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
+import * as _ from "lodash";
+import Text from "./Text";
+import { getScannedCount, updateScanStatus } from "../function/helper";
 
 interface Props {
-  locationToScan: string;
+  locationToScan: { location: string; scanQty: number; scanned: number };
   onBack: () => void;
 }
 
 interface States {
   startScan: boolean;
+  scannedItem: any;
 }
 
 class ScanForm extends React.Component<Props, States> {
@@ -16,6 +21,7 @@ class ScanForm extends React.Component<Props, States> {
     super(props);
     this.state = {
       startScan: false,
+      scannedItem: null,
     };
   }
 
@@ -30,27 +36,74 @@ class ScanForm extends React.Component<Props, States> {
     const { startScan } = this.state;
 
     const initialValues = {
-      location: locationToScan,
+      location: locationToScan.location,
       assetNo: "",
       inventoryNo: "",
       description: "",
+      custodian: "",
       status: "",
       remark: "",
       submitAction: "",
     };
 
+    const addStockTakeSheet = (values) => {
+      const { scannedItem } = this.state;
+      if (!scannedItem) return;
+      const formData = {
+        Invnr: values.inventoryNo,
+        Txt50: values.description,
+        Ord41: values.custodian,
+        Status: values.status,
+        Remark: values.remark,
+      };
+      const newItem = {
+        ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
+        ...formData,
+      };
+      const CREATE_STOCK_TAKE =
+        JSON.parse(localStorage.getItem("CREATE_STOCK_TAKE")) || {};
+      CREATE_STOCK_TAKE[`${scannedItem.Anln1}-${scannedItem.Anln2}`] = newItem;
+      localStorage.setItem(
+        "CREATE_STOCK_TAKE",
+        JSON.stringify(CREATE_STOCK_TAKE)
+      );
+
+      const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+      localStorage.setItem(
+        "SHEET_DATA",
+        JSON.stringify(
+          items.map((i) =>
+            `${i.Anln1}-${i.Anln2}` ===
+            `${scannedItem.Anln1}-${scannedItem.Anln2}`
+              ? {
+                  ...i,
+                  ...formData,
+                  ScanQty: "1",
+                }
+              : i
+          )
+        )
+      );
+      updateScanStatus();
+    };
+
     const handleSubmit = ({ submitAction, ...values }) => {
       if (submitAction === "save") {
-        console.log("save", { values });
+        addStockTakeSheet(values);
         onBack();
       } else if (submitAction === "saveNext") {
-        console.log("saveNext", { values });
+        addStockTakeSheet(values);
         this.formikApi?.resetForm();
       }
     };
 
     const openScanner = (startScan) => {
       this.setState({ startScan });
+    };
+
+    const checkItem = (scannedItem) => {
+      if (!scannedItem) console.log("No item found");
+      this.setState({ scannedItem });
     };
 
     return (
@@ -74,13 +127,23 @@ class ScanForm extends React.Component<Props, States> {
             },
             {
               type: "dropdown",
+              label: "Custodian",
+              name: "custodian",
+              options: Object.entries(CUSTODIAN).map(([key, value]) => ({
+                label: value,
+                value: key,
+              })),
+            },
+            {
+              type: "dropdown",
               label: "Status",
               name: "status",
-              options: [
-                { label: "Pass", value: "pass" },
-                { label: "Broken", value: "broken" },
-                { label: "Others", value: "others" },
-              ],
+              options: Object.entries(ITEM_STATUS)
+                .map(([key, value]) => ({
+                  label: value,
+                  value: key,
+                }))
+                .filter((option) => option.label !== ITEM_STATUS[0]),
             },
             {
               type: "textarea",
@@ -88,6 +151,12 @@ class ScanForm extends React.Component<Props, States> {
               name: "remark",
             },
           ]}
+          footers={
+            <Text>
+              Scanned: {getScannedCount(locationToScan.location)} / Total:{" "}
+              {locationToScan.scanQty}
+            </Text>
+          }
           buttons={[
             {
               label: "Back",
@@ -105,9 +174,17 @@ class ScanForm extends React.Component<Props, States> {
           onSubmit={handleSubmit}
           validate={(values) => {
             const errors: any = {};
-            if (!values.assetNo) {
-              errors.assetNo = "Asset No is required";
-            }
+            const requiredFields = {
+              assetNo: "Asset No is required",
+              inventoryNo: "Inventory No is required",
+              status: "Status is required",
+              remark: "Remark is required",
+            };
+            Object.entries(requiredFields).map(([key, value]) => {
+              if (!values[key]) {
+                errors[key] = value;
+              }
+            });
             return errors;
           }}
           onFormikReady={this.handleFormikReady}
@@ -115,12 +192,33 @@ class ScanForm extends React.Component<Props, States> {
         <BarcodeScanner
           open={startScan}
           handleCloseScanner={() => {
-            if (this.formikApi) {
-              this.formikApi.setFieldValue("assetNo", "123");
+            const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+            const item = items.find(
+              (i) => `${i.Anln1}-${i.Anln2}` === "41002815-0"
+            );
+            checkItem(item);
+            if (this.formikApi && item) {
+              this.formikApi.setValues({
+                assetNo: `${item.Bukrs}-${item.Anln1}-${item.Anln2}`,
+                inventoryNo: item.Invnr,
+                description: item.Txt50,
+                custodian: item.Ord41,
+                status: item.Status,
+                remark: item.Remark,
+              });
             }
             openScanner(false);
           }}
-          callback={(msg) => {
+          callback={(code) => {
+            const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+            const item = items.find((i) => `${i.Anln1}-${i.Anln2}` === code);
+            checkItem(item);
+            if (this.formikApi && item) {
+              this.formikApi.setFieldValue(
+                "assetNo",
+                `${item.Bukrs}-${item.Anln1}-${item.Anln2}`
+              );
+            }
             openScanner(false);
           }}
         />

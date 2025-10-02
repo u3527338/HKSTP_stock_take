@@ -8,6 +8,7 @@ import Download from "../screen/Download";
 import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
+import Text from "../component/Text";
 
 const css = `
   .no-display {
@@ -118,9 +119,7 @@ class Application extends React.Component<Props, States> {
           {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
           {getAppMode === AppMode.SYNC && <Sync context={context} />}
         </div>
-        <span style={{ color: COLOR_MAIN }}>
-          Email: {getCurrentUser(context).email}
-        </span>
+        <Text>Email: {getCurrentUser(context).email}</Text>
       </div>
     );
   }

@@ -1,11 +1,15 @@
 import * as React from "react";
-import { AppMode, isItemScanned } from "../function/helper";
-import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import ScanForm from "../component/ScanForm";
 import Table from "../component/Table";
 import { ITEM_STATUS } from "../constants";
+import {
+  AppMode,
+  formatAssetSubNo,
+  isItemScanned
+} from "../function/helper";
+import { useContext } from "../hook/useContext";
 
 interface Props {
   context: CodeInContext;
@@ -15,7 +19,7 @@ interface States {
   data: any[];
   selectedLocation: any[];
   itemListData: any[];
-  locationToScan: string;
+  locationToScan: { location: string; scanQty: number; scanned: number };
 }
 
 class StockTake extends React.Component<Props, States> {
@@ -31,10 +35,6 @@ class StockTake extends React.Component<Props, States> {
     };
   }
 
-  setData(newData) {
-    this.setState({ data: newData });
-  }
-
   render() {
     const { context } = this.props;
     const { data, selectedLocation, itemListData, locationToScan } = this.state;
@@ -46,9 +46,15 @@ class StockTake extends React.Component<Props, States> {
       { title: "Scanned", field: "Scanned" },
       { title: "Total Item", field: "ScanQty" },
     ];
-
     const itemListColumns = [
-      { title: "Asset No.", field: "Apdat" },
+      {
+        title: "Asset No.",
+        field: "AssetNo",
+        formatter: (cell, params) => {
+          const item = cell.getRow().getData();
+          return `${item.Bukrs}-${item.Anln1}-${formatAssetSubNo(item.Anln2)}`;
+        },
+      },
       { title: "Inventory No.", field: "Invnr" },
       { title: "Description", field: "Txt50" },
       { title: "Remark", field: "Remark" },
@@ -96,7 +102,13 @@ class StockTake extends React.Component<Props, States> {
       scan: {
         label: "Scan",
         onClick: () => {
-          this.setState({ locationToScan: selectedLocation[0].Stort });
+          this.setState({
+            locationToScan: {
+              location: selectedLocation[0].Stort,
+              scanQty: parseInt(selectedLocation[0].ScanQty),
+              scanned: parseInt(selectedLocation[0].Scanned),
+            },
+          });
         },
         disabled: !selectedLocation.length,
       },
@@ -169,9 +181,11 @@ class StockTake extends React.Component<Props, States> {
         )}
         {locationToScan && (
           <ScanForm
-            key={locationToScan}
+            key={locationToScan.location}
             locationToScan={locationToScan}
-            onBack={() => this.setState({ locationToScan: null })}
+            onBack={() => {
+              this.setState({ locationToScan: null });
+            }}
           />
         )}
       </div>
