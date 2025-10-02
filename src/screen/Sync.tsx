@@ -90,6 +90,7 @@ class Sync extends React.Component<Props, States> {
     return (
       <div>
         <Table
+          id="sync"
           context={context}
           title="Sync Stock Take Result"
           data={data.map((d) => ({

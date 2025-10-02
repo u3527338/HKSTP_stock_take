@@ -40,6 +40,7 @@ declare global {
 }
 
 interface Props {
+  id: string;
   context: CodeInContext;
   title?: string;
   data: any[];
@@ -124,12 +125,12 @@ class Table extends React.Component<Props> {
   }
 
   render() {
-    const { title } = this.props;
+    const { id, title } = this.props;
     return (
       <div>
         <style>{css}</style>
         {title && <Title title={title} />}
-        <div id="example-table" ref={(el) => (this.containerRef = el)}></div>
+        <div id={id} ref={(el) => (this.containerRef = el)}></div>
       </div>
     );
   }

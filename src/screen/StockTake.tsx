@@ -4,11 +4,7 @@ import ButtonGroup from "../component/ButtonGroup";
 import ScanForm from "../component/ScanForm";
 import Table from "../component/Table";
 import { ITEM_STATUS } from "../constants";
-import {
-  AppMode,
-  formatAssetSubNo,
-  isItemScanned
-} from "../function/helper";
+import { AppMode, formatAssetSubNo, isItemScanned } from "../function/helper";
 import { useContext } from "../hook/useContext";
 
 interface Props {
@@ -19,7 +15,7 @@ interface States {
   data: any[];
   selectedLocation: any[];
   itemListData: any[];
-  locationToScan: { location: string; scanQty: number; scanned: number };
+  locationToScan: { location: string; scanQty: number };
 }
 
 class StockTake extends React.Component<Props, States> {
@@ -106,7 +102,6 @@ class StockTake extends React.Component<Props, States> {
             locationToScan: {
               location: selectedLocation[0].Stort,
               scanQty: parseInt(selectedLocation[0].ScanQty),
-              scanned: parseInt(selectedLocation[0].Scanned),
             },
           });
         },
@@ -135,6 +130,7 @@ class StockTake extends React.Component<Props, States> {
             {!itemListData.length && (
               <div>
                 <Table
+                  id="stock_take"
                   context={context}
                   title="Stock Take"
                   data={data}
@@ -158,6 +154,7 @@ class StockTake extends React.Component<Props, States> {
             {itemListData.length > 0 && (
               <div>
                 <Table
+                  id="stock_take-item_list"
                   context={context}
                   title="Stock Take - Item List"
                   data={itemListData}

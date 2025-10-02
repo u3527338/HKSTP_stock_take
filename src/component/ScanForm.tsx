@@ -7,7 +7,7 @@ import Text from "./Text";
 import { getScannedCount, updateScanStatus } from "../function/helper";
 
 interface Props {
-  locationToScan: { location: string; scanQty: number; scanned: number };
+  locationToScan: { location: string; scanQty: number };
   onBack: () => void;
 }
 

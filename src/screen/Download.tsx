@@ -89,6 +89,7 @@ class Download extends React.Component<Props, States> {
     return (
       <div>
         <Table
+          id="download"
           context={context}
           title="Download Stock Take List"
           data={data.map((d) => ({
