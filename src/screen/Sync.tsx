@@ -48,8 +48,8 @@ class Sync extends React.Component<Props, States> {
 
     const syncStockTakeList = (all: boolean = false) => {
       const data = JSON.parse(localStorage.getItem("CREATE_STOCK_TAKE")) || {};
-      const n_sheet = Object.entries(data).map(([key, value]) => value);
       const selectedDataToSync = syncData.map((s) => s.Stort);
+      const n_sheet = Object.entries(data).map(([key, value]) => value);
       const filtered_n_sheet = n_sheet.filter((sheet: any) =>
         selectedDataToSync.includes(sheet.Stort)
       );

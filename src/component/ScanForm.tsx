@@ -1,10 +1,10 @@
+import * as _ from "lodash";
 import * as React from "react";
+import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
+import { getScannedCount, updateScanStatus } from "../function/helper";
 import BarcodeScanner from "./BarcodeScanner";
 import Form from "./Form";
-import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
-import * as _ from "lodash";
 import Text from "./Text";
-import { getScannedCount, updateScanStatus } from "../function/helper";
 
 interface Props {
   locationToScan: { location: string; scanQty: number };
@@ -111,6 +111,23 @@ class ScanForm extends React.Component<Props, States> {
       this.setState({ scannedItem });
     };
 
+    const handleScannedCode = (code) => {
+      const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+      const item = items.find((i) => `${i.Anln1}-${i.Anln2}` === code);
+      checkItem(item);
+      if (this.formikApi && item) {
+        this.formikApi.setValues({
+          assetNo: `${item.Bukrs}-${item.Anln1}-${item.Anln2}`,
+          inventoryNo: item.Invnr,
+          description: item.Txt50,
+          custodian: item.Ord41,
+          status: item.Status,
+          remark: item.Remark,
+        });
+      }
+      openScanner(false);
+    };
+
     return (
       <div>
         <Form
@@ -196,34 +213,10 @@ class ScanForm extends React.Component<Props, States> {
         <BarcodeScanner
           open={startScan}
           handleCloseScanner={() => {
-            const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
-            const item = items.find(
-              (i) => `${i.Anln1}-${i.Anln2}` === "41002815-0"
-            );
-            checkItem(item);
-            if (this.formikApi && item) {
-              this.formikApi.setValues({
-                assetNo: `${item.Bukrs}-${item.Anln1}-${item.Anln2}`,
-                inventoryNo: item.Invnr,
-                description: item.Txt50,
-                custodian: item.Ord41,
-                status: item.Status,
-                remark: item.Remark,
-              });
-            }
-            openScanner(false);
+            handleScannedCode("41002815-0");
           }}
           callback={(code) => {
-            const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
-            const item = items.find((i) => `${i.Anln1}-${i.Anln2}` === code);
-            checkItem(item);
-            if (this.formikApi && item) {
-              this.formikApi.setFieldValue(
-                "assetNo",
-                `${item.Bukrs}-${item.Anln1}-${item.Anln2}`
-              );
-            }
-            openScanner(false);
+            handleScannedCode(code);
           }}
         />
       </div>
