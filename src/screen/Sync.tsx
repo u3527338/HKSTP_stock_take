@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppMode } from "../function/helper";
+import { AppMode, getScannedCount } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import Table from "../component/Table";
@@ -46,10 +46,19 @@ class Sync extends React.Component<Props, States> {
     const { data, syncData } = this.state;
     const { setAppMode } = useContext(context);
 
-    const syncStockTakeList = (all: boolean) => {
-      const dataToSync = all ? data : _.intersectionBy(data, syncData, "Stort");
-      this.updateStockTakeList(dataToSync);
-      this.updateSyncList(dataToSync);
+    const syncStockTakeList = (all: boolean = false) => {
+      const data = JSON.parse(localStorage.getItem("CREATE_STOCK_TAKE")) || {};
+      const n_sheet = Object.entries(data).map(([key, value]) => value);
+      const selectedDataToSync = syncData.map((s) => s.Stort);
+      const filtered_n_sheet = n_sheet.filter((sheet: any) =>
+        selectedDataToSync.includes(sheet.Stort)
+      );
+      const body = {
+        countid: "",
+        n_errmsg: "",
+        n_sheet: all ? n_sheet : filtered_n_sheet,
+      };
+      console.log(body);
     };
 
     const columns = [
@@ -70,14 +79,14 @@ class Sync extends React.Component<Props, States> {
       sync_all: {
         label: "Sync All",
         onClick: () => {
-          console.log("sync all");
+          syncStockTakeList(true);
         },
         disabled: false,
       },
       sync: {
         label: "Sync",
         onClick: () => {
-          console.log("sync");
+          syncStockTakeList();
         },
         disabled: !syncData.length,
       },
