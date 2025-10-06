@@ -4,7 +4,12 @@ import ButtonGroup from "../component/ButtonGroup";
 import ScanForm from "../component/ScanForm";
 import Table from "../component/Table";
 import { ITEM_STATUS } from "../constants";
-import { AppMode, formatAssetSubNo, isItemScanned } from "../function/helper";
+import {
+  AppMode,
+  formatAssetSubNo,
+  getFromStorage,
+  isItemScanned,
+} from "../function/helper";
 import { useContext } from "../hook/useContext";
 
 interface Props {
@@ -21,8 +26,7 @@ interface States {
 class StockTake extends React.Component<Props, States> {
   constructor(props) {
     super(props);
-    const STOCK_TAKE_DATA =
-      JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")) || [];
+    const STOCK_TAKE_DATA = getFromStorage("STOCK_TAKE_DATA");
     this.state = {
       data: STOCK_TAKE_DATA,
       selectedLocation: [],
@@ -85,7 +89,7 @@ class StockTake extends React.Component<Props, States> {
         label: "Item List",
         onClick: () => {
           const selectedLocation = this.state.selectedLocation[0];
-          const sheetData = JSON.parse(localStorage.getItem("SHEET_DATA"));
+          const sheetData = getFromStorage("SHEET_DATA");
           const itemListData = sheetData.filter(
             (sd) =>
               sd.Stort === selectedLocation.Stort &&
@@ -183,7 +187,8 @@ class StockTake extends React.Component<Props, States> {
             onBack={() => {
               this.setState({
                 locationToScan: null,
-                data: JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")),
+                selectedLocation: [],
+                data: getFromStorage("STOCK_TAKE_DATA"),
               });
             }}
           />

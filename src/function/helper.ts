@@ -65,7 +65,7 @@ export const isItemScanned = (status) => !!status && parseInt(status) !== 0;
 export const formatAssetSubNo = (numStr) => numStr.padStart(4, "0");
 
 export const getScannedCount = (location) => {
-  const items = JSON.parse(localStorage.getItem("SHEET_DATA")) || [];
+  const items = getFromStorage("SHEET_DATA");
   const scannedItems: any[] = items.filter(
     (item) => item.Stort === location && isItemScanned(item.Status)
   );
@@ -73,9 +73,8 @@ export const getScannedCount = (location) => {
 };
 
 export const updateDownloadStatus = (dataToDownload: any[]) => {
-  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
-  const preDownloadedList =
-    JSON.parse(localStorage.getItem("STOCK_TAKE_DATA")) || [];
+  const locationData = getFromStorage("LOCATION_DATA");
+  const preDownloadedList = getFromStorage("STOCK_TAKE_DATA");
   localStorage.setItem(
     "LOCATION_DATA",
     JSON.stringify(
@@ -93,23 +92,48 @@ export const updateDownloadStatus = (dataToDownload: any[]) => {
 };
 
 export const updateScanStatus = () => {
-  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+  const locationData = getFromStorage("LOCATION_DATA");
+  localStorage.setItem(
+    "LOCATION_DATA",
+    JSON.stringify(
+      locationData.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
+    )
+  );
+  updateStockTakeData();
+};
+
+export const updateSyncStatus = (dataToSync: any[]) => {
+  const locationData = getFromStorage("LOCATION_DATA");
   localStorage.setItem(
     "LOCATION_DATA",
     JSON.stringify(
       locationData.map((l) => ({
         ...l,
-        Scanned: getScannedCount(l.Stort),
+        Synced: dataToSync.map((_d) => _d.Stort).includes(l.Stort) || l.Synced,
       }))
     )
   );
-  updateDownloadedScanStatus();
+  updateStockTakeData();
 };
 
-export const updateDownloadedScanStatus = () => {
-  const locationData = JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+export const updateStockTakeData = () => {
+  const locationData = getFromStorage("LOCATION_DATA");
   localStorage.setItem(
     "STOCK_TAKE_DATA",
     JSON.stringify(locationData.filter((r) => r.Downloaded))
   );
+};
+
+type NAME =
+  | "LOCATION_DATA"
+  | "STOCK_TAKE_DATA"
+  | "SHEET_DATA"
+  | "CREATE_STOCK_TAKE";
+
+export const getFromStorage = (
+  name: NAME,
+  type: "list" | "object" = "list"
+) => {
+  const fallback = type === "list" ? [] : {};
+  return JSON.parse(localStorage.getItem(name)) || fallback;
 };

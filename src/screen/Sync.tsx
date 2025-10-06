@@ -1,10 +1,9 @@
 import * as React from "react";
-import { AppMode, getScannedCount } from "../function/helper";
-import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
-import Table from "../component/Table";
 import ButtonGroup from "../component/ButtonGroup";
-import * as _ from "lodash";
+import Table from "../component/Table";
+import { AppMode, getFromStorage, updateSyncStatus } from "../function/helper";
+import { useContext } from "../hook/useContext";
 
 interface Props {
   context: CodeInContext;
@@ -18,27 +17,17 @@ interface States {
 class Sync extends React.Component<Props, States> {
   constructor(props) {
     super(props);
-    const LOCATION_DATA =
-      JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+    const STOCK_TAKE_DATA = getFromStorage("STOCK_TAKE_DATA");
     this.state = {
-      data: LOCATION_DATA,
+      data: STOCK_TAKE_DATA,
       syncData: [],
     };
   }
 
-  updateStockTakeList = (dataToSync: any[]) => {
-    localStorage.setItem("STOCK_TAKE_DATA", JSON.stringify(dataToSync));
-  };
-
   updateSyncList = (dataToSync: any[]) => {
-    const { data } = this.state;
-    const refreshData = data.map((d) => ({
-      ...d,
-      Scanned: 0,
-      Synced: dataToSync.map((_d) => _d.Stort).includes(d.Stort),
-    }));
-    localStorage.setItem("LOCATION_DATA", JSON.stringify(refreshData));
-    this.setState({ data: refreshData });
+    updateSyncStatus(dataToSync);
+    const locationData = getFromStorage("STOCK_TAKE_DATA");
+    this.setState({ data: locationData });
   };
 
   render() {
@@ -47,9 +36,11 @@ class Sync extends React.Component<Props, States> {
     const { setAppMode } = useContext(context);
 
     const syncStockTakeList = (all: boolean = false) => {
-      const data = JSON.parse(localStorage.getItem("CREATE_STOCK_TAKE")) || {};
+      const stockTakeData = getFromStorage("CREATE_STOCK_TAKE", "object");
       const selectedDataToSync = syncData.map((s) => s.Stort);
-      const n_sheet = Object.entries(data).map(([key, value]) => value);
+      const n_sheet = Object.entries(stockTakeData).map(
+        ([key, value]) => value
+      );
       const filtered_n_sheet = n_sheet.filter((sheet: any) =>
         selectedDataToSync.includes(sheet.Stort)
       );
@@ -59,6 +50,7 @@ class Sync extends React.Component<Props, States> {
         n_sheet: all ? n_sheet : filtered_n_sheet,
       };
       console.log(body);
+      this.updateSyncList(all ? data : syncData);
     };
 
     const columns = [
@@ -81,7 +73,7 @@ class Sync extends React.Component<Props, States> {
         onClick: () => {
           syncStockTakeList(true);
         },
-        disabled: false,
+        disabled: data.length === 0,
       },
       sync: {
         label: "Sync",

@@ -17,7 +17,7 @@ export const CUSTODIAN = {
   FMO: "FMO",
   HR: "HR",
   ICT: "ICT",
-  INCU: "INCU",
+  INC: "INC",
   MKT: "MKT",
   ROBO: "ROBO",
 };

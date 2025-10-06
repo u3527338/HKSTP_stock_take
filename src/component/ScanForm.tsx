@@ -1,7 +1,11 @@
 import * as _ from "lodash";
 import * as React from "react";
 import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
-import { getScannedCount, updateScanStatus } from "../function/helper";
+import {
+  getFromStorage,
+  getScannedCount,
+  updateScanStatus,
+} from "../function/helper";
 import BarcodeScanner from "./BarcodeScanner";
 import Form from "./Form";
 import Text from "./Text";
@@ -62,15 +66,14 @@ class ScanForm extends React.Component<Props, States> {
         ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
         ...formData,
       };
-      const CREATE_STOCK_TAKE =
-        JSON.parse(localStorage.getItem("CREATE_STOCK_TAKE")) || {};
+      const CREATE_STOCK_TAKE = getFromStorage("CREATE_STOCK_TAKE", "object");
       CREATE_STOCK_TAKE[`${scannedItem.Anln1}-${scannedItem.Anln2}`] = newItem;
       localStorage.setItem(
         "CREATE_STOCK_TAKE",
         JSON.stringify(CREATE_STOCK_TAKE)
       );
 
-      const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+      const items = getFromStorage("SHEET_DATA");
       localStorage.setItem(
         "SHEET_DATA",
         JSON.stringify(
@@ -112,7 +115,7 @@ class ScanForm extends React.Component<Props, States> {
     };
 
     const handleScannedCode = (code) => {
-      const items = JSON.parse(localStorage.getItem("SHEET_DATA"));
+      const items = getFromStorage("SHEET_DATA");
       const item = items.find((i) => `${i.Anln1}-${i.Anln2}` === code);
       checkItem(item);
       if (this.formikApi && item) {

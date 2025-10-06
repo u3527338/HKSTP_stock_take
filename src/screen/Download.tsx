@@ -1,16 +1,15 @@
+import * as _ from "lodash";
 import * as React from "react";
+import { Button } from "../component/Button";
+import ButtonGroup from "../component/ButtonGroup";
+import Table from "../component/Table";
 import {
   AppMode,
-  getScannedCount,
-  isItemScanned,
+  getFromStorage,
   updateDownloadStatus,
   updateScanStatus,
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
-import { Button } from "../component/Button";
-import Table from "../component/Table";
-import ButtonGroup from "../component/ButtonGroup";
-import * as _ from "lodash";
 
 interface Props {
   context: CodeInContext;
@@ -24,8 +23,7 @@ interface States {
 class Download extends React.Component<Props, States> {
   constructor(props) {
     super(props);
-    const LOCATION_DATA =
-      JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+    const LOCATION_DATA = getFromStorage("LOCATION_DATA");
     this.state = {
       data: LOCATION_DATA,
       downloadData: [],
@@ -35,8 +33,7 @@ class Download extends React.Component<Props, States> {
   updateDownloadedList = (dataToDownload: any[]) => {
     updateDownloadStatus(dataToDownload);
     updateScanStatus();
-    const locationData =
-      JSON.parse(localStorage.getItem("LOCATION_DATA")) || [];
+    const locationData = getFromStorage("LOCATION_DATA");
     this.setState({ data: locationData });
   };
 
