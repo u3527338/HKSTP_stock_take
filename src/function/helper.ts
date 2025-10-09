@@ -75,52 +75,46 @@ export const getScannedCount = (location) => {
 export const updateDownloadStatus = (dataToDownload: any[]) => {
   const locationData = getFromStorage("LOCATION_DATA");
   const preDownloadedList = getFromStorage("STOCK_TAKE_DATA");
-  localStorage.setItem(
+  setToStorage(
     "LOCATION_DATA",
-    JSON.stringify(
-      locationData.map((l) => {
-        return {
-          ...l,
-          Downloaded: dataToDownload
-            .concat(preDownloadedList)
-            .map((_d) => _d.Stort)
-            .includes(l.Stort),
-        };
-      })
-    )
+    locationData.map((l) => {
+      return {
+        ...l,
+        Downloaded: dataToDownload
+          .concat(preDownloadedList)
+          .map((_d) => _d.Stort)
+          .includes(l.Stort),
+      };
+    })
   );
 };
 
 export const updateScanStatus = () => {
   const locationData = getFromStorage("LOCATION_DATA");
-  localStorage.setItem(
+  setToStorage(
     "LOCATION_DATA",
-    JSON.stringify(
-      locationData.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
-    )
+    locationData.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
   );
   updateStockTakeData();
 };
 
 export const updateSyncStatus = (dataToSync: any[]) => {
   const locationData = getFromStorage("LOCATION_DATA");
-  localStorage.setItem(
+  setToStorage(
     "LOCATION_DATA",
-    JSON.stringify(
-      locationData.map((l) => ({
-        ...l,
-        Synced: dataToSync.map((_d) => _d.Stort).includes(l.Stort) || l.Synced,
-      }))
-    )
+    locationData.map((l) => ({
+      ...l,
+      Synced: dataToSync.map((_d) => _d.Stort).includes(l.Stort) || l.Synced,
+    }))
   );
   updateStockTakeData();
 };
 
 export const updateStockTakeData = () => {
   const locationData = getFromStorage("LOCATION_DATA");
-  localStorage.setItem(
+  setToStorage(
     "STOCK_TAKE_DATA",
-    JSON.stringify(locationData.filter((r) => r.Downloaded))
+    locationData.filter((r) => r.Downloaded)
   );
 };
 
@@ -136,4 +130,8 @@ export const getFromStorage = (
 ) => {
   const fallback = type === "list" ? [] : {};
   return JSON.parse(localStorage.getItem(name)) || fallback;
+};
+
+export const setToStorage = (name: NAME, value) => {
+  localStorage.setItem(name, JSON.stringify(value));
 };

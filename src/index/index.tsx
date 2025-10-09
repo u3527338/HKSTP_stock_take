@@ -1,14 +1,18 @@
 import * as React from "react";
-import DisplayControl from "../component/DisplayControl";
+import Text from "../component/Text";
 import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
-import { AppMode, getCurrentUser, loadResources } from "../function/helper";
+import {
+  AppMode,
+  getCurrentUser,
+  loadResources,
+  setToStorage,
+} from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
 import Download from "../screen/Download";
 import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
-import Text from "../component/Text";
 
 const css = `
   .no-display {
@@ -70,21 +74,16 @@ class Application extends React.Component<Props, States> {
       this.setState({ loadScript: true });
       setAppMode(AppMode.MENU);
       if (!localStorage.getItem("LOCATION_DATA")) {
-        localStorage.setItem(
+        setToStorage(
           "LOCATION_DATA",
-          JSON.stringify(
-            LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
-              ...l,
-              Downloaded: false,
-            }))
-          )
+          LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
+            ...l,
+            Downloaded: false,
+          }))
         );
       }
       if (!localStorage.getItem("SHEET_DATA")) {
-        localStorage.setItem(
-          "SHEET_DATA",
-          JSON.stringify(SHEET_DATA.StockTakeSheetSet.StockTakeSheet)
-        );
+        setToStorage("SHEET_DATA", SHEET_DATA.StockTakeSheetSet.StockTakeSheet);
       }
     });
   }
