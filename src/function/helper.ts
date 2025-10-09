@@ -73,36 +73,28 @@ export const getScannedCount = (location) => {
 };
 
 export const updateDownloadStatus = (dataToDownload: any[]) => {
-  const locationData = getFromStorage("LOCATION_DATA");
   const preDownloadedList = getFromStorage("STOCK_TAKE_DATA");
-  setToStorage(
-    "LOCATION_DATA",
-    locationData.map((l) => {
-      return {
-        ...l,
-        Downloaded: dataToDownload
-          .concat(preDownloadedList)
-          .map((_d) => _d.Stort)
-          .includes(l.Stort),
-      };
-    })
+  updateStorage("LOCATION_DATA", (d) =>
+    d.map((l) => ({
+      ...l,
+      Downloaded: dataToDownload
+        .concat(preDownloadedList)
+        .map((_d) => _d.Stort)
+        .includes(l.Stort),
+    }))
   );
 };
 
 export const updateScanStatus = () => {
-  const locationData = getFromStorage("LOCATION_DATA");
-  setToStorage(
-    "LOCATION_DATA",
-    locationData.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
+  updateStorage("LOCATION_DATA", (d) =>
+    d.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
   );
   updateStockTakeData();
 };
 
 export const updateSyncStatus = (dataToSync: any[]) => {
-  const locationData = getFromStorage("LOCATION_DATA");
-  setToStorage(
-    "LOCATION_DATA",
-    locationData.map((l) => ({
+  updateStorage("LOCATION_DATA", (d) =>
+    d.map((l) => ({
       ...l,
       Synced: dataToSync.map((_d) => _d.Stort).includes(l.Stort) || l.Synced,
     }))
@@ -111,10 +103,8 @@ export const updateSyncStatus = (dataToSync: any[]) => {
 };
 
 export const updateStockTakeData = () => {
-  const locationData = getFromStorage("LOCATION_DATA");
-  setToStorage(
-    "STOCK_TAKE_DATA",
-    locationData.filter((r) => r.Downloaded)
+  updateStorage(["LOCATION_DATA", "STOCK_TAKE_DATA"], (d) =>
+    d.filter((r) => r.Downloaded)
   );
 };
 
@@ -134,4 +124,14 @@ export const getFromStorage = (
 
 export const setToStorage = (name: NAME, value) => {
   localStorage.setItem(name, JSON.stringify(value));
+};
+
+export const updateStorage = (
+  name: NAME[] | NAME,
+  func: (d) => any,
+  type: "list" | "object" = "list"
+) => {
+  let keys: NAME[] = typeof name === "string" ? [name, name] : name;
+  const rawData = getFromStorage(keys[0], type);
+  localStorage.setItem(keys[1], JSON.stringify(func(rawData)));
 };

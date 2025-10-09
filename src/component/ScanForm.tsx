@@ -4,8 +4,8 @@ import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
 import {
   getFromStorage,
   getScannedCount,
-  setToStorage,
   updateScanStatus,
+  updateStorage,
 } from "../function/helper";
 import BarcodeScanner from "./BarcodeScanner";
 import Form from "./Form";
@@ -67,14 +67,16 @@ class ScanForm extends React.Component<Props, States> {
         ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
         ...formData,
       };
-      const CREATE_STOCK_TAKE = getFromStorage("CREATE_STOCK_TAKE", "object");
-      CREATE_STOCK_TAKE[`${scannedItem.Anln1}-${scannedItem.Anln2}`] = newItem;
-      setToStorage("CREATE_STOCK_TAKE", CREATE_STOCK_TAKE);
-
-      const items = getFromStorage("SHEET_DATA");
-      setToStorage(
-        "SHEET_DATA",
-        items.map((i) =>
+      updateStorage(
+        "CREATE_STOCK_TAKE",
+        (d) => ({
+          ...d,
+          [`${scannedItem.Anln1}-${scannedItem.Anln2}`]: newItem,
+        }),
+        "object"
+      );
+      updateStorage("SHEET_DATA", (d) =>
+        d.map((i) =>
           `${i.Anln1}-${i.Anln2}` ===
           `${scannedItem.Anln1}-${scannedItem.Anln2}`
             ? {
