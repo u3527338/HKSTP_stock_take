@@ -3,6 +3,7 @@ import Text from "../component/Text";
 import ToastProvider from "../component/ToastProvider";
 import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import {
+  addCameraPermissionListener,
   AppMode,
   getCurrentUser,
   loadResources,
@@ -95,9 +96,12 @@ class Application extends React.Component<Props, States> {
       const response = await getInitInfo();
     };
     // fetchInfo();
+    addCameraPermissionListener();
   }
 
-  componentWillUnmount(): void {}
+  componentWillUnmount(): void {
+    addCameraPermissionListener(false);
+  }
 
   render() {
     const { context } = this.props;

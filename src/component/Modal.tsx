@@ -60,7 +60,7 @@ export class Modal extends React.Component<CodeProps> {
       <div>
         <style>{css}</style>
         <div
-          onMouseDown={handleModalClick}
+          // onMouseDown={handleModalClick}
           className={open ? "modal display-block" : "modal display-none"}
         >
           <section style={{ zIndex: 1 }} className="modal-main modal-cart">

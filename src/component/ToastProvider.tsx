@@ -16,7 +16,7 @@ export const flushToastQueue = (addToast) => {
   toastQueue = [];
 };
 
-type ToastType = "success" | "info" | "error";
+type ToastType = "success" | "info" | "warning" | "error";
 type Position =
   | "top-left"
   | "top-center"
@@ -112,9 +112,21 @@ class ToastProvider extends React.Component<
     ToastProvider.instance = this;
   }
 
-  addToast = (message: string, type: ToastType = "info") => {
-    const id = Date.now() + Math.random();
+  hashString = (str: string): number => {
+    let hash = 0,
+      i,
+      chr;
+    for (i = 0; i < str.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = (hash << 5) - hash + chr;
+      hash |= 0;
+    }
+    return hash;
+  };
 
+  addToast = (message: string, type: ToastType = "info") => {
+    const id = this.hashString(message + type);
+    if (this.state.toasts.some((t) => t.id === id)) return;
     this.setState((prev) => ({
       toasts: [...prev.toasts, { id, message, type }],
     }));
@@ -144,8 +156,10 @@ class ToastProvider extends React.Component<
         return "#2ecc71";
       case "error":
         return "#e74c3c";
-      case "info":
+      case "warning":
         return "#d1bc33";
+      case "info":
+        return "#3498db";
       default:
         return "#333";
     }
@@ -169,6 +183,7 @@ class ToastProvider extends React.Component<
                   color: "white",
                   marginBottom: "10px",
                   gap: "20px",
+                  justifyContent: "space-between",
                 }}
               >
                 {t.message}

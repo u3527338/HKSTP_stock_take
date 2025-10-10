@@ -1,3 +1,4 @@
+import { showToast } from "../component/ToastProvider";
 import { MODULE_COMMON } from "../constants";
 
 const isScriptLoaded = (id: string, type) => {
@@ -134,4 +135,24 @@ export const updateStorage = (
   let keys: NAME[] = typeof name === "string" ? [name, name] : name;
   const rawData = getFromStorage(keys[0], type);
   localStorage.setItem(keys[1], JSON.stringify(func(rawData)));
+};
+
+export const addCameraPermissionListener = (activate = true) => {
+  navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
+    permissionStatus.onchange = activate
+      ? () => {
+          showToast(`Camera permission ${permissionStatus.state}`, "info");
+        }
+      : null;
+  });
+};
+
+export const checkCameraPermission = (startScanner) => {
+  navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
+    if (permissionStatus.state === "granted") {
+      startScanner();
+    } else {
+      showToast("Camera access is required", "error");
+    }
+  });
 };

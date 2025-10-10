@@ -122,7 +122,10 @@ class ScanForm extends React.Component<Props, States> {
         );
       const SCANNED = getFromStorage("CREATE_STOCK_TAKE", "object");
       if (Object.keys(SCANNED).includes(formattedCode(scannedItem)))
-        showToast("This stock has been scanned without synchronizing", "info");
+        showToast(
+          "This stock has been scanned without synchronizing",
+          "warning"
+        );
       this.setState({ scannedItem });
     };
 
@@ -228,7 +231,7 @@ class ScanForm extends React.Component<Props, States> {
         <BarcodeScanner
           open={startScan}
           handleCloseScanner={() => {
-            handleScannedCode("41002815-0");
+            openScanner(false);
           }}
           callback={(code) => {
             handleScannedCode(code);
