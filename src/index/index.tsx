@@ -1,5 +1,6 @@
 import * as React from "react";
 import Text from "../component/Text";
+import ToastProvider from "../component/ToastProvider";
 import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import {
   AppMode,
@@ -89,15 +90,11 @@ class Application extends React.Component<Props, States> {
   }
 
   componentDidMount(): void {
-    const { getToken, getLocation } = useHttpRequest(this.props.context);
-    const fetchToken = async () => {
-      const response = await getToken();
-      console.log(response);
+    const { getInitInfo } = useHttpRequest(this.props.context);
+    const fetchInfo = async () => {
+      const response = await getInitInfo();
     };
-    const fetchLocation = async () => {
-      const response = await getLocation();
-    };
-    fetchToken();
+    // fetchInfo();
   }
 
   componentWillUnmount(): void {}
@@ -126,7 +123,12 @@ class Application extends React.Component<Props, States> {
 
 export class CodeInApplication implements CodeInComp {
   render(context: CodeInContext, fieldsValues: any, readonly: boolean) {
-    return <Application context={context} />;
+    return (
+      <div>
+        <Application context={context} />
+        <ToastProvider position="top-center" />
+      </div>
+    );
   }
 
   requiredFields() {

@@ -10,6 +10,7 @@ import {
 import BarcodeScanner from "./BarcodeScanner";
 import Form from "./Form";
 import Text from "./Text";
+import { showToast } from "./ToastProvider";
 
 interface Props {
   locationToScan: { location: string; scanQty: number };
@@ -91,6 +92,7 @@ class ScanForm extends React.Component<Props, States> {
       this.setState({
         scannedCount: getScannedCount(this.props.locationToScan.location),
       });
+      showToast("Saved", "success");
     };
 
     const handleSubmit = ({ submitAction, ...values }) => {
