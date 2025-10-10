@@ -119,7 +119,7 @@ class ToastProvider extends React.Component<
       toasts: [...prev.toasts, { id, message, type }],
     }));
 
-    this.timeoutIds[id] = window.setTimeout(() => this.removeToast(id), 3000);
+    this.timeoutIds[id] = window.setTimeout(() => this.removeToast(id), 5000);
   };
 
   removeToast = (id: number) => {
@@ -145,7 +145,7 @@ class ToastProvider extends React.Component<
       case "error":
         return "#e74c3c";
       case "info":
-        return "#3498db";
+        return "#d1bc33";
       default:
         return "#333";
     }

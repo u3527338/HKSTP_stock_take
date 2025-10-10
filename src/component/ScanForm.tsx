@@ -23,6 +23,8 @@ interface States {
   scannedCount: number;
 }
 
+const formattedCode = (item) => `${item.Anln1}-${item.Anln2}`;
+
 class ScanForm extends React.Component<Props, States> {
   constructor(props) {
     super(props);
@@ -72,14 +74,13 @@ class ScanForm extends React.Component<Props, States> {
         "CREATE_STOCK_TAKE",
         (d) => ({
           ...d,
-          [`${scannedItem.Anln1}-${scannedItem.Anln2}`]: newItem,
+          [formattedCode(scannedItem)]: newItem,
         }),
         "object"
       );
       updateStorage("SHEET_DATA", (d) =>
         d.map((i) =>
-          `${i.Anln1}-${i.Anln2}` ===
-          `${scannedItem.Anln1}-${scannedItem.Anln2}`
+          formattedCode(i) === formattedCode(scannedItem)
             ? {
                 ...i,
                 ...formData,
@@ -110,17 +111,28 @@ class ScanForm extends React.Component<Props, States> {
     };
 
     const checkItem = (scannedItem) => {
-      if (!scannedItem) console.log("No item found");
+      if (!scannedItem) {
+        showToast("No stock found", "error");
+        return;
+      }
+      if (scannedItem.Stort !== locationToScan.location)
+        showToast(
+          `Wrong Location. This stock should be at ${scannedItem.Stort}`,
+          "error"
+        );
+      const SCANNED = getFromStorage("CREATE_STOCK_TAKE", "object");
+      if (Object.keys(SCANNED).includes(formattedCode(scannedItem)))
+        showToast("This stock has been scanned without synchronizing", "info");
       this.setState({ scannedItem });
     };
 
     const handleScannedCode = (code) => {
       const items = getFromStorage("SHEET_DATA");
-      const item = items.find((i) => `${i.Anln1}-${i.Anln2}` === code);
+      const item = items.find((i) => formattedCode(i) === code);
       checkItem(item);
       if (this.formikApi && item) {
         this.formikApi.setValues({
-          assetNo: `${item.Bukrs}-${item.Anln1}-${item.Anln2}`,
+          assetNo: `${item.Bukrs}-${formattedCode(item)}`,
           inventoryNo: item.Invnr,
           description: item.Txt50,
           custodian: item.Ord41,
