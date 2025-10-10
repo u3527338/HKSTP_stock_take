@@ -12,26 +12,9 @@ export const ITEM_STATUS = {
 };
 
 export enum BUTTON_ICON {
-  MENU = "fa-solid fa-bars",
-  ADD = "fa-solid fa-plus",
-  DELETE = "fa fa-trash",
-  MASS_DELETE = "fa-solid fa-trash-list",
-  FILTER = "fa-solid fa-filter-list",
-  DOWNLOAD = "fa-solid fa-file-xls",
   LOADING = "fa-solid fa-spinner-third",
-  ARROW_DOWN = "fa-solid fa-down",
-  NEXT = "fa-solid fa-forward-step",
-  PREV = "fa-solid fa-backward-step",
-  FOLDER_X = "fa-solid fa-folder-xmark",
-  HIDE = "fa-solid fa-chevron-up",
-  SHOW = "fa-solid fa-chevron-down",
-  DEFAULT_ACCESS = "fa-solid fa-building-circle-check",
-  TRANSFER = "fa-solid fa-rotate-reverse",
-  UNDO = "fa-solid fa-rotate-left",
-  REDO = "fa-solid fa-rotate-right",
   REMOVE = "fa-solid fa-circle-xmark",
-  REMOVE_USER = "fa-solid fa-user-minus",
-  REMOVE_USER_GROUP = "fa-solid fa-users-slash",
+  BARCODE = "fa-solid fa-barcode"
 }
 
 export const CUSTODIAN = {

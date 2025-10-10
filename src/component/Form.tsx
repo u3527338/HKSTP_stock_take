@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import Title from "./Title";
 import { COLOR_MAIN } from "../constants";
+import { IconButton } from "./IconButton";
 
 const css = `
   form input,
@@ -120,6 +121,7 @@ const renderButtons = (buttons: any[], values) => {
         <Button
           key={i}
           label={btn.label}
+          icon={btn.icon}
           onClick={() => {
             values.submitAction = btn.value;
             if (btn.onClick) btn.onClick();

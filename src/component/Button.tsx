@@ -22,6 +22,7 @@ export const Button = ({
   disabled = false,
   loading = false,
   label,
+  icon,
   value,
   style,
 }: {
@@ -30,7 +31,8 @@ export const Button = ({
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
-  label: string;
+  label?: string;
+  icon?: any;
   value?: string;
   style?: React.CSSProperties;
 }) => {
@@ -52,7 +54,7 @@ export const Button = ({
         className={`${buttonStyle}-btn-bg ${disabled ? "btn-disabled" : ""}`}
         onClick={onClick}
       >
-        {label}
+        {label || <i className={icon} />}
       </button>
     </div>
   );

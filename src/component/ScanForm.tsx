@@ -1,6 +1,11 @@
 import * as _ from "lodash";
 import * as React from "react";
-import { CUSTODIAN, ITEM_STATUS, STOCK_TAKE_SHEET_ITEM } from "../constants";
+import {
+  BUTTON_ICON,
+  CUSTODIAN,
+  ITEM_STATUS,
+  STOCK_TAKE_SHEET_ITEM,
+} from "../constants";
 import {
   getFromStorage,
   getScannedCount,
@@ -204,7 +209,7 @@ class ScanForm extends React.Component<Props, States> {
             { label: "Save", type: "submit", value: "save" },
             { label: "Save & Next Item", type: "submit", value: "saveNext" },
             {
-              label: "Scan",
+              icon: BUTTON_ICON.BARCODE,
               onClick: () => {
                 openScanner(true);
               },
