@@ -5,7 +5,9 @@ import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
 import {
   addCameraPermissionListener,
   AppMode,
+  generateUUID,
   getCurrentUser,
+  getFromStorage,
   loadResources,
   setToStorage,
 } from "../function/helper";
@@ -119,7 +121,10 @@ class Application extends React.Component<Props, States> {
           {getAppMode === AppMode.STOCK_TAKE && <StockTake context={context} />}
           {getAppMode === AppMode.SYNC && <Sync context={context} />}
         </div>
-        <Text>Email: {getCurrentUser(context).email}</Text>
+        <div style={{ display: "inline-grid" }}>
+          <Text>Email: {getCurrentUser(context).email}</Text>
+          <Text>Last Sync Time: {getFromStorage("config")?.lastSync}</Text>
+        </div>
       </div>
     );
   }

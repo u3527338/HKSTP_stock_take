@@ -7,6 +7,8 @@ import {
   STOCK_TAKE_SHEET_ITEM,
 } from "../constants";
 import {
+  findKeyByValue,
+  getDateTime,
   getFromStorage,
   getScannedCount,
   updateScanStatus,
@@ -18,7 +20,7 @@ import Text from "./Text";
 import { showToast } from "./ToastProvider";
 
 interface Props {
-  locationToScan: { location: string; scanQty: number };
+  locationToScan: { location: string; description: string; scanQty: number };
   onBack: () => void;
 }
 
@@ -48,7 +50,7 @@ class ScanForm extends React.Component<Props, States> {
 
   render() {
     const { locationToScan, onBack } = this.props;
-    const { startScan, scannedCount } = this.state;
+    const { startScan, scannedCount, scannedItem } = this.state;
 
     const initialValues = {
       location: locationToScan.location,
@@ -61,6 +63,8 @@ class ScanForm extends React.Component<Props, States> {
       submitAction: "",
     };
 
+    const isWrongLocation = (item) => item.Stort !== locationToScan.location;
+
     const addStockTakeSheet = (values) => {
       const { scannedItem } = this.state;
       if (!scannedItem) return;
@@ -70,10 +74,13 @@ class ScanForm extends React.Component<Props, States> {
         Ord41: values.custodian,
         Status: values.status,
         Remark: values.remark,
+        LastSaved: getDateTime(),
       };
       const newItem = {
         ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
         ...formData,
+        Stort: locationToScan.location,
+        Ktext: locationToScan.description,
       };
       updateStorage(
         "CREATE_STOCK_TAKE",
@@ -102,6 +109,9 @@ class ScanForm extends React.Component<Props, States> {
     };
 
     const handleSubmit = ({ submitAction, ...values }) => {
+      checkItem(scannedItem);
+      if (Object.keys(this.formikApi?.errors).length > 0) return;
+
       if (submitAction === "save") {
         addStockTakeSheet(values);
         onBack();
@@ -115,23 +125,34 @@ class ScanForm extends React.Component<Props, States> {
       this.setState({ startScan });
     };
 
-    const checkItem = (scannedItem) => {
-      if (!scannedItem) {
-        showToast("No stock found", "error");
+    const setError = (error) => {
+      if (error) {
+        this.formikApi?.setErrors({ assetNo: error });
+        showToast(error, "error");
+      }
+    };
+
+    const checkItem = (item) => {
+      if (!item) {
+        setError("No stock record found");
         return;
       }
-      if (scannedItem.Stort !== locationToScan.location)
+
+      if (isWrongLocation(item)) {
         showToast(
-          `Wrong Location. This stock should be at ${scannedItem.Stort}`,
-          "error"
+          `Wrong Location. This stock should be at ${item.Stort}`,
+          "warning"
         );
+      }
+
       const SCANNED = getFromStorage("CREATE_STOCK_TAKE", "object");
-      if (Object.keys(SCANNED).includes(formattedCode(scannedItem)))
+      if (Object.keys(SCANNED).includes(formattedCode(item)))
         showToast(
           "This stock has been scanned without synchronizing",
           "warning"
         );
-      this.setState({ scannedItem });
+
+      if (!scannedItem) this.setState({ scannedItem: item });
     };
 
     const handleScannedCode = (code) => {
@@ -144,7 +165,9 @@ class ScanForm extends React.Component<Props, States> {
           inventoryNo: item.Invnr,
           description: item.Txt50,
           custodian: item.Ord41,
-          status: item.Status,
+          status: isWrongLocation(item)
+            ? findKeyByValue(ITEM_STATUS, "Wrong Location")
+            : item.Status,
           remark: item.Remark,
         });
       }
@@ -163,12 +186,23 @@ class ScanForm extends React.Component<Props, States> {
               name: "location",
               disabled: true,
             },
-            { type: "input", label: "Asset No", name: "assetNo" },
-            { type: "input", label: "Inventory No", name: "inventoryNo" },
+            {
+              type: "input",
+              label: "Asset No",
+              name: "assetNo",
+              disabled: !!scannedItem,
+            },
+            {
+              type: "input",
+              label: "Inventory No",
+              name: "inventoryNo",
+              disabled: true,
+            },
             {
               type: "textarea",
               label: "Description",
               name: "description",
+              disabled: true,
             },
             {
               type: "dropdown",
@@ -178,6 +212,7 @@ class ScanForm extends React.Component<Props, States> {
                 label: value,
                 value: key,
               })),
+              disabled: true,
             },
             {
               type: "dropdown",
@@ -189,6 +224,7 @@ class ScanForm extends React.Component<Props, States> {
                   value: key,
                 }))
                 .filter((option) => option.label !== ITEM_STATUS[0]),
+              disabled: scannedItem?.Stort !== locationToScan?.location,
             },
             {
               type: "textarea",
@@ -198,7 +234,7 @@ class ScanForm extends React.Component<Props, States> {
           ]}
           footers={
             <Text bold>
-              Scanned: {scannedCount} / Total: {locationToScan.scanQty}
+              Scanned: {scannedCount} / Total: {locationToScan?.scanQty}
             </Text>
           }
           buttons={[

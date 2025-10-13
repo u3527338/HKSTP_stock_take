@@ -5,9 +5,16 @@ export const useContext = (context: CodeInContext) => {
     context.setFieldsValue({ appMode: mode });
   };
   const getAppMode = context.getFieldValue("appMode");
-  
+
+  const setLastSyncTime = (lastSync: string) => {
+    context.setFieldsValue({ lastSync });
+  };
+  const getLastSyncTime = context.getFieldValue("lastSync");
+
   return {
     setAppMode,
     getAppMode,
+    setLastSyncTime,
+    getLastSyncTime,
   };
 };

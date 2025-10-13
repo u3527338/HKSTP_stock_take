@@ -20,7 +20,7 @@ interface States {
   data: any[];
   selectedLocation: any[];
   itemListData: any[];
-  locationToScan: { location: string; scanQty: number };
+  locationToScan: { location: string; description: string; scanQty: number };
 }
 
 class StockTake extends React.Component<Props, States> {
@@ -42,7 +42,12 @@ class StockTake extends React.Component<Props, States> {
 
     const columns = [
       { title: "Location", field: "Stort" },
-      { title: "Location Description", field: "Ktext" },
+      {
+        title: "Location Description",
+        field: "Ktext",
+        responsive: 2,
+        minWidth: 250,
+      },
       { title: "Scanned", field: "Scanned" },
       { title: "Total Item", field: "ScanQty" },
     ];
@@ -105,6 +110,7 @@ class StockTake extends React.Component<Props, States> {
           this.setState({
             locationToScan: {
               location: selectedLocation[0].Stort,
+              description: selectedLocation[0].Ktext,
               scanQty: parseInt(selectedLocation[0].ScanQty),
             },
           });

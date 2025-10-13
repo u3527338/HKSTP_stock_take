@@ -2,7 +2,14 @@ import * as React from "react";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import Table from "../component/Table";
-import { AppMode, getFromStorage, updateSyncStatus } from "../function/helper";
+import {
+  AppMode,
+  getBoolStatus,
+  getDateTime,
+  getFromStorage,
+  setToStorage,
+  updateSyncStatus,
+} from "../function/helper";
 import { useContext } from "../hook/useContext";
 
 interface Props {
@@ -51,13 +58,20 @@ class Sync extends React.Component<Props, States> {
       };
       console.log(body);
       this.updateSyncList(all ? data : syncData);
+      setToStorage("config", { lastSync: getDateTime() });
     };
 
     const columns = [
       { title: "Location", field: "Stort" },
-      { title: "Location Description", field: "Ktext" },
+      {
+        title: "Location Description",
+        field: "Ktext",
+        responsive: 2,
+        minWidth: 250,
+      },
+      { title: "Scanned", field: "Scanned" },
       { title: "Total Item", field: "ScanQty" },
-      { title: "Status", field: "Status" },
+      { title: "Synced", field: "Synced" },
     ];
 
     const buttons = {
@@ -96,7 +110,7 @@ class Sync extends React.Component<Props, States> {
           title="Sync Stock Take Result"
           data={data.map((d) => ({
             ...d,
-            Status: d.Synced ? "Synced" : "Not Yet Synced",
+            Synced: getBoolStatus(d.Synced),
           }))}
           columns={columns}
           onRowSelected={onRowSelected}

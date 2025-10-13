@@ -71,9 +71,16 @@ class Table extends React.Component<Props> {
     this.table = new window.Tabulator(this.containerRef, {
       data,
       layout: "fitColumns",
+      responsiveLayout: true,
       pagination: true,
       paginationSize: 10,
-      columns,
+      resizableColumnFit: true,
+      columns: columns.map((c) => ({
+        minWidth: 100,
+        responsive: 0,
+        resizable: true,
+        ...c,
+      })),
       selectableRows: this.props.rowSelectable,
     });
 
@@ -118,10 +125,6 @@ class Table extends React.Component<Props> {
     if (this.table) {
       this.table.destroy();
     }
-  }
-
-  toggleColumn(columnField) {
-    // your existing toggleColumn code
   }
 
   render() {

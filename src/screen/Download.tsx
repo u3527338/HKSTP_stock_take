@@ -5,6 +5,7 @@ import ButtonGroup from "../component/ButtonGroup";
 import Table from "../component/Table";
 import {
   AppMode,
+  getBoolStatus,
   getFromStorage,
   updateDownloadStatus,
   updateScanStatus,
@@ -50,9 +51,14 @@ class Download extends React.Component<Props, States> {
 
     const columns = [
       { title: "Location", field: "Stort" },
-      { title: "Location Description", field: "Ktext" },
+      {
+        title: "Location Description",
+        field: "Ktext",
+        responsive: 2,
+        minWidth: 250,
+      },
       { title: "Total Item", field: "ScanQty" },
-      { title: "Status", field: "Status" },
+      { title: "Downloaded", field: "Downloaded" },
     ];
 
     const buttons = {
@@ -91,7 +97,7 @@ class Download extends React.Component<Props, States> {
           title="Download Stock Take List"
           data={data.map((d) => ({
             ...d,
-            Status: d.Downloaded ? "Downloaded" : "Not Yet Downloaded",
+            Downloaded: getBoolStatus(d.Downloaded),
           }))}
           columns={columns}
           onRowSelected={onRowSelected}

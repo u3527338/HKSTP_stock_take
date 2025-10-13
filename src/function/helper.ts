@@ -61,14 +61,25 @@ export enum AppMode {
   SYNC = "sync",
 }
 
+export const getBoolStatus = (status: boolean) => (status ? "Yes" : "No");
+
+export const findKeyByValue = (obj, targetValue) => {
+  for (const [key, value] of Object.entries(obj)) {
+    if (value === targetValue) {
+      return key;
+    }
+  }
+  return null;
+};
+
 export const isItemScanned = (status) => !!status && parseInt(status) !== 0;
 
 export const formatAssetSubNo = (numStr) => numStr.padStart(4, "0");
 
 export const getScannedCount = (location) => {
-  const items = getFromStorage("SHEET_DATA");
-  const scannedItems: any[] = items.filter(
-    (item) => item.Stort === location && isItemScanned(item.Status)
+  const items = getFromStorage("CREATE_STOCK_TAKE", "object");
+  const scannedItems: any[] = Object.values(items).filter(
+    (item: any) => item.Stort === location && isItemScanned(item.Status)
   );
   return scannedItems.length;
 };
@@ -113,7 +124,8 @@ type NAME =
   | "LOCATION_DATA"
   | "STOCK_TAKE_DATA"
   | "SHEET_DATA"
-  | "CREATE_STOCK_TAKE";
+  | "CREATE_STOCK_TAKE"
+  | "config";
 
 export const getFromStorage = (
   name: NAME,
@@ -156,3 +168,6 @@ export const checkCameraPermission = (startScanner) => {
     }
   });
 };
+
+export const getDateTime = () =>
+  new Date().toLocaleString("en-GB", { hour12: false });
