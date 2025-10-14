@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import * as React from "react";
-import { BUTTON_ICON, COLOR_MAIN } from "../constants";
+import { COLOR_MAIN } from "../constants";
 import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import Title from "./Title";

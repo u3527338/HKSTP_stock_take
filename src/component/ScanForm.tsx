@@ -256,8 +256,18 @@ class ScanForm extends React.Component<Props, States> {
               label: "Back",
               onClick: onBack,
             },
-            { label: "Save", type: "submit", value: "save" },
-            { label: "Save & Next Item", type: "submit", value: "saveNext" },
+            {
+              label: "Save",
+              type: "submit",
+              value: "save",
+              disabled: !scannedItem,
+            },
+            {
+              label: "Save & Next Item",
+              type: "submit",
+              value: "saveNext",
+              disabled: !scannedItem,
+            },
             {
               icon: BUTTON_ICON.BARCODE,
               onClick: () => {
