@@ -45,7 +45,7 @@ const Error = ({ name }) => (
 
 const TextInput = (props) => (
   <div className="input-container">
-    <Field {...props} rows={2} style={{ width: "100%" }} />{" "}
+    <Field {...props} rows={2} style={{ width: "100%" }} />
     <Error name={props.name} />
   </div>
 );
@@ -121,6 +121,7 @@ const renderInputs = (fields: any[], values, footers) => {
                     field.button.onClick(values[field.name]);
                   }}
                   buttonStyle="main"
+                  disabled={!values[field.name]?.trim()}
                 />
               )}
             </div>
