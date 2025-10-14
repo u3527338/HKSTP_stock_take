@@ -8,7 +8,7 @@ import {
   AppMode,
   getCurrentUser,
   loadResources,
-  setToStorage
+  setToStorage,
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
@@ -155,10 +155,9 @@ class Application extends React.Component<Props, States> {
 export class CodeInApplication implements CodeInComp {
   render(context: CodeInContext, fieldsValues: any, readonly: boolean) {
     return (
-      <div>
+      <ToastProvider position="top-center">
         <Application context={context} />
-        <ToastProvider position="top-center" />
-      </div>
+      </ToastProvider>
     );
   }
 

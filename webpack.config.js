@@ -5,7 +5,7 @@ const ROOT_PATH = path.resolve(__dirname);
 const BUILD_PATH = path.resolve(ROOT_PATH, "dist");
 
 const root = "./src";
-const folders = ["index", "function"];
+const folders = ["index"];
 var pathList = [];
 var filePathsObject = {};
 

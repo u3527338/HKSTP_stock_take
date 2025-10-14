@@ -166,35 +166,38 @@ class ToastProvider extends React.Component<
   };
 
   render() {
-    const { position } = this.props;
+    const { position, children } = this.props;
     const containerStyle = getContainerStyle(position || "bottom-left");
     return (
-      <div style={containerStyle}>
-        <style>{styles(position)}</style>
-        <TransitionGroup>
-          {this.state.toasts.map((t) => (
-            <CSSTransition key={t.id} timeout={300} classNames="toast">
-              <div
-                style={{
-                  display: "flex",
-                  padding: "12px 16px",
-                  borderRadius: "4px",
-                  backgroundColor: this.getBgColor(t.type),
-                  color: "white",
-                  marginBottom: "10px",
-                  gap: "20px",
-                  justifyContent: "space-between",
-                }}
-              >
-                {t.message}
-                <IconButton
-                  icon={BUTTON_ICON.REMOVE}
-                  onClick={() => this.removeToast(t.id)}
-                />
-              </div>
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
+      <div>
+        <div style={containerStyle}>
+          <style>{styles(position)}</style>
+          <TransitionGroup>
+            {this.state.toasts.map((t) => (
+              <CSSTransition key={t.id} timeout={300} classNames="toast">
+                <div
+                  style={{
+                    display: "flex",
+                    padding: "12px 16px",
+                    borderRadius: "4px",
+                    backgroundColor: this.getBgColor(t.type),
+                    color: "white",
+                    marginBottom: "10px",
+                    gap: "20px",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {t.message}
+                  <IconButton
+                    icon={BUTTON_ICON.REMOVE}
+                    onClick={() => this.removeToast(t.id)}
+                  />
+                </div>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
+        </div>
+        {children}
       </div>
     );
   }
