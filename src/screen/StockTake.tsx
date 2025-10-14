@@ -79,7 +79,7 @@ class StockTake extends React.Component<Props, States> {
           return isItemScanned(value) ? "Yes" : "No";
         },
       },
-      { title: "Last Saved", field: "LastSaved" },
+      { title: "Last Scanned", field: "LastScan" },
     ];
 
     const buttons = {

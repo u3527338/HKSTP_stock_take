@@ -1,11 +1,11 @@
 import * as React from "react";
+import { LoadingOverlay } from "../component/LoadingOverlay";
 import Text from "../component/Text";
-import ToastProvider from "../component/ToastProvider";
-import { COLOR_MAIN, LOCATION_DATA, SHEET_DATA } from "../constants";
+import ToastProvider, { showToast } from "../component/ToastProvider";
+import { COLOR_MAIN } from "../constants";
 import {
   addCameraPermissionListener,
   AppMode,
-  generateUUID,
   getCurrentUser,
   getFromStorage,
   loadResources,
@@ -57,6 +57,7 @@ interface Props {
 }
 
 interface States {
+  loading: boolean;
   loadScript: boolean;
   msg: string;
   open: boolean;
@@ -66,6 +67,7 @@ class Application extends React.Component<Props, States> {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      loading: false,
       loadScript: false,
       msg: null,
       open: false,
@@ -77,27 +79,47 @@ class Application extends React.Component<Props, States> {
     loadResources(resourcesToLoad).then(() => {
       this.setState({ loadScript: true });
       setAppMode(AppMode.MENU);
-      if (!localStorage.getItem("LOCATION_DATA")) {
-        setToStorage(
-          "LOCATION_DATA",
-          LOCATION_DATA.StockTakeLocationSet.StockTakeLocation.map((l) => ({
-            ...l,
-            Downloaded: false,
-          }))
-        );
-      }
-      if (!localStorage.getItem("SHEET_DATA")) {
-        setToStorage("SHEET_DATA", SHEET_DATA.StockTakeSheetSet.StockTakeSheet);
-      }
     });
   }
 
   componentDidMount(): void {
     const { getInitInfo } = useHttpRequest(this.props.context);
     const fetchInfo = async () => {
-      const response = await getInitInfo();
+      if (
+        !!localStorage.getItem("LOCATION_DATA") &&
+        !!localStorage.getItem("SHEET_DATA")
+      )
+        return;
+      this.setState({ loading: true });
+      await getInitInfo()
+        .then((response: { location; sheet; user }) => {
+          if (!localStorage.getItem("LOCATION_DATA")) {
+            setToStorage(
+              "LOCATION_DATA",
+              response.location.StockTakeLocationSet.StockTakeLocation.map(
+                (l) => ({
+                  ...l,
+                  Downloaded: false,
+                })
+              )
+            );
+          }
+          if (!localStorage.getItem("SHEET_DATA")) {
+            setToStorage(
+              "SHEET_DATA",
+              response.sheet.StockTakeSheetSet.StockTakeSheet
+            );
+          }
+          showToast("Finish fetching data", "success");
+        })
+        .catch((res) => {
+          showToast("Error fetching data", "error");
+        })
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     };
-    // fetchInfo();
+    fetchInfo();
     addCameraPermissionListener();
   }
 
@@ -107,14 +129,14 @@ class Application extends React.Component<Props, States> {
 
   render() {
     const { context } = this.props;
-    const { loadScript } = this.state;
-    if (!loadScript) return <div></div>;
+    const { loadScript, loading } = this.state;
     const { getAppMode } = useContext(context);
 
     return (
       <div>
         {/* <DisplayControl /> */}
         <style>{css}</style>
+        {(!loadScript || loading) && <LoadingOverlay context={context} />}
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}
           {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}

@@ -74,7 +74,7 @@ class ScanForm extends React.Component<Props, States> {
         Ord41: values.custodian,
         Status: values.status,
         Remark: values.remark,
-        LastSaved: getDateTime(),
+        LastScan: getDateTime(),
       };
       const newItem = {
         ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
@@ -104,6 +104,7 @@ class ScanForm extends React.Component<Props, States> {
       updateScanStatus();
       this.setState({
         scannedCount: getScannedCount(this.props.locationToScan.location),
+        scannedItem: null,
       });
       showToast("Saved", "success");
     };
