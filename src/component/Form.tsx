@@ -1,10 +1,9 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import * as React from "react";
+import { BUTTON_ICON, COLOR_MAIN } from "../constants";
 import { Button } from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import Title from "./Title";
-import { COLOR_MAIN } from "../constants";
-import { IconButton } from "./IconButton";
 
 const css = `
   form input,
@@ -33,7 +32,7 @@ const css = `
   }
 
   .input-container {
-    width: 75%;
+    width: 100%;
   }
 `;
 
@@ -73,10 +72,8 @@ const DropDown = ({ name, options = [], disabled = false }) => {
 
 const renderInputs = (fields: any[], values, footers) => {
   return (
-    <div style={{ display: "grid", justifyContent: "center", gap: 8 }}>
+    <div style={{ display: "grid", justifyContent: "center" }}>
       {fields.map((field) => {
-        const disabled =
-          !["assetNo", "inventoryNo"].includes(field.name) && !values.assetNo;
         return (
           <div
             key={field.name}
@@ -84,6 +81,8 @@ const renderInputs = (fields: any[], values, footers) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              padding: 8,
+              ...(field.style || {}),
             }}
           >
             <label
@@ -93,19 +92,37 @@ const renderInputs = (fields: any[], values, footers) => {
             >
               {field.label}:
             </label>
-            {field.type === "input" || field.type === "textarea" ? (
-              <TextInput
-                name={field.name}
-                disabled={field.disabled || disabled}
-                component={field.type}
-              />
-            ) : field.type === "dropdown" ? (
-              <DropDown
-                name={field.name}
-                options={field.options}
-                disabled={field.disabled || disabled}
-              />
-            ) : null}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                width: "100%",
+              }}
+            >
+              {field.type === "input" || field.type === "textarea" ? (
+                <TextInput
+                  name={field.name}
+                  disabled={field.disabled}
+                  component={field.type}
+                />
+              ) : field.type === "dropdown" ? (
+                <DropDown
+                  name={field.name}
+                  options={field.options}
+                  disabled={field.disabled}
+                />
+              ) : null}
+              {field.button && (
+                <Button
+                  icon={field.button.icon}
+                  onClick={() => {
+                    field.button.onClick(values[field.name]);
+                  }}
+                  buttonStyle="main"
+                />
+              )}
+            </div>
           </div>
         );
       })}

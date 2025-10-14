@@ -1,7 +1,6 @@
 import * as React from "react";
 import { checkCameraPermission } from "../function/helper";
 import { Modal } from "./Modal";
-import { Button } from "./Button";
 
 declare global {
   interface Window {
@@ -118,13 +117,6 @@ class BarcodeScanner extends React.Component<Props, {}> {
     const { open, handleCloseScanner } = this.props;
     return (
       <Modal open={open} hideModal={handleCloseScanner}>
-        <Button
-          label="Test Scan"
-          onClick={() => {
-            this.props.callback("41002815-0");
-          }}
-          buttonStyle="main"
-        />
         <div>
           <div id="reader" />
         </div>

@@ -15,6 +15,7 @@ export enum BUTTON_ICON {
   LOADING = "fa-solid fa-spinner-third",
   REMOVE = "fa-solid fa-circle-xmark",
   BARCODE = "fa-solid fa-barcode",
+  SEARCH = "fa-solid fa-magnifying-glass",
 }
 
 export enum CUSTODIAN {

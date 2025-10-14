@@ -2,6 +2,7 @@ import * as _ from "lodash";
 import * as React from "react";
 import {
   BUTTON_ICON,
+  COLOR_MAIN,
   CUSTODIAN,
   ITEM_STATUS,
   STOCK_TAKE_SHEET_ITEM,
@@ -53,6 +54,7 @@ class ScanForm extends React.Component<Props, States> {
     const { startScan, scannedCount, scannedItem } = this.state;
 
     const initialValues = {
+      codeScan: "",
       location: locationToScan.location,
       assetNo: "",
       inventoryNo: "",
@@ -160,8 +162,10 @@ class ScanForm extends React.Component<Props, States> {
       const items = getFromStorage("SHEET_DATA");
       const item = items.find((i) => formattedCode(i) === code);
       checkItem(item);
+
       if (this.formikApi && item) {
         this.formikApi.setValues({
+          codeScan: code,
           assetNo: `${item.Bukrs}-${formattedCode(item)}`,
           inventoryNo: item.Invnr,
           description: item.Txt50,
@@ -181,6 +185,13 @@ class ScanForm extends React.Component<Props, States> {
           title="Stock Take - Scan"
           initialValues={initialValues}
           fields={[
+            {
+              type: "input",
+              label: "Code Scan",
+              name: "codeScan",
+              style: { border: `1px dashed ${COLOR_MAIN}` },
+              button: { icon: BUTTON_ICON.SEARCH, onClick: handleScannedCode },
+            },
             {
               type: "input",
               label: "Location",
@@ -234,9 +245,11 @@ class ScanForm extends React.Component<Props, States> {
             },
           ]}
           footers={
-            <Text bold>
-              Scanned: {scannedCount} / Total: {locationToScan?.scanQty}
-            </Text>
+            <div style={{ padding: 8 }}>
+              <Text bold>
+                Scanned: {scannedCount} / Total: {locationToScan?.scanQty}
+              </Text>
+            </div>
           }
           buttons={[
             {
