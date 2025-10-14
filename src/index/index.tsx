@@ -7,9 +7,8 @@ import {
   addCameraPermissionListener,
   AppMode,
   getCurrentUser,
-  getFromStorage,
   loadResources,
-  setToStorage,
+  setToStorage
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
@@ -18,13 +17,14 @@ import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
 
-const css = `
+const css = (loading) => `
   .no-display {
     display: none !important;
   }
     
   .akfc-form {
     background-color: lemonchiffon !important;
+    opacity: ${loading ? "0.5" : "1"}
   }
 
   .app-title {
@@ -130,12 +130,12 @@ class Application extends React.Component<Props, States> {
   render() {
     const { context } = this.props;
     const { loadScript, loading } = this.state;
-    const { getAppMode } = useContext(context);
+    const { getAppMode, getConfig } = useContext(context);
 
     return (
       <div>
         {/* <DisplayControl /> */}
-        <style>{css}</style>
+        <style>{css(loading)}</style>
         {(!loadScript || loading) && <LoadingOverlay context={context} />}
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}
@@ -145,7 +145,7 @@ class Application extends React.Component<Props, States> {
         </div>
         <div style={{ display: "inline-grid" }}>
           <Text>Email: {getCurrentUser(context).email}</Text>
-          <Text>Last Sync Time: {getFromStorage("config")?.lastSync}</Text>
+          <Text>Last Sync Time: {getConfig()?.lastSync}</Text>
         </div>
       </div>
     );
@@ -163,7 +163,7 @@ export class CodeInApplication implements CodeInComp {
   }
 
   requiredFields() {
-    return ["appMode"];
+    return ["appMode", "config"];
   }
 
   inputParameters() {

@@ -1,4 +1,4 @@
-import { AppMode } from "../function/helper";
+import { AppMode, getFromStorage, setToStorage } from "../function/helper";
 
 export const useContext = (context: CodeInContext) => {
   const setAppMode = (mode: AppMode) => {
@@ -6,15 +6,22 @@ export const useContext = (context: CodeInContext) => {
   };
   const getAppMode = context.getFieldValue("appMode");
 
-  const setLastSyncTime = (lastSync: string) => {
-    context.setFieldsValue({ lastSync });
+  const setConfig = (value) => {
+    const config = getFromStorage("config", "object");
+    const updateConfig = { ...config, ...value };
+    setToStorage("config", updateConfig);
+    context.setFieldsValue({ config: updateConfig });
   };
-  const getLastSyncTime = context.getFieldValue("lastSync");
+
+  const getConfig = () => {
+    const contextValue = context.getFieldValue("config");
+    return JSON.parse(localStorage.getItem("config")) || contextValue;
+  };
 
   return {
     setAppMode,
     getAppMode,
-    setLastSyncTime,
-    getLastSyncTime,
+    setConfig,
+    getConfig,
   };
 };

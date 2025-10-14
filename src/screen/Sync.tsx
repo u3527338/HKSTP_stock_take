@@ -7,8 +7,7 @@ import {
   getBoolStatus,
   getDateTime,
   getFromStorage,
-  setToStorage,
-  updateSyncStatus,
+  updateSyncStatus
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
 
@@ -40,7 +39,7 @@ class Sync extends React.Component<Props, States> {
   render() {
     const { context } = this.props;
     const { data, syncData } = this.state;
-    const { setAppMode } = useContext(context);
+    const { setAppMode, setConfig } = useContext(context);
 
     const syncStockTakeList = (all: boolean = false) => {
       const stockTakeData = getFromStorage("CREATE_STOCK_TAKE", "object");
@@ -58,7 +57,7 @@ class Sync extends React.Component<Props, States> {
       };
       console.log(body);
       this.updateSyncList(all ? data : syncData);
-      setToStorage("config", { lastSync: getDateTime() });
+      setConfig({ lastSync: getDateTime() });
     };
 
     const columns = [
