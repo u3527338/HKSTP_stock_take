@@ -19,6 +19,7 @@ const css = `
   form textarea:disabled,
   form select:disabled {
     background-color: #f0f0f0;
+    opacity: 1;
   }
 
   form select option {
