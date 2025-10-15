@@ -110,7 +110,7 @@ class Application extends React.Component<Props, States> {
               response.sheet.StockTakeSheetSet.StockTakeSheet
             );
           }
-          showToast("Finish fetching data", "success");
+          showToast("Succeed fetching data", "success");
         })
         .catch((res) => {
           showToast("Error fetching data", "error");

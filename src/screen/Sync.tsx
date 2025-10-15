@@ -1,15 +1,18 @@
 import * as React from "react";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
+import { LoadingOverlay } from "../component/LoadingOverlay";
 import Table from "../component/Table";
 import {
   AppMode,
   getBoolStatus,
   getDateTime,
   getFromStorage,
-  updateSyncStatus
+  updateSyncStatus,
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
+import { useHttpRequest } from "../hook/useHttpRequest";
+import { showToast } from "../component/ToastProvider";
 
 interface Props {
   context: CodeInContext;
@@ -18,6 +21,7 @@ interface Props {
 interface States {
   data: any[];
   syncData: any[];
+  loading: boolean;
 }
 
 class Sync extends React.Component<Props, States> {
@@ -27,6 +31,7 @@ class Sync extends React.Component<Props, States> {
     this.state = {
       data: STOCK_TAKE_DATA,
       syncData: [],
+      loading: false,
     };
   }
 
@@ -38,14 +43,19 @@ class Sync extends React.Component<Props, States> {
 
   render() {
     const { context } = this.props;
-    const { data, syncData } = this.state;
+    const { data, syncData, loading } = this.state;
     const { setAppMode, setConfig } = useContext(context);
+    const { createStockTakeSheet } = useHttpRequest(context);
 
-    const syncStockTakeList = (all: boolean = false) => {
+    const syncStockTakeList = async (all: boolean = false) => {
+      this.setState({ loading: true });
       const stockTakeData = getFromStorage("CREATE_STOCK_TAKE", "object");
       const selectedDataToSync = syncData.map((s) => s.Stort);
       const n_sheet = Object.entries(stockTakeData).map(
-        ([key, value]) => value
+        ([key, value]: [string, any]) => {
+          delete value.LastScan;
+          return value;
+        }
       );
       const filtered_n_sheet = n_sheet.filter((sheet: any) =>
         selectedDataToSync.includes(sheet.Stort)
@@ -55,9 +65,18 @@ class Sync extends React.Component<Props, States> {
         n_errmsg: "",
         n_sheet: all ? n_sheet : filtered_n_sheet,
       };
-      console.log(body);
-      this.updateSyncList(all ? data : syncData);
-      setConfig({ lastSync: getDateTime() });
+      await createStockTakeSheet(body)
+        .then((res) => {
+          setConfig({ lastSync: getDateTime() });
+          this.updateSyncList(all ? data : syncData);
+          showToast("Succeed synchronizing stock take sheet", "success");
+        })
+        .catch((err) => {
+          showToast("Error synchronizing stock take sheet", "error");
+        })
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     };
 
     const columns = [
@@ -103,6 +122,7 @@ class Sync extends React.Component<Props, States> {
 
     return (
       <div>
+        {loading && <LoadingOverlay context={context} />}
         <Table
           id="sync"
           context={context}
