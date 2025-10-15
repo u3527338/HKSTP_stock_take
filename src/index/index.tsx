@@ -1,4 +1,5 @@
 import * as React from "react";
+import DisplayControl from "../component/DisplayControl";
 import { LoadingOverlay } from "../component/LoadingOverlay";
 import Text from "../component/Text";
 import ToastProvider, { showToast } from "../component/ToastProvider";
@@ -23,7 +24,6 @@ const css = (loading) => `
   }
     
   .akfc-form {
-    background-color: lemonchiffon !important;
     opacity: ${loading ? "0.5" : "1"}
   }
 

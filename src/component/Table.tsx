@@ -82,6 +82,7 @@ class Table extends React.Component<Props> {
         ...c,
       })),
       selectableRows: this.props.rowSelectable,
+      placeholder: "No data available",
     });
 
     this.table.on("rowClick", (e, row) => {
