@@ -1,6 +1,6 @@
 import * as React from "react";
-import Title from "./Title";
 import { COLOR_MAIN } from "../constants";
+import Title from "./Title";
 
 const css = `
   .tabulator-tableholder {
@@ -134,7 +134,7 @@ class Table extends React.Component<Props> {
       <div>
         <style>{css}</style>
         {title && <Title title={title} />}
-        <div id={id} ref={(el) => (this.containerRef = el)}></div>
+        <div id={id} ref={(el) => (this.containerRef = el)} />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCurrentUser } from "../function/helper";
 
 const ENV: "UAT" | "PROD" = "UAT";
 
@@ -22,10 +23,7 @@ export const useHttpRequest = (context: CodeInContext) => {
   const getInitInfo = async () => {
     const response = await axios.post(
       URL.GET_INFO,
-      {
-        email: "chrissie.kwan@hkstp.org",
-        // email: getCurrentUser(context).email,
-      },
+      { email: getCurrentUser(context).email },
       { headers: { "Content-Type": "application/json" } }
     );
     return response.data;
@@ -35,7 +33,7 @@ export const useHttpRequest = (context: CodeInContext) => {
     const response = await axios.post(
       URL.CREATE_STOCK_TAKE,
       {
-        email: "chrissie.kwan@hkstp.org",
+        email: getCurrentUser(context).email,
         data,
       },
       { headers: { "Content-Type": "application/json" } }

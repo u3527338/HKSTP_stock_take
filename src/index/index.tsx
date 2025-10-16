@@ -1,4 +1,5 @@
 import * as React from "react";
+import DisplayControl from "../component/DisplayControl";
 import { LoadingOverlay } from "../component/LoadingOverlay";
 import Text from "../component/Text";
 import ToastProvider, { showToast } from "../component/ToastProvider";
@@ -129,7 +130,7 @@ class Application extends React.Component<Props, States> {
 
     return (
       <div>
-        {/* <DisplayControl /> */}
+        <DisplayControl />
         <style>{css}</style>
         <LoadingOverlay context={context} loading={!loadScript || loading} />
         <div style={{ margin: "30px 0px" }}>
