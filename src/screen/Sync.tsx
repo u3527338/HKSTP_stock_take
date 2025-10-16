@@ -3,6 +3,7 @@ import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import { LoadingOverlay } from "../component/LoadingOverlay";
 import Table from "../component/Table";
+import { showToast } from "../component/ToastProvider";
 import {
   AppMode,
   getBoolStatus,
@@ -12,7 +13,6 @@ import {
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
 import { useHttpRequest } from "../hook/useHttpRequest";
-import { showToast } from "../component/ToastProvider";
 
 interface Props {
   context: CodeInContext;
@@ -122,7 +122,7 @@ class Sync extends React.Component<Props, States> {
 
     return (
       <div>
-        {loading && <LoadingOverlay context={context} />}
+        <LoadingOverlay context={context} loading={loading} />
         <Table
           id="sync"
           context={context}

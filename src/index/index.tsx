@@ -1,5 +1,4 @@
 import * as React from "react";
-import DisplayControl from "../component/DisplayControl";
 import { LoadingOverlay } from "../component/LoadingOverlay";
 import Text from "../component/Text";
 import ToastProvider, { showToast } from "../component/ToastProvider";
@@ -18,13 +17,9 @@ import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
 import Sync from "../screen/Sync";
 
-const css = (loading) => `
+export const css = `
   .no-display {
     display: none !important;
-  }
-    
-  .akfc-form {
-    opacity: ${loading ? "0.5" : "1"}
   }
 
   .app-title {
@@ -135,8 +130,8 @@ class Application extends React.Component<Props, States> {
     return (
       <div>
         {/* <DisplayControl /> */}
-        <style>{css(loading)}</style>
-        {(!loadScript || loading) && <LoadingOverlay context={context} />}
+        <style>{css}</style>
+        <LoadingOverlay context={context} loading={!loadScript || loading} />
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}
           {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}

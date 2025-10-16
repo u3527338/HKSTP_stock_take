@@ -1,7 +1,14 @@
 import * as React from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
 
-export const LoadingOverlay = ({ context, height = 400 }) => {
+const css = (loading) => `    
+  .pagecraftform {
+    opacity: ${loading ? "0.5" : "1"}
+  }
+`;
+
+export const LoadingOverlay = ({ context, height = 400, loading = false }) => {
+  if (!loading) return null;
   return (
     <div
       style={{
@@ -17,6 +24,7 @@ export const LoadingOverlay = ({ context, height = 400 }) => {
         zIndex: 100,
       }}
     >
+      <style>{css(loading)}</style>
       <LoadingSpinner context={context} height={height} />
     </div>
   );
