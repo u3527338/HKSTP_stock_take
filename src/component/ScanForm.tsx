@@ -202,7 +202,7 @@ class ScanForm extends React.Component<Props, States> {
               type: "input",
               label: "Asset No",
               name: "assetNo",
-              disabled: !!scannedItem,
+              disabled: true,
             },
             {
               type: "input",
