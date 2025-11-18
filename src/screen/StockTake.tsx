@@ -135,7 +135,6 @@ class StockTake extends React.Component<Props, States> {
         Txt50: "Description",
         LastScan: "Last Scan",
       };
-      console.log(itemListData);
       const data = itemListData.map(
         ({ Apdat, Bukrs, Aedat, Ord42, Approver, AssetNo, ...d }) =>
           _.mapKeys(
