@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import * as React from "react";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
@@ -7,6 +8,7 @@ import { ITEM_STATUS } from "../constants";
 import {
   AppMode,
   formatAssetSubNo,
+  formatTimestampString,
   getFromStorage,
   isItemScanned,
 } from "../function/helper";
@@ -119,7 +121,64 @@ class StockTake extends React.Component<Props, States> {
       },
     };
 
+    const exportData = () => {
+      const keyMap = {
+        Anln1: "Asset Number",
+        Anln2: "Sub Code",
+        Countid: "Count ID",
+        ScanQty: "Scan Quantity",
+        Ernam: "User",
+        Invnr: "Inventory Number",
+        Ktext: "Location Description",
+        Ord41: "Custodian",
+        Stort: "Location",
+        Txt50: "Description",
+        LastScan: "Last Scan",
+      };
+      console.log(itemListData);
+      const data = itemListData.map(
+        ({ Apdat, Bukrs, Aedat, Ord42, Approver, AssetNo, ...d }) =>
+          _.mapKeys(
+            {
+              ...d,
+              Status: ITEM_STATUS[d.Status],
+              Erdat: formatTimestampString(d.Erdat),
+              LastScan: formatTimestampString(d.LastScan),
+            },
+            (value, key) => keyMap[key] || key
+          )
+      );
+      const worksheet = window.XLSX.utils.json_to_sheet(data);
+      const workbook = window.XLSX.utils.book_new();
+      window.XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+      const excelBuffer = window.XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+
+      const blob = new Blob([excelBuffer], {
+        type: "application/octet-stream",
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data.xlsx";
+
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    };
+
     const itemListButtons = {
+      export: {
+        label: "Export",
+        onClick: exportData,
+        disabled: false,
+      },
       back: {
         label: "Back",
         onClick: () => {

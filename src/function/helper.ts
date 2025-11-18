@@ -171,3 +171,16 @@ export const checkCameraPermission = (startScanner) => {
 
 export const getDateTime = () =>
   new Date().toLocaleString("en-GB", { hour12: false });
+
+export const formatTimestampString = (str) => {
+  if (!str) return null;
+  const [year, month, day, hour, minute, second] = [
+    str.slice(0, 4),
+    str.slice(4, 6),
+    str.slice(6, 8),
+    str.slice(8, 10),
+    str.slice(10, 12),
+    str.slice(12, 14),
+  ];
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+};

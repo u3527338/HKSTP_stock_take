@@ -36,6 +36,7 @@ const css = `
 declare global {
   interface Window {
     Tabulator: any;
+    XLSX: any;
   }
 }
 

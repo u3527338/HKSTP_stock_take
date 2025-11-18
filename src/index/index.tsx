@@ -9,6 +9,7 @@ import {
   AppMode,
   getCurrentUser,
   loadResources,
+  loadScript,
   setToStorage,
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
@@ -79,6 +80,10 @@ class Application extends React.Component<Props, States> {
   }
 
   componentDidMount(): void {
+    loadScript({
+      id: "xlsx",
+      src: "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js",
+    });
     const { getInitInfo } = useHttpRequest(this.props.context);
     const fetchInfo = async () => {
       if (
