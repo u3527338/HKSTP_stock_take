@@ -1,18 +1,14 @@
 import * as React from "react";
 import DisplayControl from "../component/DisplayControl";
-import { LoadingOverlay } from "../component/LoadingOverlay";
 import Text from "../component/Text";
-import ToastProvider, { showToast } from "../component/ToastProvider";
+import ToastProvider from "../component/ToastProvider";
 import { COLOR_MAIN } from "../constants";
 import {
   addCameraPermissionListener,
   AppMode,
   getCurrentUser,
-  loadResources,
-  setToStorage
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
-import { useHttpRequest } from "../hook/useHttpRequest";
 import Download from "../screen/Download";
 import Menu from "../screen/Menu";
 import StockTake from "../screen/StockTake";
@@ -30,7 +26,7 @@ export const css = `
   }
 `;
 
-const resourcesToLoad = [
+export const resourcesToLoad = [
   {
     type: "style",
     id: "tabulator-css",
@@ -57,70 +53,17 @@ interface Props {
   context: CodeInContext;
 }
 
-interface States {
-  loading: boolean;
-  loadScript: boolean;
-  msg: string;
-  open: boolean;
-}
-
-class Application extends React.Component<Props, States> {
+class Application extends React.Component<Props, {}> {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      loading: false,
-      loadScript: false,
-      msg: null,
-      open: false,
-    };
   }
 
   componentWillMount(): void {
     const { setAppMode } = useContext(this.props.context);
-    loadResources(resourcesToLoad).then(() => {
-      this.setState({ loadScript: true });
-      setAppMode(AppMode.MENU);
-    });
+    setAppMode(AppMode.MENU);
   }
 
   componentDidMount(): void {
-    const { getInitInfo } = useHttpRequest(this.props.context);
-    const fetchInfo = async () => {
-      if (
-        !!localStorage.getItem("LOCATION_DATA") &&
-        !!localStorage.getItem("SHEET_DATA")
-      )
-        return;
-      this.setState({ loading: true });
-      await getInitInfo()
-        .then((response: { location; sheet; user }) => {
-          if (!localStorage.getItem("LOCATION_DATA")) {
-            setToStorage(
-              "LOCATION_DATA",
-              response.location.StockTakeLocationSet.StockTakeLocation.map(
-                (l) => ({
-                  ...l,
-                  Downloaded: false,
-                })
-              )
-            );
-          }
-          if (!localStorage.getItem("SHEET_DATA")) {
-            setToStorage(
-              "SHEET_DATA",
-              response.sheet.StockTakeSheetSet.StockTakeSheet
-            );
-          }
-          showToast("Succeed fetching data", "success");
-        })
-        .catch((res) => {
-          showToast("Error fetching data", "error");
-        })
-        .finally(() => {
-          this.setState({ loading: false });
-        });
-    };
-    fetchInfo();
     addCameraPermissionListener();
   }
 
@@ -130,14 +73,12 @@ class Application extends React.Component<Props, States> {
 
   render() {
     const { context } = this.props;
-    const { loadScript, loading } = this.state;
     const { getAppMode, getConfig } = useContext(context);
 
     return (
       <div>
         <DisplayControl />
         <style>{css}</style>
-        <LoadingOverlay context={context} loading={!loadScript || loading} />
         <div style={{ margin: "30px 0px" }}>
           {getAppMode === AppMode.MENU && <Menu context={context} />}
           {getAppMode === AppMode.DOWNLOAD && <Download context={context} />}

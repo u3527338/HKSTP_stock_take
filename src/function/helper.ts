@@ -1,5 +1,7 @@
 import { showToast } from "../component/ToastProvider";
 import { MODULE_COMMON } from "../constants";
+import { useContext } from "../hook/useContext";
+import { useHttpRequest } from "../hook/useHttpRequest";
 
 const isScriptLoaded = (id: string, type) => {
   var scripts = document.getElementsByTagName(type);
@@ -149,6 +151,16 @@ export const updateStorage = (
   localStorage.setItem(keys[1], JSON.stringify(func(rawData)));
 };
 
+export const resetApp = (context: CodeInContext) => {
+  const { setAppMode } = useContext(context);
+  clearStorage();
+  setAppMode(AppMode.MENU);
+};
+
+export const clearStorage = () => {
+  localStorage.clear();
+};
+
 export const addCameraPermissionListener = (activate = true) => {
   navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
     permissionStatus.onchange = activate
@@ -183,4 +195,42 @@ export const formatTimestampString = (str) => {
     str.slice(12, 14),
   ];
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+};
+
+export const fetchInfo = async (
+  context: CodeInContext,
+  setLoading: (loading: boolean) => void
+) => {
+  const { getInitInfo } = useHttpRequest(context);
+  if (
+    !!localStorage.getItem("LOCATION_DATA") &&
+    !!localStorage.getItem("SHEET_DATA")
+  )
+    return;
+  setLoading(true);
+  await getInitInfo()
+    .then((response: { location; sheet; user }) => {
+      if (!localStorage.getItem("LOCATION_DATA")) {
+        setToStorage(
+          "LOCATION_DATA",
+          response.location.StockTakeLocationSet.StockTakeLocation.map((l) => ({
+            ...l,
+            Downloaded: false,
+          }))
+        );
+      }
+      if (!localStorage.getItem("SHEET_DATA")) {
+        setToStorage(
+          "SHEET_DATA",
+          response.sheet.StockTakeSheetSet.StockTakeSheet
+        );
+      }
+      showToast("Succeed fetching data", "success");
+    })
+    .catch((res) => {
+      showToast("Error fetching data", "error");
+    })
+    .finally(() => {
+      setLoading(false);
+    });
 };

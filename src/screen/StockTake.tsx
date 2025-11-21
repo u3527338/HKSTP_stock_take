@@ -84,44 +84,17 @@ class StockTake extends React.Component<Props, States> {
       { title: "Last Scanned", field: "LastScan" },
     ];
 
-    const buttons = {
-      back: {
-        label: "Back",
-        onClick: () => {
-          setAppMode(AppMode.MENU);
-        },
-        disabled: false,
-      },
-      item_list: {
-        label: "Item List",
-        onClick: () => {
-          const selectedLocation = this.state.selectedLocation[0];
-          const sheetData = getFromStorage("SHEET_DATA");
-          const itemListData = sheetData.filter(
-            (sd) =>
-              sd.Stort === selectedLocation.Stort &&
-              sd.Ktext === selectedLocation.Ktext
-          );
-          this.setState({ itemListData });
-        },
-        disabled: !selectedLocation.length,
-      },
-      scan: {
-        label: "Scan",
-        onClick: () => {
-          this.setState({
-            locationToScan: {
-              location: selectedLocation[0].Stort,
-              description: selectedLocation[0].Ktext,
-              scanQty: parseInt(selectedLocation[0].ScanQty),
-            },
-          });
-        },
-        disabled: !selectedLocation.length,
-      },
+    const getItemsByLocation = (selectedLocation: any[]) => {
+      const sheetData = getFromStorage("SHEET_DATA");
+      const itemListData = sheetData.filter((sd) =>
+        selectedLocation.some(
+          (sl) => sd.Stort === sl.Stort && sd.Ktext === sl.Ktext
+        )
+      );
+      return itemListData;
     };
 
-    const exportData = () => {
+    const exportData = (selectedLocation: any[]) => {
       const keyMap = {
         Anln1: "Asset Number",
         Anln2: "Sub Code",
@@ -135,7 +108,7 @@ class StockTake extends React.Component<Props, States> {
         Txt50: "Description",
         LastScan: "Last Scan",
       };
-      const data = itemListData.map(
+      const data = getItemsByLocation(selectedLocation).map(
         ({ Apdat, Bukrs, Aedat, Ord42, Approver, AssetNo, ...d }) =>
           _.mapKeys(
             {
@@ -172,11 +145,51 @@ class StockTake extends React.Component<Props, States> {
       URL.revokeObjectURL(url);
     };
 
+    const buttons = {
+      back: {
+        label: "Back",
+        onClick: () => {
+          setAppMode(AppMode.MENU);
+        },
+        disabled: false,
+      },
+      export: {
+        label: "Export",
+        onClick: () => {
+          exportData(data);
+        },
+        disabled: !data.length,
+      },
+      item_list: {
+        label: "Item List",
+        onClick: () => {
+          const itemListData = getItemsByLocation(selectedLocation);
+          this.setState({ itemListData });
+        },
+        disabled: !selectedLocation.length,
+      },
+      scan: {
+        label: "Scan",
+        onClick: () => {
+          this.setState({
+            locationToScan: {
+              location: selectedLocation[0].Stort,
+              description: selectedLocation[0].Ktext,
+              scanQty: parseInt(selectedLocation[0].ScanQty),
+            },
+          });
+        },
+        disabled: !selectedLocation.length,
+      },
+    };
+
     const itemListButtons = {
       export: {
         label: "Export",
-        onClick: exportData,
-        disabled: false,
+        onClick: () => {
+          exportData(selectedLocation);
+        },
+        disabled: !selectedLocation.length,
       },
       back: {
         label: "Back",

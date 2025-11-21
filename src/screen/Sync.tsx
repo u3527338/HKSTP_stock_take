@@ -9,6 +9,7 @@ import {
   getBoolStatus,
   getDateTime,
   getFromStorage,
+  resetApp,
   updateSyncStatus,
 } from "../function/helper";
 import { useContext } from "../hook/useContext";
@@ -75,7 +76,7 @@ class Sync extends React.Component<Props, States> {
           showToast("Error synchronizing stock take sheet", "error");
         })
         .finally(() => {
-          this.setState({ loading: false });
+          resetApp(context);
         });
     };
 

@@ -1,10 +1,17 @@
 import * as React from "react";
-import { AppMode } from "../function/helper";
-import { useContext } from "../hook/useContext";
 import { Button } from "../component/Button";
 import ButtonGroup from "../component/ButtonGroup";
 import Center from "../component/Center";
+import { LoadingOverlay } from "../component/LoadingOverlay";
 import Title from "../component/Title";
+import {
+  AppMode,
+  fetchInfo,
+  loadResources,
+  resetApp,
+} from "../function/helper";
+import { useContext } from "../hook/useContext";
+import { resourcesToLoad } from "../index";
 
 const MenuButtons = {
   [AppMode.DOWNLOAD]: { label: "Download Stock Take List" },
@@ -12,29 +19,78 @@ const MenuButtons = {
   [AppMode.SYNC]: { label: "Sync Stock Take Result" },
 };
 
-const Menu = ({ context }) => {
-  const { setAppMode } = useContext(context);
+interface Props {
+  context: CodeInContext;
+}
 
-  return (
-    <Center style={{ flexDirection: "column" }}>
-      <Title title="Stock Take Application" style={{ fontSize: "24px" }} />
-      <ButtonGroup style={{ flexDirection: "column" }}>
-        {Object.entries(MenuButtons).map(
-          ([key, value]: [AppMode, { label: string }]) => (
+interface States {
+  loading: boolean;
+  loadScript: boolean;
+}
+
+class Menu extends React.Component<Props, States> {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      loading: false,
+      loadScript: false,
+    };
+  }
+
+  fetchData = () => {
+    fetchInfo(this.props.context, (loading) => {
+      this.setState({ loading });
+    });
+  };
+
+  componentWillMount(): void {
+    loadResources(resourcesToLoad).then(() => {
+      this.setState({ loadScript: true });
+    });
+  }
+
+  componentDidMount(): void {
+    this.fetchData();
+  }
+
+  render() {
+    const { context } = this.props;
+    const { loadScript, loading } = this.state;
+    const { setAppMode } = useContext(context);
+
+    return (
+      <div>
+        <LoadingOverlay context={context} loading={!loadScript || loading} />
+        <Center style={{ flexDirection: "column" }}>
+          <Title title="Stock Take Application" style={{ fontSize: "24px" }} />
+          <ButtonGroup style={{ flexDirection: "column" }}>
+            {Object.entries(MenuButtons).map(
+              ([key, value]: [AppMode, { label: string }]) => (
+                <Button
+                  key={key}
+                  label={value.label}
+                  onClick={() => {
+                    setAppMode(key);
+                  }}
+                  buttonStyle="main"
+                  style={{ width: "100%" }}
+                />
+              )
+            )}
             <Button
-              key={key}
-              label={value.label}
+              label="Reset Data"
               onClick={() => {
-                setAppMode(key);
+                resetApp(context);
+                this.fetchData();
               }}
               buttonStyle="main"
               style={{ width: "100%" }}
             />
-          )
-        )}
-      </ButtonGroup>
-    </Center>
-  );
-};
+          </ButtonGroup>
+        </Center>
+      </div>
+    );
+  }
+}
 
 export default Menu;
