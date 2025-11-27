@@ -17,8 +17,8 @@ const css = `
         background: white;
         border-radius: 8px;
         padding: 20px;
-        max-width: calc(100vw - 2rem);
-        max-height: calc(100vh - 2rem);
+        height: 70%;
+        width: 90%;
         overflow: auto;
     }
     .modal-cart {
@@ -63,7 +63,15 @@ export class Modal extends React.Component<CodeProps> {
           // onMouseDown={handleModalClick}
           className={open ? "modal display-block" : "modal display-none"}
         >
-          <section style={{ zIndex: 1 }} className="modal-main modal-cart">
+          <section
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              zIndex: 1,
+            }}
+            className="modal-main modal-cart"
+          >
             <div>{children}</div>
             {showButton && (
               <Center>

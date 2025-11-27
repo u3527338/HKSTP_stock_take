@@ -31,10 +31,7 @@ interface States {
 class Menu extends React.Component<Props, States> {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      loading: false,
-      loadScript: false,
-    };
+    this.state = { loading: false, loadScript: false };
   }
 
   fetchData = () => {

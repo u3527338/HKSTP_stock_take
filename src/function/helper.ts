@@ -172,11 +172,22 @@ export const addCameraPermissionListener = (activate = true) => {
 };
 
 export const checkCameraPermission = (startScanner) => {
+  console.log(navigator.permissions);
   navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
+    console.log({ permissionStatus });
     if (permissionStatus.state === "granted") {
       startScanner();
+    } else if (permissionStatus.state === "prompt") {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          startScanner(stream);
+        })
+        .catch(() => {
+          showToast("Camera access is required", "error");
+        });
     } else {
-      showToast("Camera access is required", "error");
+      showToast("Camera access is denied", "error");
     }
   });
 };

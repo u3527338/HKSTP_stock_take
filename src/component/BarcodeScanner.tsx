@@ -85,7 +85,7 @@ class BarcodeScanner extends React.Component<Props, {}> {
     this.html5Qrcode = new window.Html5Qrcode("reader");
     const formats = [
       Html5QrcodeSupportedFormats.CODE_39,
-      // Html5QrcodeSupportedFormats.CODE_128,
+      Html5QrcodeSupportedFormats.CODE_128,
     ];
 
     const config = {
