@@ -172,9 +172,7 @@ export const addCameraPermissionListener = (activate = true) => {
 };
 
 export const checkCameraPermission = (startScanner) => {
-  console.log(navigator.permissions);
   navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
-    console.log({ permissionStatus });
     if (permissionStatus.state === "granted") {
       startScanner();
     } else if (permissionStatus.state === "prompt") {
