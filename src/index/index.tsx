@@ -39,8 +39,8 @@ export const resourcesToLoad = [
   },
   {
     type: "script",
-    id: "html5-qrcode",
-    src: "https://unpkg.com/html5-qrcode@2.0.6/dist/html5-qrcode.min.js",
+    id: "quagga",
+    src: "https://unpkg.com/quagga/dist/quagga.min.js",
   },
   {
     type: "script",

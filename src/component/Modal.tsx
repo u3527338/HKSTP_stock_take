@@ -26,10 +26,18 @@ const css = `
         left: 50%;
         transform: translate(-50%,-50%);
     }
+    #reader video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* or contain if you want to preserve aspect ratio */
+    }
     .display-block {
         display: block;
     }
     .display-none {
+        display: none;
+    }
+    .drawingBuffer {
         display: none;
     }
 `;
@@ -59,10 +67,7 @@ export class Modal extends React.Component<CodeProps> {
     return (
       <div>
         <style>{css}</style>
-        <div
-          // onMouseDown={handleModalClick}
-          className={open ? "modal display-block" : "modal display-none"}
-        >
+        <div className={open ? "modal display-block" : "modal display-none"}>
           <section
             style={{
               display: "flex",

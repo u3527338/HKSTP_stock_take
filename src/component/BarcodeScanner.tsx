@@ -1,19 +1,13 @@
 import * as React from "react";
 import { checkCameraPermission } from "../function/helper";
 import { Modal } from "./Modal";
+import { showToast } from "./ToastProvider";
 
 declare global {
   interface Window {
-    Html5Qrcode: any;
+    Quagga: any;
   }
 }
-
-const Html5QrcodeSupportedFormats = {
-  EAN_13: 1,
-  CODE_39: 2,
-  CODE_128: 3,
-  QR_CODE: 4,
-};
 
 interface Props {
   open: boolean;
@@ -22,7 +16,6 @@ interface Props {
 }
 
 class BarcodeScanner extends React.Component<Props, {}> {
-  html5Qrcode: any = null;
   isScannerRunning: boolean;
 
   constructor(props) {
@@ -41,72 +34,57 @@ class BarcodeScanner extends React.Component<Props, {}> {
   startScanner = () => {
     if (this.isScannerRunning) return;
 
-    if (!window.Html5Qrcode) {
-      console.error("Html5Qrcode library not loaded");
+    if (!window.Quagga) {
+      console.error("Quagga library not loaded");
       return;
     }
+
     checkCameraPermission(() => {
-      if (this.html5Qrcode) {
-        this.html5Qrcode
-          .stop()
-          .then(() => {
-            this.html5Qrcode = null;
-            this.initScanner();
-          })
-          .catch(() => {
-            this.html5Qrcode = null;
-            this.initScanner();
-          });
-      } else {
-        this.initScanner();
-      }
+      this.initQuagga();
     });
   };
 
   stopScanner = () => {
-    if (!window.Html5Qrcode) {
-      console.error("Html5Qrcode library not loaded");
-      return;
-    }
-    if (this.html5Qrcode) {
-      this.html5Qrcode
-        .stop()
-        .catch((err: any) => {
-          console.error("Failed to stop scanner on unmount:", err);
-        })
-        .finally(() => {
-          this.html5Qrcode = null;
-          this.isScannerRunning = false;
-        });
+    if (window.Quagga && this.isScannerRunning) {
+      window.Quagga.stop();
+      this.isScannerRunning = false;
     }
   };
 
-  initScanner = () => {
-    this.html5Qrcode = new window.Html5Qrcode("reader");
-    const formats = [
-      Html5QrcodeSupportedFormats.CODE_39,
-      Html5QrcodeSupportedFormats.CODE_128,
-    ];
-
-    const config = {
-      fps: 10,
-      qrbox: { width: 250, height: 250 },
-      formatsToSupport: formats,
-    };
-
-    this.html5Qrcode
-      .start({ facingMode: "environment" }, config, this.onScanSuccess)
-      .then(() => {
+  initQuagga = () => {
+    window.Quagga.init(
+      {
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector("#reader"), // your scanner container
+          constraints: {
+            facingMode: "environment",
+          },
+        },
+        decoder: {
+          readers: ["code_39_reader"],
+        },
+      },
+      (err) => {
+        if (err) {
+          console.error("Quagga init error:", err);
+          return;
+        }
+        window.Quagga.start();
         this.isScannerRunning = true;
-      })
-      .catch((err: any) => {
-        console.error("Error starting scanner:", err);
-      });
+        window.Quagga.onDetected(this.onDetected);
+      }
+    );
   };
 
-  onScanSuccess = (decodedText: string, decodedResult: any) => {
-    this.props.callback(`Detected: ${decodedText}`);
-    this.stopScanner();
+  onDetected = (data: any) => {
+    if (data && data.codeResult && data.codeResult.code) {
+      const scannedCode: string = data.codeResult.code;
+      showToast(`Barcode ${scannedCode} detected`);
+      this.props.callback(scannedCode.split("-").slice(1).join("-"));
+      this.stopScanner();
+    }
   };
 
   componentWillUnmount() {
