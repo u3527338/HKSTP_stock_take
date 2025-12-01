@@ -172,6 +172,8 @@ class ScanForm extends React.Component<Props, States> {
           custodian: item.Ord41,
           status: isWrongLocation(item)
             ? findKeyByValue(ITEM_STATUS, "Wrong Location")
+            : item.Status === findKeyByValue(ITEM_STATUS, "Not Scanned")
+            ? ""
             : item.Status,
           remark: item.Remark,
         });
@@ -224,7 +226,7 @@ class ScanForm extends React.Component<Props, States> {
                 label: value,
                 value: key,
               })),
-              disabled: true,
+              disabled: (value) => true,
             },
             {
               type: "dropdown",
@@ -236,7 +238,9 @@ class ScanForm extends React.Component<Props, States> {
                   value: key,
                 }))
                 .filter((option) => option.label !== ITEM_STATUS[0]),
-              disabled: scannedItem?.Stort !== locationToScan?.location,
+              disabled: (value) =>
+                !scannedItem ||
+                value === findKeyByValue(ITEM_STATUS, "Wrong Location"),
             },
             {
               type: "textarea",
@@ -278,12 +282,15 @@ class ScanForm extends React.Component<Props, States> {
           onSubmit={handleSubmit}
           validate={(values) => {
             const errors: any = {};
-            const requiredFields = {
+            const remarkRequired =
+              values["status"] === findKeyByValue(ITEM_STATUS, "Others");
+            var requiredFields = {
               assetNo: "Asset No is required",
-              inventoryNo: "Inventory No is required",
               status: "Status is required",
-              remark: "Remark is required",
             };
+            if (remarkRequired) {
+              requiredFields["remark"] = "Remark is required";
+            }
             Object.entries(requiredFields).map(([key, value]) => {
               if (!values[key]) {
                 errors[key] = value;

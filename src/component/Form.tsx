@@ -111,7 +111,7 @@ const renderInputs = (fields: any[], values, footers) => {
                 <DropDown
                   name={field.name}
                   options={field.options}
-                  disabled={field.disabled}
+                  disabled={field.disabled(values[field.name])}
                 />
               ) : null}
               {field.button && (

@@ -68,7 +68,7 @@ export const getBoolStatus = (status: boolean) => (status ? "Yes" : "No");
 export const findKeyByValue = (obj, targetValue) => {
   for (const [key, value] of Object.entries(obj)) {
     if (value === targetValue) {
-      return key;
+      return key.toString();
     }
   }
   return null;
