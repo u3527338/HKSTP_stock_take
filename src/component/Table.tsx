@@ -31,6 +31,11 @@ const css = `
   .tabulator .tabulator-footer {
     background: white !important;
   }
+
+  .tabulator-placeholder-contents {
+    background: antiquewhite !important;
+    color: ${COLOR_MAIN} !important;
+  }
 `;
 
 declare global {
