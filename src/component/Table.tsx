@@ -33,7 +33,7 @@ const css = `
   }
 
   .tabulator-placeholder-contents {
-    background: antiquewhite !important;
+    background: white !important;
     color: ${COLOR_MAIN} !important;
   }
 `;
