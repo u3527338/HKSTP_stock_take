@@ -237,12 +237,9 @@ class ScanForm extends React.Component<Props, States> {
                 .map(([key, value]) => ({
                   label: value,
                   value: key,
+                  disabled: value === STATUS.WRONG_LOCATION,
                 }))
-                .filter(
-                  (option) =>
-                    option.label !== STATUS.NOT_SCANNED &&
-                    option.label !== STATUS.WRONG_LOCATION
-                ),
+                .filter((option) => option.label !== STATUS.NOT_SCANNED),
               disabled: (value) =>
                 !scannedItem ||
                 value === findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION),

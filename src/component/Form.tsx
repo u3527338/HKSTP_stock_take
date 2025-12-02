@@ -61,7 +61,11 @@ const DropDown = ({ name, options = [], disabled = false }) => {
       >
         <option value=""></option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
             {option.label}
           </option>
         ))}
