@@ -2,13 +2,21 @@ export const MODULE_COMMON = "common";
 
 export const COLOR_MAIN = "#FF6E10";
 
+export const STATUS = {
+  NOT_SCANNED: "Not Scanned",
+  PASS: "Pass",
+  BROKEN: "Broken",
+  OTHERS: "Others",
+  WRONG_LOCATION: "Wrong Location",
+};
+
 export const ITEM_STATUS = {
-  0: "Not Scanned",
-  1: "Pass",
+  0: STATUS.NOT_SCANNED,
+  1: STATUS.PASS,
   // 2: "Additional",
-  3: "Broken",
-  4: "Others",
-  5: "Wrong Location",
+  3: STATUS.BROKEN,
+  4: STATUS.OTHERS,
+  5: STATUS.WRONG_LOCATION,
 };
 
 export enum BUTTON_ICON {

@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { showToast } from "../component/ToastProvider";
 import { MODULE_COMMON } from "../constants";
 import { useContext } from "../hook/useContext";
@@ -79,11 +80,19 @@ export const isItemScanned = (status) => !!status && parseInt(status) !== 0;
 export const formatAssetSubNo = (numStr) => numStr.padStart(4, "0");
 
 export const getScannedCount = (location) => {
-  const items = getFromStorage("CREATE_STOCK_TAKE", "object");
-  const scannedItems: any[] = Object.values(items).filter(
-    (item: any) => item.Stort === location && isItemScanned(item.Status)
+  const localItems = Object.values(
+    getFromStorage("CREATE_STOCK_TAKE", "object")
   );
-  return scannedItems.length;
+  const syncedItems = getFromStorage("SHEET_DATA");
+  const getScannedItems = (items) => {
+    return items.filter(
+      (item: any) => item.Stort === location && isItemScanned(item.Status)
+    );
+  };
+  const filteredLocalItems = getScannedItems(localItems) || [];
+  const filteredSyncedItems = getScannedItems(syncedItems) || [];
+  return _.uniqBy(filteredLocalItems.concat(filteredSyncedItems), "Anln1")
+    .length;
 };
 
 export const updateDownloadStatus = (dataToDownload: any[]) => {

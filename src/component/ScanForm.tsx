@@ -5,6 +5,7 @@ import {
   COLOR_MAIN,
   CUSTODIAN,
   ITEM_STATUS,
+  STATUS,
   STOCK_TAKE_SHEET_ITEM,
 } from "../constants";
 import {
@@ -171,8 +172,8 @@ class ScanForm extends React.Component<Props, States> {
           description: item.Txt50,
           custodian: item.Ord41,
           status: isWrongLocation(item)
-            ? findKeyByValue(ITEM_STATUS, "Wrong Location")
-            : item.Status === findKeyByValue(ITEM_STATUS, "Not Scanned")
+            ? findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION)
+            : item.Status === findKeyByValue(ITEM_STATUS, STATUS.NOT_SCANNED)
             ? ""
             : item.Status,
           remark: item.Remark,
@@ -237,10 +238,14 @@ class ScanForm extends React.Component<Props, States> {
                   label: value,
                   value: key,
                 }))
-                .filter((option) => option.label !== ITEM_STATUS[0]),
+                .filter(
+                  (option) =>
+                    option.label !== STATUS.NOT_SCANNED &&
+                    option.label !== STATUS.WRONG_LOCATION
+                ),
               disabled: (value) =>
                 !scannedItem ||
-                value === findKeyByValue(ITEM_STATUS, "Wrong Location"),
+                value === findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION),
             },
             {
               type: "textarea",
@@ -283,7 +288,7 @@ class ScanForm extends React.Component<Props, States> {
           validate={(values) => {
             const errors: any = {};
             const remarkRequired =
-              values["status"] === findKeyByValue(ITEM_STATUS, "Others");
+              values["status"] === findKeyByValue(ITEM_STATUS, STATUS.OTHERS);
             var requiredFields = {
               assetNo: "Asset No is required",
               status: "Status is required",
