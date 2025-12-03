@@ -10,6 +10,7 @@ const css = `
 
   .main-btn-bg {
     background-color: ${COLOR_MAIN} !important;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
   }
 `;
 

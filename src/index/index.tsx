@@ -24,6 +24,11 @@ export const css = `
     margin-bottom: 8px !important;
     text-decoration: underline !important;
   }
+
+  button:active {
+    scale: 0.9 !important;
+    box-shadow: unset;
+  }
 `;
 
 export const resourcesToLoad = [
