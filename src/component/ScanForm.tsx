@@ -2,11 +2,10 @@ import * as _ from "lodash";
 import * as React from "react";
 import {
   BUTTON_ICON,
-  COLOR_MAIN,
   CUSTODIAN,
   ITEM_STATUS,
   STATUS,
-  STOCK_TAKE_SHEET_ITEM,
+  STOCK_TAKE_SHEET_ITEM
 } from "../constants";
 import {
   findKeyByValue,
@@ -55,7 +54,7 @@ class ScanForm extends React.Component<Props, States> {
     const { startScan, scannedCount, scannedItem } = this.state;
 
     const initialValues = {
-      codeScan: "",
+      // codeScan: "",
       location: locationToScan.location,
       assetNo: "",
       inventoryNo: "",
@@ -166,7 +165,7 @@ class ScanForm extends React.Component<Props, States> {
 
       if (this.formikApi && item) {
         this.formikApi.setValues({
-          codeScan: code,
+          // codeScan: code,
           assetNo: `${item.Bukrs}-${formattedCode(item)}`,
           inventoryNo: item.Invnr,
           description: item.Txt50,
@@ -188,13 +187,13 @@ class ScanForm extends React.Component<Props, States> {
           title="Stock Take - Scan"
           initialValues={initialValues}
           fields={[
-            {
-              type: "input",
-              label: "Code Scan",
-              name: "codeScan",
-              style: { border: `1px dashed ${COLOR_MAIN}` },
-              button: { icon: BUTTON_ICON.SEARCH, onClick: handleScannedCode },
-            },
+            // {
+            //   type: "input",
+            //   label: "Code Scan",
+            //   name: "codeScan",
+            //   style: { border: `1px dashed ${COLOR_MAIN}` },
+            //   button: { icon: BUTTON_ICON.SEARCH, onClick: handleScannedCode },
+            // },
             {
               type: "input",
               label: "Location",
