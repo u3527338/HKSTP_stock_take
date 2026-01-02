@@ -23,8 +23,7 @@ export const useHttpRequest = (context: CodeInContext) => {
   const getInitInfo = async () => {
     const response = await axios.post(
       URL.GET_INFO,
-      { email: "chrissie.kwan@hkstp.org" },
-      // { email: getCurrentUser(context).email },
+      { email: getCurrentUser(context).email },
       { headers: { "Content-Type": "application/json" } }
     );
     return response.data;
