@@ -45,19 +45,19 @@ class Download extends React.Component<Props, States> {
     const downloadStockTakeList = (all: boolean) => {
       const dataToDownload = all
         ? data
-        : _.intersectionBy(data, downloadData, "Stort");
+        : _.intersectionBy(data, downloadData, "stort");
       this.updateDownloadedList(dataToDownload);
     };
 
     const columns = [
-      { title: "Location", field: "Stort" },
+      { title: "Location", field: "stort" },
       {
         title: "Location Description",
-        field: "Ktext",
+        field: "ktext",
         responsive: 2,
         minWidth: 250,
       },
-      { title: "Total Item", field: "ScanQty" },
+      { title: "Total Item", field: "scan_qty" },
       { title: "Downloaded", field: "Downloaded" },
     ];
 

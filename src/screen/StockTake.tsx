@@ -43,31 +43,31 @@ class StockTake extends React.Component<Props, States> {
     const { setAppMode } = useContext(context);
 
     const columns = [
-      { title: "Location", field: "Stort" },
+      { title: "Location", field: "stort" },
       {
         title: "Location Description",
-        field: "Ktext",
+        field: "ktext",
         responsive: 2,
         minWidth: 250,
       },
       { title: "Scanned", field: "Scanned" },
-      { title: "Total Item", field: "ScanQty" },
+      { title: "Total Item", field: "scan_qty" },
     ];
     const itemListColumns = [
       {
         title: "Asset No.",
-        field: "AssetNo",
+        field: "assetNo",
         formatter: (cell, params) => {
           const item = cell.getRow().getData();
-          return `${item.Bukrs}-${item.Anln1}-${formatAssetSubNo(item.Anln2)}`;
+          return `${item.bukrs}-${item.anln1}-${formatAssetSubNo(item.anln2)}`;
         },
       },
-      { title: "Inventory No.", field: "Invnr" },
-      { title: "Description", field: "Txt50" },
-      { title: "Remark", field: "Remark" },
+      { title: "Inventory No.", field: "invnr" },
+      { title: "Description", field: "txt50" },
+      { title: "Remark", field: "remark" },
       {
-        title: "Status",
-        field: "Status",
+        title: "status",
+        field: "status",
         formatter: (cell, params) => {
           const value = cell.getValue();
           return ITEM_STATUS[value];
@@ -77,7 +77,7 @@ class StockTake extends React.Component<Props, States> {
         title: "Scanned",
         field: "Scanned",
         formatter: (cell, params) => {
-          const value = cell.getRow().getData().Status;
+          const value = cell.getRow().getData().status;
           return isItemScanned(value) ? "Yes" : "No";
         },
       },
@@ -88,7 +88,7 @@ class StockTake extends React.Component<Props, States> {
       const sheetData = getFromStorage("SHEET_DATA");
       const itemListData = sheetData.filter((sd) =>
         selectedLocation.some(
-          (sl) => sd.Stort === sl.Stort && sd.Ktext === sl.Ktext
+          (sl) => sd.stort === sl.stort && sd.ktext === sl.ktext
         )
       );
       return itemListData;
@@ -96,25 +96,25 @@ class StockTake extends React.Component<Props, States> {
 
     const exportData = (selectedLocation: any[]) => {
       const keyMap = {
-        Anln1: "Asset Number",
-        Anln2: "Sub Code",
-        Countid: "Count ID",
-        ScanQty: "Scan Quantity",
+        anln1: "Asset Number",
+        anln2: "Sub Code",
+        countid: "Count ID",
+        scan_qty: "Scan Quantity",
         Ernam: "User",
-        Invnr: "Inventory Number",
-        Ktext: "Location Description",
-        Ord41: "Custodian",
-        Stort: "Location",
-        Txt50: "Description",
+        invnr: "Inventory Number",
+        ktext: "Location Description",
+        ord41: "Custodian",
+        stort: "Location",
+        txt50: "Description",
         LastScan: "Last Scan",
       };
       const data = getItemsByLocation(selectedLocation).map(
-        ({ Apdat, Bukrs, Aedat, Ord42, Approver, AssetNo, ...d }) =>
+        ({ apdat, bukrs, aedat, ord42, approver, assetNo, ...d }) =>
           _.mapKeys(
             {
               ...d,
-              Status: ITEM_STATUS[d.Status],
-              Erdat: formatTimestampString(d.Erdat),
+              status: ITEM_STATUS[d.status],
+              erdat: formatTimestampString(d.erdat),
               LastScan: formatTimestampString(d.LastScan),
             },
             (value, key) => keyMap[key] || key
@@ -173,9 +173,9 @@ class StockTake extends React.Component<Props, States> {
         onClick: () => {
           this.setState({
             locationToScan: {
-              location: selectedLocation[0].Stort,
-              description: selectedLocation[0].Ktext,
-              scanQty: parseInt(selectedLocation[0].ScanQty),
+              location: selectedLocation[0].stort,
+              description: selectedLocation[0].ktext,
+              scanQty: parseInt(selectedLocation[0].scan_qty),
             },
           });
         },

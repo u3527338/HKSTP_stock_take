@@ -51,7 +51,7 @@ class Sync extends React.Component<Props, States> {
     const syncStockTakeList = async (all: boolean = false) => {
       this.setState({ loading: true });
       const stockTakeData = getFromStorage("CREATE_STOCK_TAKE", "object");
-      const selectedDataToSync = syncData.map((s) => s.Stort);
+      const selectedDataToSync = syncData.map((s) => s.stort);
       const n_sheet = Object.entries(stockTakeData).map(
         ([key, value]: [string, any]) => {
           delete value.LastScan;
@@ -59,7 +59,7 @@ class Sync extends React.Component<Props, States> {
         }
       );
       const filtered_n_sheet = n_sheet.filter((sheet: any) =>
-        selectedDataToSync.includes(sheet.Stort)
+        selectedDataToSync.includes(sheet.stort)
       );
       const body = {
         countid: "",
@@ -81,15 +81,15 @@ class Sync extends React.Component<Props, States> {
     };
 
     const columns = [
-      { title: "Location", field: "Stort" },
+      { title: "Location", field: "stort" },
       {
         title: "Location Description",
-        field: "Ktext",
+        field: "ktext",
         responsive: 2,
         minWidth: 250,
       },
       { title: "Scanned", field: "Scanned" },
-      { title: "Total Item", field: "ScanQty" },
+      { title: "Total Item", field: "scan_qty" },
       { title: "Synced", field: "Synced" },
     ];
 

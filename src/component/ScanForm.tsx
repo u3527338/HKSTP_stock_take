@@ -31,7 +31,7 @@ interface States {
   scannedCount: number;
 }
 
-const formattedCode = (item) => `${item.Anln1}-${item.Anln2}`;
+const formattedCode = (item) => `${item.anln1}-${item.anln2}`;
 
 class ScanForm extends React.Component<Props, States> {
   constructor(props) {
@@ -65,24 +65,24 @@ class ScanForm extends React.Component<Props, States> {
       submitAction: "",
     };
 
-    const isWrongLocation = (item) => item.Stort !== locationToScan.location;
+    const isWrongLocation = (item) => item.stort !== locationToScan.location;
 
     const addStockTakeSheet = (values) => {
       const { scannedItem } = this.state;
       if (!scannedItem) return;
       const formData = {
-        Invnr: values.inventoryNo,
-        Txt50: values.description,
-        Ord41: values.custodian,
-        Status: values.status,
-        Remark: values.remark,
+        invnr: values.inventoryNo,
+        txt50: values.description,
+        ord41: values.custodian,
+        status: values.status,
+        remark: values.remark,
         LastScan: getDateTime(),
       };
       const newItem = {
         ..._.pick(scannedItem, STOCK_TAKE_SHEET_ITEM),
         ...formData,
-        Stort: locationToScan.location,
-        Ktext: locationToScan.description,
+        stort: locationToScan.location,
+        ktext: locationToScan.description,
       };
       updateStorage(
         "CREATE_STOCK_TAKE",
@@ -98,7 +98,7 @@ class ScanForm extends React.Component<Props, States> {
             ? {
                 ...i,
                 ...formData,
-                ScanQty: "1",
+                scan_qty: "1",
               }
             : i
         )
@@ -143,7 +143,7 @@ class ScanForm extends React.Component<Props, States> {
 
       if (isWrongLocation(item)) {
         showToast(
-          `Wrong Location. This stock should be at ${item.Stort}`,
+          `Wrong Location. This stock should be at ${item.stort}`,
           "warning"
         );
       }
@@ -166,16 +166,16 @@ class ScanForm extends React.Component<Props, States> {
       if (this.formikApi && item) {
         this.formikApi.setValues({
           // codeScan: code,
-          assetNo: `${item.Bukrs}-${formattedCode(item)}`,
-          inventoryNo: item.Invnr,
-          description: item.Txt50,
-          custodian: item.Ord41,
+          assetNo: `${item.bukrs}-${formattedCode(item)}`,
+          inventoryNo: item.invnr,
+          description: item.txt50,
+          custodian: item.ord41,
           status: isWrongLocation(item)
             ? findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION)
-            : item.Status === findKeyByValue(ITEM_STATUS, STATUS.NOT_SCANNED)
+            : item.status === findKeyByValue(ITEM_STATUS, STATUS.NOT_SCANNED)
             ? ""
-            : item.Status,
-          remark: item.Remark,
+            : item.status,
+          remark: item.remark,
         });
       }
       openScanner(false);
@@ -230,7 +230,7 @@ class ScanForm extends React.Component<Props, States> {
             },
             {
               type: "dropdown",
-              label: "Status",
+              label: "status",
               name: "status",
               options: Object.entries(ITEM_STATUS)
                 .map(([key, value]) => ({
@@ -245,7 +245,7 @@ class ScanForm extends React.Component<Props, States> {
             },
             {
               type: "textarea",
-              label: "Remark",
+              label: "remark",
               name: "remark",
             },
           ]}
@@ -290,7 +290,7 @@ class ScanForm extends React.Component<Props, States> {
               status: "Status is required",
             };
             if (remarkRequired) {
-              requiredFields["remark"] = "Remark is required";
+              requiredFields["remark"] = "emark is required";
             }
             Object.entries(requiredFields).map(([key, value]) => {
               if (!values[key]) {

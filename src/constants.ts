@@ -76,16 +76,16 @@ export enum CUSTODIAN {
 }
 
 export const STOCK_TAKE_SHEET_ITEM = [
-  "Bukrs",
-  "Countid",
-  "Anln1",
-  "Anln2",
-  "Txt50",
-  "Invnr",
-  "Ord41",
-  "Ord42",
-  "Stort",
-  "Ktext",
-  "Status",
-  "Remark",
+  "bukrs",
+  "countid",
+  "anln1",
+  "anln2",
+  "txt50",
+  "invnr",
+  "ord41",
+  "ord42",
+  "stort",
+  "ktext",
+  "status",
+  "remark",
 ];

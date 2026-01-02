@@ -86,12 +86,12 @@ export const getScannedCount = (location) => {
   const syncedItems = getFromStorage("SHEET_DATA");
   const getScannedItems = (items) => {
     return items.filter(
-      (item: any) => item.Stort === location && isItemScanned(item.Status)
+      (item: any) => item.stort === location && isItemScanned(item.status)
     );
   };
   const filteredLocalItems = getScannedItems(localItems) || [];
   const filteredSyncedItems = getScannedItems(syncedItems) || [];
-  return _.uniqBy(filteredLocalItems.concat(filteredSyncedItems), "Anln1")
+  return _.uniqBy(filteredLocalItems.concat(filteredSyncedItems), "anln1")
     .length;
 };
 
@@ -102,15 +102,15 @@ export const updateDownloadStatus = (dataToDownload: any[]) => {
       ...l,
       Downloaded: dataToDownload
         .concat(preDownloadedList)
-        .map((_d) => _d.Stort)
-        .includes(l.Stort),
+        .map((_d) => _d.stort)
+        .includes(l.stort),
     }))
   );
 };
 
 export const updateScanStatus = () => {
   updateStorage("LOCATION_DATA", (d) =>
-    d.map((l) => ({ ...l, Scanned: getScannedCount(l.Stort) }))
+    d.map((l) => ({ ...l, Scanned: getScannedCount(l.stort) }))
   );
   updateStockTakeData();
 };
@@ -119,7 +119,7 @@ export const updateSyncStatus = (dataToSync: any[]) => {
   updateStorage("LOCATION_DATA", (d) =>
     d.map((l) => ({
       ...l,
-      Synced: dataToSync.map((_d) => _d.Stort).includes(l.Stort) || l.Synced,
+      Synced: dataToSync.map((_d) => _d.stort).includes(l.stort) || l.Synced,
     }))
   );
   updateStockTakeData();
@@ -228,24 +228,23 @@ export const fetchInfo = async (
   setLoading(true);
   await getInitInfo()
     .then((response: { location; sheet; user }) => {
+      console.log({ response });
       if (!localStorage.getItem("LOCATION_DATA")) {
         setToStorage(
           "LOCATION_DATA",
-          response.location.StockTakeLocationSet.StockTakeLocation.map((l) => ({
+          response.location.map((l) => ({
             ...l,
             Downloaded: false,
           }))
         );
       }
       if (!localStorage.getItem("SHEET_DATA")) {
-        setToStorage(
-          "SHEET_DATA",
-          response.sheet.StockTakeSheetSet.StockTakeSheet
-        );
+        setToStorage("SHEET_DATA", response.sheet);
       }
       showToast("Succeed fetching data", "success");
     })
     .catch((res) => {
+      console.log(res);
       showToast("Error fetching data", "error");
     })
     .finally(() => {
