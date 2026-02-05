@@ -60,6 +60,7 @@ const getContainerStyle = (position: Position): React.CSSProperties => {
   const style: React.CSSProperties = {
     position: "fixed",
     zIndex: 9999,
+    width: "80%",
   };
 
   switch (position) {
@@ -205,7 +206,7 @@ class ToastProvider extends React.Component<
 
 export const showToast = (msg: string, type: ToastType = "info") => {
   const message =
-    typeof msg === "string" ? msg ?? "Server Error" : "Server Error";
+    typeof msg === "string" ? (msg ?? "Server Error") : "Server Error";
   if (ToastProvider.instance) {
     ToastProvider.instance.addToast(message, type);
   } else {

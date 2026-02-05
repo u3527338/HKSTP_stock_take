@@ -2,10 +2,11 @@ import * as _ from "lodash";
 import * as React from "react";
 import {
   BUTTON_ICON,
+  COLOR_MAIN,
   CUSTODIAN,
   ITEM_STATUS,
   STATUS,
-  STOCK_TAKE_SHEET_ITEM
+  STOCK_TAKE_SHEET_ITEM,
 } from "../constants";
 import {
   findKeyByValue,
@@ -90,7 +91,7 @@ class ScanForm extends React.Component<Props, States> {
           ...d,
           [formattedCode(scannedItem)]: newItem,
         }),
-        "object"
+        "object",
       );
       updateStorage("SHEET_DATA", (d) =>
         d.map((i) =>
@@ -100,8 +101,8 @@ class ScanForm extends React.Component<Props, States> {
                 ...formData,
                 scan_qty: "1",
               }
-            : i
-        )
+            : i,
+        ),
       );
       updateScanStatus();
       this.setState({
@@ -141,21 +142,21 @@ class ScanForm extends React.Component<Props, States> {
         return;
       }
 
-      if (isWrongLocation(item)) {
-        showToast(
-          `Wrong Location. This stock should be at ${item.stort}`,
-          "warning"
-        );
-      }
+      this.setState({ scannedItem: item }, () => {
+        if (isWrongLocation(item)) {
+          showToast(
+            `Wrong Location. This stock should be at ${item.stort}`,
+            "warning",
+          );
+        }
 
-      const SCANNED = getFromStorage("CREATE_STOCK_TAKE", "object");
-      if (Object.keys(SCANNED).includes(formattedCode(item)))
-        showToast(
-          "This stock has been scanned without synchronizing",
-          "warning"
-        );
-
-      if (!scannedItem) this.setState({ scannedItem: item });
+        const SCANNED = getFromStorage("CREATE_STOCK_TAKE", "object");
+        if (Object.keys(SCANNED).includes(formattedCode(item)))
+          showToast(
+            "This stock has been scanned without synchronizing",
+            "warning",
+          );
+      });
     };
 
     const handleScannedCode = (code) => {
@@ -173,8 +174,8 @@ class ScanForm extends React.Component<Props, States> {
           status: isWrongLocation(item)
             ? findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION)
             : item.status === findKeyByValue(ITEM_STATUS, STATUS.NOT_SCANNED)
-            ? ""
-            : item.status,
+              ? ""
+              : item.status,
           remark: item.remark,
         });
       }
@@ -184,6 +185,7 @@ class ScanForm extends React.Component<Props, States> {
     return (
       <div>
         <Form
+          key={locationToScan?.location}
           title="Stock Take - Scan"
           initialValues={initialValues}
           fields={[
@@ -239,9 +241,7 @@ class ScanForm extends React.Component<Props, States> {
                   disabled: value === STATUS.WRONG_LOCATION,
                 }))
                 .filter((option) => option.label !== STATUS.NOT_SCANNED),
-              disabled: (value) =>
-                !scannedItem ||
-                value === findKeyByValue(ITEM_STATUS, STATUS.WRONG_LOCATION),
+              disabled: (value) => !scannedItem,
             },
             {
               type: "textarea",
