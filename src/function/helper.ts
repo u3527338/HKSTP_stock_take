@@ -81,12 +81,12 @@ export const formatAssetSubNo = (numStr) => numStr.padStart(4, "0");
 
 export const getScannedCount = (location) => {
   const localItems = Object.values(
-    getFromStorage("CREATE_STOCK_TAKE", "object")
+    getFromStorage("CREATE_STOCK_TAKE", "object"),
   );
   const syncedItems = getFromStorage("SHEET_DATA");
   const getScannedItems = (items) => {
     return items.filter(
-      (item: any) => item.stort === location && isItemScanned(item.status)
+      (item: any) => item.stort === location && isItemScanned(item.status),
     );
   };
   const filteredLocalItems = getScannedItems(localItems) || [];
@@ -104,13 +104,13 @@ export const updateDownloadStatus = (dataToDownload: any[]) => {
         .concat(preDownloadedList)
         .map((_d) => _d.stort)
         .includes(l.stort),
-    }))
+    })),
   );
 };
 
 export const updateScanStatus = () => {
   updateStorage("LOCATION_DATA", (d) =>
-    d.map((l) => ({ ...l, Scanned: getScannedCount(l.stort) }))
+    d.map((l) => ({ ...l, Scanned: getScannedCount(l.stort) })),
   );
   updateStockTakeData();
 };
@@ -120,14 +120,14 @@ export const updateSyncStatus = (dataToSync: any[]) => {
     d.map((l) => ({
       ...l,
       Synced: dataToSync.map((_d) => _d.stort).includes(l.stort) || l.Synced,
-    }))
+    })),
   );
   updateStockTakeData();
 };
 
 export const updateStockTakeData = () => {
   updateStorage(["LOCATION_DATA", "STOCK_TAKE_DATA"], (d) =>
-    d.filter((r) => r.Downloaded)
+    d.filter((r) => r.Downloaded),
   );
 };
 
@@ -140,7 +140,7 @@ type NAME =
 
 export const getFromStorage = (
   name: NAME,
-  type: "list" | "object" = "list"
+  type: "list" | "object" = "list",
 ) => {
   const fallback = type === "list" ? [] : {};
   return JSON.parse(localStorage.getItem(name)) || fallback;
@@ -153,7 +153,7 @@ export const setToStorage = (name: NAME, value) => {
 export const updateStorage = (
   name: NAME[] | NAME,
   func: (d) => any,
-  type: "list" | "object" = "list"
+  type: "list" | "object" = "list",
 ) => {
   let keys: NAME[] = typeof name === "string" ? [name, name] : name;
   const rawData = getFromStorage(keys[0], type);
@@ -215,9 +215,19 @@ export const formatTimestampString = (str) => {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 };
 
+const isJsonString = (str) => {
+  if (!str) return false;
+  try {
+    JSON.parse(str);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
 export const fetchInfo = async (
   context: CodeInContext,
-  setLoading: (loading: boolean) => void
+  setLoading: (loading: boolean) => void,
 ) => {
   const { getInitInfo } = useHttpRequest(context);
   if (
@@ -228,23 +238,28 @@ export const fetchInfo = async (
   setLoading(true);
   await getInitInfo()
     .then((response: { location; sheet; user }) => {
-      console.log({ response });
+      if (!isJsonString(response.location)) {
+        showToast(response.location, "error");
+        return;
+      }
+      const LOCATION = JSON.parse(response.location),
+        SHEET = JSON.parse(response.sheet),
+        USER = JSON.parse(response.user);
       if (!localStorage.getItem("LOCATION_DATA")) {
         setToStorage(
           "LOCATION_DATA",
-          response.location.map((l) => ({
+          LOCATION.map((l) => ({
             ...l,
             Downloaded: false,
-          }))
+          })),
         );
       }
       if (!localStorage.getItem("SHEET_DATA")) {
-        setToStorage("SHEET_DATA", response.sheet);
+        setToStorage("SHEET_DATA", SHEET);
       }
       showToast("Succeed fetching data", "success");
     })
     .catch((res) => {
-      console.log(res);
       showToast("Error fetching data", "error");
     })
     .finally(() => {
