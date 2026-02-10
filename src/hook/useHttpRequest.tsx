@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCurrentUser } from "../function/helper";
 
-const ENV: "DEV" | "PROD" = "PROD";
+const ENV: "DEV" | "PROD" = "DEV";
 
 const CONFIG = {
   DEV: {
