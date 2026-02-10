@@ -60,7 +60,7 @@ const getContainerStyle = (position: Position): React.CSSProperties => {
   const style: React.CSSProperties = {
     position: "fixed",
     zIndex: 9999,
-    width: "80%",
+    maxWidth: "80%",
   };
 
   switch (position) {

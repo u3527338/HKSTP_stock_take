@@ -46,6 +46,7 @@ interface CodeProps {
   hideModal: any;
   open: boolean;
   showButton?: boolean;
+  containerStyle?: React.CSSProperties;
 }
 
 export class Modal extends React.Component<CodeProps> {
@@ -56,7 +57,13 @@ export class Modal extends React.Component<CodeProps> {
   async componentWillMount() {}
 
   render() {
-    const { open, hideModal, showButton = true, children } = this.props;
+    const {
+      open,
+      hideModal,
+      showButton = true,
+      containerStyle = {},
+      children,
+    } = this.props;
 
     const handleModalClick = (e) => {
       if (e.target.classList.contains("modal") && open) {
@@ -74,6 +81,7 @@ export class Modal extends React.Component<CodeProps> {
               flexDirection: "column",
               justifyContent: "space-between",
               zIndex: 1,
+              ...containerStyle,
             }}
             className="modal-main modal-cart"
           >
